@@ -45,4 +45,7 @@
 	url = https://github.com/tpope/vim-surround.git
 [submodule "bundle/vim-markdown"]
 	path = bundle/vim-markdown
-	url = https://github.com/plasticboy/vim-markdown.git
+	url = https://github.com/tpope/vim-markdown.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = https://github.com/godlygeek/tabular
