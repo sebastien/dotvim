@@ -121,6 +121,14 @@ set directory=~/.vim/tmp,.
 " open up ~/.vimrc file in a vertical split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
+"" tabular plugin shortcuts
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
 " Default color scheme
 colorscheme robokai
 set background=dark
