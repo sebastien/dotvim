@@ -37,3 +37,6 @@
 [submodule "bundle/vim-ruby"]
 	path = bundle/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/vim-statline"]
+	path = bundle/vim-statline
+	url = https://github.com/millermedeiros/vim-statline
