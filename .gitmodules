@@ -7,3 +7,6 @@
 [submodule "bundle/command-t"]
 	path = bundle/command-t
 	url = https://github.com/wincent/Command-T.git
+[submodule "bundle/scss-syntax"]
+	path = bundle/scss-syntax
+	url = https://github.com/cakebaker/scss-syntax.vim.git
