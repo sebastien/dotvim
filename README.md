@@ -1,3 +1,5 @@
+# My .vim setup
+
 ## Installation:
 
     git clone git://github.com/benichu/dotvim.git ~/.vim
