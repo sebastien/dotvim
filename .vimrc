@@ -26,9 +26,6 @@ set undodir=~/.vim/tmp
 " for backgrounded buffers
 set hidden
 
-" Set status line
-" set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-
 "" Whitespace
 set nowrap                      " don't wrap lines
 set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
@@ -107,6 +104,9 @@ let g:CommandTMaxHeight=20
 
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+
+"" gundo plugin shortcut
+nnoremap <F5> :GundoToggle<CR>
 
 " switch between the currently open buffer and the
 " previous one
