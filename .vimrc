@@ -67,7 +67,7 @@ vnoremap <tab> %
 " nnoremap <CR> :nohlsearch<cr>
 
 "" Ack
-nnoremap <leader>a :Ack
+nnoremap <leader>A :Ack
 
 function s:setupWrapping()
   set wrap
@@ -78,6 +78,9 @@ endfunction
 
 " open a new vertical split window and switchto it
 nnoremap <leader>w <C-w>v<C-w>l
+
+" ZoomWin configuration
+map <Leader>z :ZoomWin<CR>
 
 " easier navigation between split windows
 nnoremap <c-j> <c-w>j
@@ -96,7 +99,6 @@ map <Down>  :echo "no!"<cr>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
-map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
 " Command-T Configuration
@@ -118,16 +120,8 @@ nnoremap <leader>v V`]
 set backupdir=~/.vim/tmp,.
 set directory=~/.vim/tmp,.
 
-" open up ~/.vimrc file in a vertical split
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-
-"" tabular plugin shortcuts
-if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
 
 " Default color scheme
 colorscheme robokai
