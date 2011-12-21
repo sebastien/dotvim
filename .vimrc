@@ -1,4 +1,4 @@
-set nocompatible                " choose no compatibility with legacy vi
+
 set modelines=0
 syntax enable
 set encoding=utf-8
@@ -21,7 +21,7 @@ set laststatus=2
 set undofile
 set undodir=~/.vim/tmp
 let g:LustyJugglerSuppressRubyWarning = 1
-
+let g:SuperTabCrMapping = 0
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
 set hidden
