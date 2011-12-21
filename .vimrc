@@ -1,4 +1,4 @@
-
+set nocompatible                " choose no compatibility with legacy vi
 set modelines=0
 syntax enable
 set encoding=utf-8
