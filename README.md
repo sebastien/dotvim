@@ -15,6 +15,12 @@
     git submodule init
     git submodule update
 
+## Recompile Command-T Ruby C extension for your platform (if other than Mac OS X):
+
+    cd ~/.vim/bundle/command-t/ruby/command-t-
+    ruby extconf.rb
+    make clean; make
+
 ## How to add a bundle as a submodule
 
     cd ~/.vim
