@@ -20,6 +20,7 @@ set ruler                       " show the cursor position all the time
 set laststatus=2
 set undofile
 set undodir=~/.vim/tmp
+let g:LustyJugglerSuppressRubyWarning = 1
 
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers

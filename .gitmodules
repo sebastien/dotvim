@@ -61,3 +61,6 @@
 [submodule "bundle/ZoomWin"]
 	path = bundle/ZoomWin
 	url = http://github.com/vim-scripts/ZoomWin
+[submodule "bundle/lusty"]
+	path = bundle/lusty
+	url = https://github.com/vim-scripts/LustyJuggler.git
