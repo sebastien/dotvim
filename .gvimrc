@@ -3,6 +3,7 @@ colorscheme vwilight
 set guifont=Monaco:h14
 
 set linespace=2
+set cursorline
 set antialias
 
 " Don't beep

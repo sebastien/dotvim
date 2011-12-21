@@ -17,7 +17,6 @@ set ttyfast
 set number
 set ruler                       " show the cursor position all the time
 
-set cursorline
 set laststatus=2
 set undofile
 set undodir=~/.vim/tmp
@@ -33,23 +32,28 @@ set expandtab                   " use spaces, not tabs (optional)
 set list
 set listchars=tab:▸\ ,eol:¬
 set backspace=indent,eol,start  " backspace through everything in insert mode
+"" Strip whitespaces from the current file
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
+"" Formatting
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
-
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
-
 au BufRead,BufNewFile *.txt call s:setupWrapping()
+
+function s:setupWrapping()
+  set wrap
+  set textwidth=79
+  set formatoptions=qrn1
+  set colorcolumn=85
+endfunction
 
 "" Change the <leader> key
 let mapleader = ","
 
 "" no need to <shift> to call `:`
 nnoremap ; :
-
-"" Strip whitespaces from the current file
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 "" Searching
 nnoremap / /\v
@@ -63,24 +67,23 @@ set showmatch
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
-" clear the search buffer when hitting return
-" nnoremap <CR> :nohlsearch<cr>
 
-"" Ack
-nnoremap <leader>A :Ack
+" Command-T Configuration
+let g:CommandTMaxHeight=20
 
-function s:setupWrapping()
-  set wrap
-  set textwidth=79
-  set formatoptions=qrn1
-  set colorcolumn=85
-endfunction
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 
+"" Windows & Navigation
 " open a new vertical split window and switchto it
 nnoremap <leader>w <C-w>v<C-w>l
 
 " ZoomWin configuration
 map <Leader>z :ZoomWin<CR>
+
+" switch between the currently open buffer and the
+" previous one
+nnoremap <leader><leader> <c-^>
 
 " easier navigation between split windows
 nnoremap <c-j> <c-w>j
@@ -101,21 +104,8 @@ map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>et :tabe %%
 
-" Command-T Configuration
-let g:CommandTMaxHeight=20
-
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
-
 "" gundo plugin shortcut
 nnoremap <F5> :GundoToggle<CR>
-
-" switch between the currently open buffer and the
-" previous one
-nnoremap <leader><leader> <c-^>
-
-"" reselect the text that was just pasted
-nnoremap <leader>v V`]
 
 set backupdir=~/.vim/tmp,.
 set directory=~/.vim/tmp,.
