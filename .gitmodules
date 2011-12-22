@@ -64,3 +64,6 @@
 [submodule "bundle/lusty"]
 	path = bundle/lusty
 	url = https://github.com/vim-scripts/LustyJuggler.git
+[submodule "bundle/gist-vim"]
+	path = bundle/gist-vim
+	url = https://github.com/mattn/gist-vim.git
