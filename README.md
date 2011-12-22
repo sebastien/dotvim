@@ -27,7 +27,7 @@
     install http://ctags.sf.net
     ex: ubuntu `sudo apt-get install exuberant-ctags`
 
-## Use with sudo user @ ubuntu
+## Sudo user @ ubuntu
 
     sudo ln -s ~/.vim /root/.vim
     sudo ln -s ~/.vimrc /root/.vimrc
