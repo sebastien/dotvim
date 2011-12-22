@@ -6,8 +6,8 @@
 
 ## Create symlinks:
 
-    ln -s ~/.vim/vimrc ~/.vimrc
-    ln -s ~/.vim/gvimrc ~/.gvimrc
+    ln -s ~/.vim/.vimrc ~/.vimrc
+    ln -s ~/.vim/.gvimrc ~/.gvimrc
 
 ## Switch to the `~/.vim` directory, and fetch submodules:
 
@@ -17,7 +17,7 @@
 
 ## Recompile Command-T Ruby C extension for your platform (if other than Mac OS X):
 
-    cd ~/.vim/bundle/command-t/ruby/command-t-
+    cd ~/.vim/bundle/command-t/ruby/command-t/
     ruby extconf.rb
     make clean; make
 
