@@ -4,10 +4,11 @@
 
     git clone git://github.com/benichu/dotvim.git ~/.vim
 
-## Create symlinks:
+## Create dircetories and symlinks:
 
     ln -s ~/.vim/.vimrc ~/.vimrc
     ln -s ~/.vim/.gvimrc ~/.gvimrc
+    mkdir ~/.vim/tmp
 
 ## Switch to the `~/.vim` directory, and fetch submodules:
 
@@ -20,6 +21,10 @@
     cd ~/.vim/bundle/command-t/ruby/command-t/
     ruby extconf.rb
     make clean; make
+
+## Exuberant ctags
+
+    install from: http://ctags.sf.net
 
 ## How to add a bundle as a submodule
 
