@@ -4,10 +4,11 @@
 
     git clone git://github.com/benichu/dotvim.git ~/.vim
 
-## Create symlinks:
+## Create dircetories and symlinks:
 
-    ln -s ~/.vim/vimrc ~/.vimrc
-    ln -s ~/.vim/gvimrc ~/.gvimrc
+    ln -s ~/.vim/.vimrc ~/.vimrc
+    ln -s ~/.vim/.gvimrc ~/.gvimrc
+    mkdir ~/.vim/tmp
 
 ## Switch to the `~/.vim` directory, and fetch submodules:
 
@@ -17,9 +18,19 @@
 
 ## Recompile Command-T Ruby C extension for your platform (if other than Mac OS X):
 
-    cd ~/.vim/bundle/command-t/ruby/command-t-
+    cd ~/.vim/bundle/command-t/ruby/command-t/
     ruby extconf.rb
     make clean; make
+
+## Exuberant ctags
+
+    install http://ctags.sf.net
+    ex: ubuntu `sudo apt-get install exuberant-ctags`
+
+## Use with sudo user @ ubuntu
+
+    sudo ln -s ~/.vim /root/.vim
+    sudo ln -s ~/.vimrc /root/.vimrc
 
 ## How to add a bundle as a submodule
 
