@@ -22,6 +22,7 @@ set undofile
 set undodir=~/.vim/tmp
 let g:LustyJugglerSuppressRubyWarning = 1
 let g:SuperTabCrMapping = 0
+
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
 set hidden
@@ -49,6 +50,12 @@ function s:setupWrapping()
   set formatoptions=qrn1
   set colorcolumn=85
 endfunction
+
+"" Textmate style key mappings for indentation
+nmap <D-[> <<
+nmap <D-]> >>
+vmap <D-[> <gv
+vmap <D-]> >gv
 
 "" Change the <leader> key
 let mapleader = ","
