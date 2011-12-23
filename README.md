@@ -26,6 +26,7 @@
 
     install http://ctags.sf.net
     ex: ubuntu `sudo apt-get install exuberant-ctags`
+    ex: macos `brew install ctags && sudo mv /usr/bin/ctags /usr/bin/ctags.bak`
 
 ## Sudo user @ ubuntu
 
