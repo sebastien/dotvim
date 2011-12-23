@@ -115,6 +115,9 @@ map <leader>et :tabe %%
 "" gundo plugin shortcut
 nnoremap <F5> :GundoToggle<CR>
 
+"" look here for tags generated from Gemfile.lock
+set tags+=gems.tags
+
 set backupdir=~/.vim/tmp,.
 set directory=~/.vim/tmp,.
 
