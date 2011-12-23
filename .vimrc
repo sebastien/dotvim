@@ -23,6 +23,12 @@ set undodir=~/.vim/tmp
 let g:LustyJugglerSuppressRubyWarning = 1
 let g:SuperTabCrMapping = 0
 
+"" Statusline
+let g:statline_fugitive = 1
+let g:statline_rvm = 1
+let g:statline_show_n_buffers = 0
+" let g:statline_filename_relative = 1
+
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
 set hidden
@@ -35,7 +41,20 @@ set list
 set listchars=tab:▸\ ,eol:¬
 set backspace=indent,eol,start  " backspace through everything in insert mode
 "" Strip whitespaces from the current file
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" nnoremap <leader>WS :%s/\s\+$//<cr>:let @/=''<CR>
+function! Preserve(command)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+nmap _= :call Preserve("normal gg=G")<CR>
 
 "" Formatting
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
