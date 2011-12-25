@@ -16,6 +16,8 @@ set visualbell
 set ttyfast
 set number
 set ruler                       " show the cursor position all the time
+set shortmess=filtIoOA          " shorten messages
+set nolazyredraw                " turn off lazy redraw
 
 set laststatus=2
 set undofile
@@ -146,3 +148,8 @@ nmap <silent> <leader>ev :e $MYVIMRC<CR>
 " Default color scheme
 colorscheme robokai
 set background=dark
+
+if has("gui_running")
+  " Automatically resize splits when resizing MacVim window
+  autocmd VimResized * wincmd =
+endif
