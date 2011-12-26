@@ -146,7 +146,7 @@ set directory=~/.vim/tmp,.
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 
 " Default color scheme
-colorscheme robokai
+colorscheme desert
 set background=dark
 
 if has("gui_running")
