@@ -27,7 +27,7 @@ let g:SuperTabCrMapping = 0
 
 "" Statusline
 let g:statline_fugitive = 1
-let g:statline_rvm = 1
+let g:statline_rvm = 0
 let g:statline_show_n_buffers = 0
 " let g:statline_filename_relative = 1
 
