@@ -29,7 +29,6 @@ let g:SuperTabCrMapping = 0
 let g:statline_fugitive = 1
 let g:statline_rvm = 0
 let g:statline_show_n_buffers = 0
-" let g:statline_filename_relative = 1
 
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
@@ -157,6 +156,24 @@ set directory=~/.vim/tmp,.
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
+
+"" Gist setup
+if executable("pbcopy")
+  " The copy command
+  let g:gist_clip_command = 'pbcopy'
+elseif executable("xclip")
+  " The copy command
+  let g:gist_clip_command = 'xclip -selection clipboard'
+elseif executable("putclip")
+  " The copy command
+  let g:gist_clip_command = 'putclip'
+end
+
+" detect filetype if vim failed auto-detection.
+let g:gist_detect_filetype = 1
+" open browser after the post
+let g:gist_open_browser_after_post = 1
+let g:gist_private = 1
 
 " Default color scheme
 colorscheme desert
