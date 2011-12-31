@@ -10,7 +10,7 @@ set antialias
 set visualbell
 
 " Start without the toolbar
-set guioptions=aAce
+set guioptions-=T
 
 if has("gui_macvim")
   " Fullscreen takes up entire screen

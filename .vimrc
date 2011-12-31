@@ -43,7 +43,6 @@ set list
 set listchars=tab:▸\ ,eol:¬
 set backspace=indent,eol,start  " backspace through everything in insert mode
 "" Strip whitespaces from the current file
-" nnoremap <leader>WS :%s/\s\+$//<cr>:let @/=''<CR>
 function! Preserve(command)
   " Preparation: save last search, and cursor position.
   let _s=@/
@@ -57,6 +56,20 @@ function! Preserve(command)
 endfunction
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
+
+" Automatically Strip trailing whitespace on save
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 "" Formatting
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
