@@ -6,9 +6,9 @@
 
 ## Requirements:
 
-    git (ex: ubuntu `apt-get install git-core`)
-    ruby
-    vim (ex: ubuntu `apt-get install vim-nox`)
+* git (ex: ubuntu `apt-get install git-core`)
+* ruby
+* vim (ex: ubuntu `apt-get install vim-nox`)
 
 ## Create directories and symlinks:
 
