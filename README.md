@@ -4,7 +4,13 @@
 
     git clone git://github.com/benichu/dotvim.git ~/.vim
 
-## Create dircetories and symlinks:
+## Requirements:
+
+    git (ex: ubuntu `apt-get install git-core`)
+    ruby
+    vim (ex: ubuntu `apt-get install vim-nox`)
+
+## Create directories and symlinks:
 
     ln -s ~/.vim/.vimrc ~/.vimrc
     ln -s ~/.vim/.gvimrc ~/.gvimrc
