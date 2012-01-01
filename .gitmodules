@@ -82,3 +82,6 @@
 [submodule "bundle/vim-node.js"]
 	path = bundle/vim-node.js
 	url = https://github.com/mmalecki/vim-node.js
+[submodule "bundle/TaskList"]
+	path = bundle/TaskList
+	url = https://github.com/vim-scripts/TaskList.vim

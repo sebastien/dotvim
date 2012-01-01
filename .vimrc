@@ -188,6 +188,9 @@ let g:gist_private = 1
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 
+" TaskList, <leader>t
+let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
+
 " Default color scheme
 colorscheme desert
 set background=dark
@@ -196,3 +199,21 @@ if has("gui_running")
   " Automatically resize splits when resizing MacVim window
   autocmd VimResized * wincmd =
 endif
+" Add this type definition to your vimrc
+" or do
+" coffeetags --vim-conf >> <PATH TO YOUR VIMRC>
+" if you want your tags to include vars/objects do:
+" coffeetags --vim-conf --include-vars
+ let g:tagbar_type_coffee = {
+  \ 'kinds' : [
+  \   'f:functions',
+  \   'o:object'
+  \ ],
+  \ 'kind2scope' : {
+  \  'f' : 'object',
+  \   'o' : 'object'
+  \},
+  \ 'sro' : ".",
+  \ 'ctagsbin' : 'coffeetags',
+  \ 'ctagsargs' : ' ',
+  \}
