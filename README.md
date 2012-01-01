@@ -9,6 +9,7 @@
 * git (ex: ubuntu `apt-get install git-core`)
 * ruby
 * vim (ex: ubuntu `apt-get install vim-nox`)
+* curl
 
 ## Create directories and symlinks:
 
