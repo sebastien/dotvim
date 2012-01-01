@@ -175,6 +175,9 @@ let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_private = 1
 
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+
 " Default color scheme
 colorscheme desert
 set background=dark
