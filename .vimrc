@@ -25,6 +25,9 @@ try
   " persistent undo
   set undodir=~/.vim/tmp
   set undofile
+  " Highlight 81 column
+  set textwidth=80
+  set colorcolumn=+1
 catch /Unknown option/
   " For versions of Vim prior to 7.3.
 endtry
