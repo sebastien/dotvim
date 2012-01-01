@@ -20,8 +20,17 @@ set shortmess=filtIoOA          " shorten messages
 set nolazyredraw                " turn off lazy redraw
 
 set laststatus=2
-set undofile
-set undodir=~/.vim/tmp
+
+try
+  " persistent undo
+  set undodir=~/.vim/tmp
+  set undofile
+
+  set colorcolumn=85
+catch /Unknown option/
+  " For versions of Vim prior to 7.3.
+endtry
+
 let g:LustyJugglerSuppressRubyWarning = 1
 let g:SuperTabCrMapping = 0
 
