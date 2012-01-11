@@ -85,3 +85,6 @@
 [submodule "bundle/TaskList"]
 	path = bundle/TaskList
 	url = https://github.com/vim-scripts/TaskList.vim
+[submodule "bundle/ctrlp.vim"]
+	path = bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim.git

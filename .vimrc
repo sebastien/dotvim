@@ -122,7 +122,7 @@ vnoremap <tab> %
 " Command-T Configuration
 let g:CommandTMaxHeight=20
 
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+" map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 
 "" Windows & Navigation
@@ -214,3 +214,10 @@ let g:tagbar_type_coffee = {
 \ 'ctagsbin' : 'coffeetags',
 \ 'ctagsargs' : ' ',
 \}
+
+" ctrlp.vim configuration
+let g:ctrlp_map = '<leader>f' " mapping to invoke |CtrlP| in |Normal| mode
+let g:ctrlp_working_path_mode = 2
+let g:ctrlp_max_height = 20 " maximum height of the match window
+let g:ctrlp_dotfiles = 0 " don’t want to search for dotfiles and dotdirs
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
