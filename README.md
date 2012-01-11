@@ -7,7 +7,6 @@
 ## Requirements:
 
 * git (ex: ubuntu `apt-get install git-core`)
-* ruby
 * vim (ex: ubuntu `apt-get install vim-nox`)
 * curl
 
@@ -22,12 +21,6 @@
     cd ~/.vim
     git submodule init
     git submodule update
-
-## Recompile Command-T Ruby C extension for your platform (if other than Mac OS X):
-
-    cd ~/.vim/bundle/command-t/ruby/command-t/
-    ruby extconf.rb
-    make clean; make
 
 ## Exuberant ctags
 

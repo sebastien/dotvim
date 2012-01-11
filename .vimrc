@@ -119,12 +119,6 @@ nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
-" Command-T Configuration
-let g:CommandTMaxHeight=20
-
-" map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
-
 "" Windows & Navigation
 " open a new vertical split window and switchto it
 nnoremap <leader>w <C-w>v<C-w>l
