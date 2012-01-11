@@ -9,6 +9,7 @@
 * git (ex: ubuntu `apt-get install git-core`)
 * vim (ex: ubuntu `apt-get install vim-nox`)
 * curl
+* backup existing `~/.vim` directory
 
 ## Create directories and symlinks:
 
