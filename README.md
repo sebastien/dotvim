@@ -1,15 +1,15 @@
 # My .vim setup
 
-## Installation:
-
-    git clone git://github.com/benichu/dotvim.git ~/.vim
-
 ## Requirements:
 
 * git (ex: ubuntu `apt-get install git-core`)
 * vim (ex: ubuntu `apt-get install vim-nox`)
 * curl
 * backup existing `~/.vim` directory
+
+## Installation:
+
+    git clone git://github.com/benichu/dotvim.git ~/.vim
 
 ## Create directories and symlinks:
 
