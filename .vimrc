@@ -32,13 +32,7 @@ catch /Unknown option/
   " For versions of Vim prior to 7.3.
 endtry
 
-let g:LustyJugglerSuppressRubyWarning = 1
 let g:SuperTabCrMapping = 0
-
-"" Statusline
-let g:statline_fugitive = 1
-let g:statline_rvm = 0
-let g:statline_show_n_buffers = 0
 
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
