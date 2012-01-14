@@ -175,6 +175,7 @@ let g:gist_private = 1
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
+let g:tagbar_usearrows = 1
 
 " TaskList, <leader>t
 let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
