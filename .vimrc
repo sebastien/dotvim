@@ -213,3 +213,10 @@ let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*',
       \ 'file': '\.log$\|\.pid$',
       \ }
+
+if has("gui_macvim")
+  " Powerline configuration
+  " https://github.com/Lokaltog/vim-powerline/tree/develop/fontpatcher
+  set guifont=Menlo\ for\ Powerline
+  let g:Powerline_symbols = 'fancy'
+end
