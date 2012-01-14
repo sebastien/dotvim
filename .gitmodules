@@ -58,7 +58,7 @@
 [submodule "bundle/ZoomWin"]
 	path = bundle/ZoomWin
 	url = http://github.com/vim-scripts/ZoomWin
-  ignore = dirty
+  ignore = untracked
 [submodule "bundle/gist-vim"]
 	path = bundle/gist-vim
 	url = https://github.com/mattn/gist-vim.git
