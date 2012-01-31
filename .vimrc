@@ -4,6 +4,18 @@
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
+" M A N U A L
+" ------------------------------------------------------------------------------
+"
+" Leader           ,      -- Press , and then the following commands>
+"                  ,f     -- CtrlP vim plugin https://github.com/kien/ctrlp.vim
+"                  ,z     -- ZoomWin
+"                  ,jpp   -- Pretty-prints the (currently selected) JSON
+"                  ,rv    -- Reloads VIM config
+" Function keys    F5     -- Toggle Gundo plugin
+"                  F8     -- Toggle TagBar plugin
+
+" ------------------------------------------------------------------------------
 " I N I T
 " ------------------------------------------------------------------------------
 
@@ -171,7 +183,14 @@ nnoremap <C-Q> :wqa<CR>                 " Quits vim and saves all
 nnoremap <M-N> :tabnew                  " Opens a new tab
 nnoremap <M-W> :tabclose                " Closes the current tab
 nnoremap <C-E> :VSTreeExplore<CR>       " Opens the file explorer
-"
+" Standard Copy/Paste shortcuts
+" FROM: http://superuser.com/questions/10588/how-to-make-cut-copy-paste-in-gvim-on-ubuntu-work-with-ctrlx-ctrlc-ctrlv
+" FIXME: DOES NOT WORK!
+" vmap     <C-c> "y
+" vmap     <C-x> *c
+" vmap     <C-v> c<ESC>*+p
+" imap     <C-v> <ESC>*+pa
+
 " Command-T
 nmap     <silent> <C-o> :CommandT<CR>
 " nnoremap <C-o> :FufFile **/<CR>
@@ -186,7 +205,7 @@ nnoremap <C-Down>  :bd<CR>             " Unsplits the screen
 noremap  <F1> :set invfullscreen<CR>
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 
-" Block indent/deindent with Ctrl+D and Ctrl+T or Tab and Shift+Tab where
+" Block indent/deindent with trl+D and Ctrl+T or Tab and Shift+Tab where
 " available
 vnoremap <C-T>    >
 vnoremap <C-D>   <LT>
@@ -206,7 +225,7 @@ nnoremap <M-Left>      zm
 nnoremap <M-Right>     zr
 
 " JSON pretty-printing
-map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>
+map <leader>jpp  <Esc>:%!json_xs -f json -t json-pretty<CR>
 
 "" Change the <leader> key
 " http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file
@@ -229,7 +248,7 @@ set backupdir=~/.vim/tmp,.
 set directory=~/.vim/tmp,.
 
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>rv :e $MYVIMRC<CR>
 
 "" Gist setup
 if executable("pbcopy")
@@ -277,10 +296,9 @@ let g:tagbar_type_coffee = {
 " ctrlp.vim configuration
 let g:ctrlp_map = '<leader>f' " mapping to invoke |CtrlP| in |Normal| mode
 let g:ctrlp_working_path_mode = 2
-let g:ctrlp_max_height = 20 " maximum height of the match window
-let g:ctrlp_dotfiles = 0 " don’t want to search for dotfiles and dotdirs
-" let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$|'
-let g:ctrlp_custom_ignore = {
+let g:ctrlp_max_height        = 20 " maximum height of the match window
+let g:ctrlp_dotfiles          = 0 " don’t want to search for dotfiles and dotdirs
+let g:ctrlp_custom_ignore     = {
       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*',
       \ 'file': '\.log$\|\.pid$',
       \ }
