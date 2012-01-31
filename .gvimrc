@@ -1,18 +1,18 @@
-colorscheme vwilight
-" big fonts are good for RSI
-set guifont=Monaco:h14
+" ============================================================================
+" Sebastien - gvimrc
+" Version: 31-Jan-2012 (vim 7.0)
+" ============================================================================
 
-set linespace=2
-set cursorline
-set antialias
-
-" Don't beep
-set visualbell
-
+colorscheme ff-cyan
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+set guifont=Inconsolata\ 13
+set guifont=PragmataPro\ 11
+" https://github.com/Lokaltog/vim-powerline/tree/develop/fontpatcher
+set guifont=PragmataPro\ for\ Powerline\ 11
+let g:Powerline_symbols = 'fancy'
+"
+se antialias
 " Start without the toolbar
 set guioptions-=T
 
-if has("gui_macvim")
-  " Fullscreen takes up entire screen
-  set fuoptions=maxhorz,maxvert
-end
+" EOF

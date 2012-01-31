@@ -9,7 +9,7 @@
 
 ## Installation:
 
-    git clone git://github.com/benichu/dotvim.git ~/.vim
+    git clone git://github.com/sebastien/dotvim.git ~/.vim
 
 ## Create directories and symlinks:
 
