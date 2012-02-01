@@ -14,7 +14,7 @@ endif
 let g:colors_name="ff-cyan"
 "
 "Text
-:	hi normal		guifg=#D0D0D0 guibg=#303030
+:	hi normal		guifg=#D0D0D0 guibg=#2A2A2A
 
 "Vim syntax
 :	hi SpecialKey	guifg=#4A4A4A
@@ -59,6 +59,6 @@ let g:colors_name="ff-cyan"
 :	hi User6 term=inverse gui=inverse ctermfg=grey guifg=#202336
 
 " For columns
-: 	hi ColorColumn term=bold ctermbg=0 guibg=#2A2A2A
+: 	hi ColorColumn term=bold ctermbg=0 guibg=#282828
 
 " EOF

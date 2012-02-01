@@ -6,6 +6,11 @@
 " ------------------------------------------------------------------------------
 " M A N U A L
 " ------------------------------------------------------------------------------
+" Must read:
+" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)
+" http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file
+" http://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
+" http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-ma
 "
 " Leader           ,      -- Press , and then the following commands>
 "                  ,f     -- CtrlP vim plugin https://github.com/kien/ctrlp.vim
@@ -14,6 +19,9 @@
 "                  ,rv    -- Reloads VIM config
 " Function keys    F5     -- Toggle Gundo plugin
 "                  F8     -- Toggle TagBar plugin
+"
+" How to debug a keybiding
+" <binding command> <keybinding> :echomsg "Key pressed"<CR>
 
 " ------------------------------------------------------------------------------
 " I N I T
@@ -40,7 +48,7 @@ set       showmode
 set       showcmd                     " display incomplete commands
 set       showmatch                   " shows matching parenthese"
 set       wildmenu
-set       wildmode=list:longest
+set       wildignore+=*/.git/*,*/.hg/*,*/.svn/,*/build/,*/.build,*/Build
 set       visualbell
 set       noeb                        " no sound for error message
 set       ttyfast
@@ -66,7 +74,8 @@ set       sw=4                        " Shift width
 set       bs=2
 set       sta                         " Smart tabs
 set       paste                       " Paste mode
-set       foldmethod=syntax           " Folding
+set       foldmethod=indent           " Folding
+set       foldlevel=2
 " SEARCHING
 set       hlsearch                    " highlight matches
 set       incsearch                   " incremental searching
@@ -115,20 +124,23 @@ nmap _= :call Preserve("normal gg=G")<CR>
 
 " Automatically Strip trailing whitespace on save
 function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+	if exists('b:nostripspace')
+		return
+	else
+		" Preparation: save last search, and cursor position.
+		let _s=@/
+		let l = line(".")
+		let c = col(".")
+		" Do the business:
+		%s/\s\+$//e
+		" Clean up: restore previous search history, and cursor position
+		let @/=_s
+		call cursor(l, c)
+	endif
 endfunction
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Setups up wrapping for text files
-function s:setupWrapping()
+function s:PresetTextFile()
   set wrap
   set textwidth=79
   set formatoptions=qrn1
@@ -143,7 +155,7 @@ endfunction
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
-au BufRead,BufNewFile *.txt call s:setupWrapping()
+au BufRead,BufNewFile *.txt call s:PresetTextFile()
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
@@ -153,47 +165,49 @@ autocmd FileType c      noremap <silent> <buffer> <M-#> :call CommentLineToEnd (
 autocmd FileType c      noremap <silent> <buffer> <M-#> :call CommentLinePincer('/* ', ' */')<CR>+
 autocmd FileType make   noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
 autocmd FileType python noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
+autocmd FileType pamela noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
+autocmd FileType sugar  noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
 autocmd FileType html   noremap <silent> <buffer> <M-#> :call CommentLinePincer('<!-- ', ' -->')<CR>+
+" autocmd BufWritePre        * :call <SID>StripTrailingWhitespaces()
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en_us
 autocmd BufNewFile,BufRead README   :setlocal spell spelllang=en_us
 autocmd BufNewFile,BufRead CHANGES  :setlocal spell spelllang=en_us
 autocmd BufNewFile,BufRead *.as       set syntax=actionscript
-autocmd BufNewFile,BufRead *html.tmpl set syntax=html
-autocmd BufNewFile,BufRead *kid       set syntax=html
+autocmd BufNewFile,BufRead *.kid      set syntax=html
 autocmd BufNewFile,BufRead *.m        set syntax=objc
 autocmd BufNewFile,BufRead *.io       set syntax=io
-autocmd BufNewFile,BufRead *.sjs      set syntax=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.spnuts   set syntax=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.spy      set syntax=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sas      set syntax=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sjava    set syntax=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sg       set syntax=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.paml     set syntax=pamela sw=4 ts=4 foldlevel=8 noet
+autocmd BufNewFile,BufRead *.sjs      set syntax=sugar  ft=sugar sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.spnuts   set syntax=sugar  ft=sugar sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.spy      set syntax=sugar  ft=sugar sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.paml     set syntax=pamela ft=pamela sw=4 ts=4 foldlevel=8 noet
+autocmd BufNewFile,BufRead *.paml     let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "<")
 autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
 
 " ------------------------------------------------------------------------------
 " K E Y B I N D I N G S
 " ------------------------------------------------------------------------------
-" Useful: http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)
 
 " Save and Quit as with many other apps
 nnoremap <C-S> :w<CR>                   " Saves the buffer
 nnoremap <C-Q> :wqa<CR>                 " Quits vim and saves all
 nnoremap <M-N> :tabnew                  " Opens a new tab
 nnoremap <M-W> :tabclose                " Closes the current tab
-nnoremap <C-E> :VSTreeExplore<CR>       " Opens the file explorer
 " Standard Copy/Paste shortcuts
 " FROM: http://superuser.com/questions/10588/how-to-make-cut-copy-paste-in-gvim-on-ubuntu-work-with-ctrlx-ctrlc-ctrlv
 " FIXME: DOES NOT WORK!
-" vmap     <C-c> "y
-" vmap     <C-x> *c
-" vmap     <C-v> c<ESC>*+p
-" imap     <C-v> <ESC>*+pa
+nnoremap     <C-c> "+y
+nnoremap     <C-x> "+x
+nnoremap     <C-V> "+gGp
+inoremap     <C-V> <ESC>"+gGp
+" nnoremap     <C-v> c<ESC>"+p
 
-" Command-T
-nmap     <silent> <C-o> :CommandT<CR>
-" nnoremap <C-o> :FufFile **/<CR>
+" SEE: http://superuser.com/questions/61226/how-do-i-configure-vim-for-using-ctrl-c-ctrl-v-as-copy-paste-to-and-from-system
+" vnoremap <C-c> :echomsg "Copy"<CR>
+" inoremap <C-v> :echomsg "Paste"<CR>
 
 " Iterate through buffers using Ctrl+Arrows
 nnoremap <C-Right> :bn<CR>             " Switch to nextbuffer
@@ -205,7 +219,7 @@ nnoremap <C-Down>  :bd<CR>             " Unsplits the screen
 noremap  <F1> :set invfullscreen<CR>
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 
-" Block indent/deindent with trl+D and Ctrl+T or Tab and Shift+Tab where
+" Block indent/deindent with Ctrl+D and Ctrl+T or Tab and Shift+Tab where
 " available
 vnoremap <C-T>    >
 vnoremap <C-D>   <LT>
@@ -228,8 +242,6 @@ nnoremap <M-Right>     zr
 map <leader>jpp  <Esc>:%!json_xs -f json -t json-pretty<CR>
 
 "" Change the <leader> key
-" http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file
-" -END OF FILE-
 let mapleader = ","
 
 "" no need to <shift> to call `:`
@@ -294,12 +306,16 @@ let g:tagbar_type_coffee = {
 \}
 
 " ctrlp.vim configuration
+nmap     <silent> <leader>b  :CtrlPBuffer<CR>
+nmap     <silent> <leader>r  :CtrlPMRU<CR>
+nnoremap <C-space>           :CtrlPBuffer<CR>
+nnoremap <S-space>           :CtrlP<CR>
 let g:ctrlp_map = '<leader>f' " mapping to invoke |CtrlP| in |Normal| mode
-let g:ctrlp_working_path_mode = 2
+let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
 let g:ctrlp_max_height        = 20 " maximum height of the match window
-let g:ctrlp_dotfiles          = 0 " don’t want to search for dotfiles and dotdirs
+let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
 let g:ctrlp_custom_ignore     = {
-      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*',
-      \ 'file': '\.log$\|\.pid$',
+      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$',
+      \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz',
       \ }
 " EOF
