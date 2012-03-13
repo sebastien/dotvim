@@ -20,7 +20,7 @@ let g:colors_name="ff-cyan"
 :	hi SpecialKey	guifg=#4A4A4A
 :	hi NonText		guifg=#4A4A4A
 :	hi LineNr		guifg=#202020 guibg=#3A3A3A
-:	hi CursorLine	guifg=#363D40 guibg=#555753
+:	hi CursorLine	guifg=#FDFFFF guibg=#427BCF
 :	hi Folded		guifg=#D0D0D0 guibg=#3A3A3A
 :	hi Cursor		guibg=#01a6f3
 :	hi Directory	guifg=#008ABD
@@ -35,7 +35,7 @@ let g:colors_name="ff-cyan"
 :	hi PMenuSbar	guibg=#d7ccca guifg=#d7ccca
 :	hi StatusLine	guibg=#707070 guifg=#FFFFFF
 :	hi WildMenu		guibg=#41494D guifg=#62A4E8
-:	hi MatchParen	guifg=#303030 guibg=#FF43A0
+:	hi MatchParen	guifg=#01a6f3 guibg=#105E6E
 
 "Code syntax
 :	hi Comment		guifg=#D0D0D0 guibg=#3A3A3A
@@ -47,6 +47,12 @@ let g:colors_name="ff-cyan"
 :	hi PreProc		guifg=#D01384
 :	hi Type			guifg=#E0E0E0 gui=bold
 :	hi Number		guifg=#909090
+
+"Diff syntax
+:hi DiffAdd         guifg=#22AEEA guibg=#2F415C
+:hi DiffChange                    guibg=#5C2F57
+:hi DiffDelete      guifg=#656565 guibg=#1C1C1C
+:hi DiffText                      guibg=#AE3838
 
 "For the status bar:
 " - The RO flag

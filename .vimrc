@@ -43,6 +43,7 @@ set       encoding=utf-8
 set       fileformat=unix             " we want to edit in Unix EOL by default
 set       fileformats=unix,mac,dos    " when opening a file we will first try Unix, then Mac and finally DOS
 " INTERFACE
+set       mouse=a                     " enables mouse in terminal
 set       scrolloff=3
 set       showmode
 set       showcmd                     " display incomplete commands
@@ -61,14 +62,12 @@ set       laststatus=2
 set       cc=1,4,8,12,80              " columns to highlight"
 set       hidden
 " EDITING
-set       noeb                        " No ringing bell for errors
 set       noet                        " Do not expand tabs to spaces
 set       nosol                       " Do not place cursor at start of line when moving
 set       nowrap                      " Do not wrap lines
 set       ek                          " Turn escape on while in insert mode
 set       sc                          " Show command
 set       autoindent
-set       textwidth=80
 set       ts=4                        " Tab stops
 set       sw=4                        " Shift width
 set       bs=2
@@ -79,8 +78,7 @@ set       foldlevel=2
 " SEARCHING
 set       hlsearch                    " highlight matches
 set       incsearch                   " incremental searching
-set       ignorecase                  " searches are case insensitive...
-set       smartcase                   " ... unless they contain at least one capital letter
+set       noignorecase                " searches are case sensitive...
 set       gdefault
 set       showmatch
 " WHITESPACE
@@ -89,14 +87,6 @@ set       list
 set       list listchars=tab:»-,trail:·,eol:¬,extends:¬,precedes:¬
 let       g:indent_guides_start_level = 1
 set       backspace=indent,eol,start  " backspace through everything in insert mode
-" UNDO
-try
-  " persistent undo
-  set undodir=~/.vim/tmp
-  set undofile
-catch /Unknown option/
-  " For versions of Vim prior to 7.3.
-endtry
 
 let g:SuperTabCrMapping = 0
 
@@ -184,6 +174,7 @@ autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.paml     set syntax=pamela ft=pamela sw=4 ts=4 foldlevel=8 noet
+autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
 autocmd BufNewFile,BufRead *.paml     let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "<")
 autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
 
@@ -193,17 +184,14 @@ autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
 
 " Save and Quit as with many other apps
 nnoremap <C-S> :w<CR>                   " Saves the buffer
-nnoremap <C-Q> :wqa<CR>                 " Quits vim and saves all
 nnoremap <M-N> :tabnew                  " Opens a new tab
 nnoremap <M-W> :tabclose                " Closes the current tab
 " Standard Copy/Paste shortcuts
 " FROM: http://superuser.com/questions/10588/how-to-make-cut-copy-paste-in-gvim-on-ubuntu-work-with-ctrlx-ctrlc-ctrlv
 " FIXME: DOES NOT WORK!
-nnoremap     <C-c> "+y
-nnoremap     <C-x> "+x
-nnoremap     <C-V> "+gGp
-inoremap     <C-V> <ESC>"+gGp
-" nnoremap     <C-v> c<ESC>"+p
+vmap     <C-c> "+y
+vmap     <C-x> "+x
+nmap     <M-v> "+p
 
 " SEE: http://superuser.com/questions/61226/how-do-i-configure-vim-for-using-ctrl-c-ctrl-v-as-copy-paste-to-and-from-system
 " vnoremap <C-c> :echomsg "Copy"<CR>
@@ -308,8 +296,9 @@ let g:tagbar_type_coffee = {
 " ctrlp.vim configuration
 nmap     <silent> <leader>b  :CtrlPBuffer<CR>
 nmap     <silent> <leader>r  :CtrlPMRU<CR>
-nnoremap <C-space>           :CtrlPBuffer<CR>
-nnoremap <S-space>           :CtrlP<CR>
+nmap     <silent> <leader>o  :CtrlPCurWD<CR>
+nnoremap <S-Space>           :CtrlPBuffer<CR>
+nmap     <C-Space>           :CtrlPCurWD<CR>
 let g:ctrlp_map = '<leader>f' " mapping to invoke |CtrlP| in |Normal| mode
 let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
 let g:ctrlp_max_height        = 20 " maximum height of the match window
