@@ -74,7 +74,7 @@ set       bs=2
 set       sta                         " Smart tabs
 set       paste                       " Paste mode
 set       foldmethod=indent           " Folding
-set       foldlevel=2
+set       foldlevel=4
 " SEARCHING
 set       hlsearch                    " highlight matches
 set       incsearch                   " incremental searching
@@ -174,6 +174,8 @@ autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.paml     set syntax=pamela ft=pamela sw=4 ts=4 foldlevel=8 noet
+" autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
+" autocmd BufWritePost       *.ccss     :checktime
 autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
 autocmd BufNewFile,BufRead *.paml     let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "<")
 autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
@@ -198,10 +200,10 @@ nmap     <M-v> "+p
 " inoremap <C-v> :echomsg "Paste"<CR>
 
 " Iterate through buffers using Ctrl+Arrows
-nnoremap <C-Right> :bn<CR>             " Switch to nextbuffer
-nnoremap <C-Left>  :bp<CR>             " Switch to previous buffer
-nnoremap <C-Up>    :sp<CR>             " Splits the screen
-nnoremap <C-Down>  :bd<CR>             " Unsplits the screen
+nnoremap <M-Right> :bn<CR>             " Switch to nextbuffer
+nnoremap <M-Left>  :bp<CR>             " Switch to previous buffer
+nnoremap <M-Up>    :sp<CR>             " Splits the screen
+nnoremap <M-Down>  :hide<CR>             " Unsplits the screen
 
 " Disable help key
 noremap  <F1> :set invfullscreen<CR>
@@ -219,12 +221,12 @@ nnoremap  <silent>  <space> :exe 'silent! normal! za'.(foldlevel('.')?'':'l')<cr
 
 " And uses Alt plus left and right keys to fold/unfold the current line
  " Opens/closes all fold recursively
-nnoremap <M-Down>      zO
-nnoremap <M-Up>        zC
+nnoremap <C-Down>      zO
+nnoremap <C-Up>        zC
 
 " Increase/Decrease fold level globally
-nnoremap <M-Left>      zm
-nnoremap <M-Right>     zr
+nnoremap <C-Left>      zm
+nnoremap <C-Right>     zr
 
 " JSON pretty-printing
 map <leader>jpp  <Esc>:%!json_xs -f json -t json-pretty<CR>
@@ -304,7 +306,7 @@ let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one 
 let g:ctrlp_max_height        = 20 " maximum height of the match window
 let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
 let g:ctrlp_custom_ignore     = {
-      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$',
-      \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz',
+      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Distribution$\|Dist$',
+      \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
       \ }
 " EOF

@@ -9,7 +9,7 @@
 " Tag classes, ids, labels
 syn match   pamelaId            "#[A-Za-z0-9_-]*"       contained   nextgroup=pamelaClassSep,pamelaLabel
 syn match   pamelaClassSep      "\."                    contained   nextgroup=pamelaClassSpecial,pamelaClass
-syn match   pamelaSpecialClass  "((do|out|use|with|w)\-)[A-Za-z0-9_-]*=" contained   nextgroup=pamelaClassSep,pamelaLabel,pamelaId
+syn match   pamelaClassSpecial  "(do|in|out|when|use|with|hidden|template)" contained   nextgroup=pamelaClassSep,pamelaLabel,pamelaId
 syn match   pamelaClass         "[A-Za-z0-9_-]*"        contained   nextgroup=pamelaClassSep,pamelaLabel,pamelaId
 syn match   pamelaLabel         ":.*"                   contained
 
@@ -44,7 +44,7 @@ hi def link htmlEntity          Number
 hi def link pamelaId            Identifier
 hi def link pamelaClassSep      Normal
 hi def link pamelaClass         Identifier
-hi def link pamelaSpecialClass  Type
+hi def link pamelaClassSpecial  PreProc
 hi def link pamelaLabel         Constant
 
 hi def link pamelaAttributes    Statement
