@@ -1,0 +1,6 @@
+vim-commentary:
+	\\\        -- comments a line/block
+vim-tabular:
+	:Tab /=    -- aligns text on =
+TaskList:
+	,t         -- lists TODO, FIXME, XXX

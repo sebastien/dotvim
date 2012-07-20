@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 31-Jan-2012 (vim 7.0)
+" Version: 20-Jul-2012 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -12,13 +12,16 @@
 " http://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
 " http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-ma
 "
-" Leader           ,      -- Press , and then the following commands>
-"                  ,f     -- CtrlP vim plugin https://github.com/kien/ctrlp.vim
-"                  ,z     -- ZoomWin
-"                  ,jpp   -- Pretty-prints the (currently selected) JSON
-"                  ,rv    -- Reloads VIM config
-" Function keys    F5     -- Toggle Gundo plugin
-"                  F8     -- Toggle TagBar plugin
+" Editing
+"                  \\\      -- comments a line/block
+"                  :Tab /=  -- aligns on =
+" Leader           ,        -- press , and then the following commands
+"                  ,f       -- CtrlP vim plugin https://github.com/kien/ctrlp.vim
+"                  ,jpp     -- pretty-prints the (currently selected) JSON
+"                  ,rv      -- reloads VIM config
+"                  ,t       -- shows tasklist
+" Function keys  
+"                  F8       -- Toggle TagBar plugin
 "
 " How to debug a keybiding
 " <binding command> <keybinding> :echomsg "Key pressed"<CR>
@@ -92,6 +95,18 @@ let g:SuperTabCrMapping = 0
 
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
+"
+" ------------------------------------------------------------------------------
+" C A N D Y
+" ------------------------------------------------------------------------------
+
+set statusline=%3*%f%4*\ %5*\ %6*\ %*[%Y%2*%M%R%W%*]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\ %n%)
+" set statusline=%f\ \ \ %*[%Y%2*%M%R%W%*]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\°%n%)
+if has("gui_running")
+	set number
+	set list listchars=tab:»-,trail:·,eol:¬,extends:¬
+	let g:indent_guides_start_level = 2
+endif
 
 " ------------------------------------------------------------------------------
 " F U N C T I O N S
@@ -240,14 +255,6 @@ let mapleader = ","
 " ------------------------------------------------------------------------------
 " P L U G I N S
 " ------------------------------------------------------------------------------
-
-" ZoomWin configuration
-map <Leader>z :ZoomWin<CR>
-
-"" Gundo plugin shortcut
-nnoremap <F5> :GundoToggle<CR>
-set backupdir=~/.vim/tmp,.
-set directory=~/.vim/tmp,.
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>rv :e $MYVIMRC<CR>

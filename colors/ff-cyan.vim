@@ -33,7 +33,10 @@ let g:colors_name="ff-cyan"
 :	hi PMenu		guibg=#222222 guifg=#EEEEEE
 :	hi PMenuSel		guibg=#EFEFEF guifg=#111111 gui=bold
 :	hi PMenuSbar	guibg=#d7ccca guifg=#d7ccca
-:	hi StatusLine	guibg=#707070 guifg=#FFFFFF
+":	hi StatusLine	guibg=#707070 guifg=#FFFFFF
+:	hi StatusLine	guibg=#116B7A guifg=#7FCBD7
+:	hi StatusLineNC	guibg=#116B7A guifg=#3E7A84
+:	hi VertSplit	guibg=#116B7A guifg=#5E5E5E
 :	hi WildMenu		guibg=#41494D guifg=#62A4E8
 :	hi MatchParen	guifg=#01a6f3 guibg=#105E6E
 
@@ -58,11 +61,11 @@ let g:colors_name="ff-cyan"
 " - The RO flag
 :	hi User2 term=bold gui=bold ctermfg=red  guifg=#930B58 guibg=black
 " - The filename in the statusbar
-:	hi User3 term=inverse,bold gui=inverse,bold ctermfg=grey guifg=#808386
+:	hi User3 term=inverse,bold gui=inverse,bold ctermfg=grey guifg=#1EC9DF
 " - 3 shades of grey
-:	hi User4 term=inverse gui=inverse ctermfg=grey guifg=#606376
-:	hi User5 term=inverse gui=inverse ctermfg=grey guifg=#404356
-:	hi User6 term=inverse gui=inverse ctermfg=grey guifg=#202336
+:	hi User4 term=inverse gui=inverse ctermfg=grey guifg=#2EC7DC
+:	hi User5 term=inverse gui=inverse ctermfg=grey guifg=#4EC0D0
+:	hi User6 term=inverse gui=inverse ctermfg=grey guifg=#67C4D2
 
 " For columns
 : 	hi ColorColumn term=bold ctermbg=0 guibg=#282828
