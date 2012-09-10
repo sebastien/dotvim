@@ -57,7 +57,6 @@ set       visualbell
 set       noeb                        " no sound for error message
 set       ttyfast
 set       nobackup
-set       number
 set       ruler                       " show the cursor position all the time
 set       shortmess=filtIoOA          " shorten messages
 set       nolazyredraw                " turn off lazy redraw
@@ -103,8 +102,8 @@ let g:SuperTabCrMapping = 0
 set statusline=%3*%f%4*\ %5*\ %6*\ %*[%Y%2*%M%R%W%*]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\ %n%)
 " set statusline=%f\ \ \ %*[%Y%2*%M%R%W%*]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\°%n%)
 if has("gui_running")
-	set number
 	set list listchars=tab:»-,trail:·,eol:¬,extends:¬
+	set number
 	let g:indent_guides_start_level = 2
 endif
 
