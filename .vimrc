@@ -52,7 +52,7 @@ set       showmode
 set       showcmd                     " display incomplete commands
 set       showmatch                   " shows matching parenthese"
 set       wildmenu
-set       wildignore+=*/.git/*,*/.hg/*,*/.svn/,*/build/,*/.build,*/Build
+set       wildignore+=*/.git/*,*/.hg/*,*/.svn/,*/build/,*/.build,*/Build,*/Data,*/Cache
 set       visualbell
 set       noeb                        " no sound for error message
 set       ttyfast
