@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 20-Jul-2012 (vim 7.0)
+" Version: 06-Feb-2013 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -19,10 +19,15 @@
 "                  ,f       -- CtrlP vim plugin https://github.com/kien/ctrlp.vim
 "                  ,jpp     -- pretty-prints the (currently selected) JSON
 "                  ,rv      -- reloads VIM config
-"                  ,t       -- shows tasklist
 " Function keys  
 "                  F8       -- Toggle TagBar plugin
 "
+" Bundles (provided by vundle)
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+
 " How to debug a keybiding
 " <binding command> <keybinding> :echomsg "Key pressed"<CR>
 
@@ -35,6 +40,15 @@ set       modelines=0
 syntax    enable
 filetype  off
 call      pathogen#infect()
+" VUNDLE configuration https://github.com/gmarik/vundle#about
+set       rtp+=~/.vim/bundle/vundle/
+call      vundle#rc()
+Bundle    'gmarik/vundle'
+Bundle    'vim-scripts/AutoComplPop'
+Bundle    'vim-scripts/Tagbar'
+" NOTE: Requires 7.3.584, current version is tool old
+" Bundle    'Valloric/YouCompleteMe'
+Bundle    'git://git.wincent.com/command-t.git'
 filetype  plugin indent on             " load file type plugins + indentation
 
 " ------------------------------------------------------------------------------
@@ -52,7 +66,7 @@ set       showmode
 set       showcmd                     " display incomplete commands
 set       showmatch                   " shows matching parenthese"
 set       wildmenu
-set       wildignore+=*/.git/*,*/.hg/*,*/.svn/,*/build/,*/.build,*/Build,*/Data,*/Cache
+set       wildignore+=*/.hg/*,*/.svn/,build,Distribution,*/Distribution/,*/build/,*/.build,*/Build,*/Data,*/Cache,*\.class,*\.pyc,*\.png,*\.jpg,*\.gif
 set       visualbell
 set       noeb                        " no sound for error message
 set       ttyfast
@@ -66,7 +80,7 @@ set       hidden
 " EDITING
 set       noet                        " Do not expand tabs to spaces
 set       nosol                       " Do not place cursor at start of line when moving
-set       nowrap                      " Do not wrap lines
+set       wrap                        " Wrap lines
 set       ek                          " Turn escape on while in insert mode
 set       sc                          " Show command
 set       autoindent
@@ -89,6 +103,8 @@ set       list
 set       list listchars=tab:»-,trail:·,eol:¬,extends:¬,precedes:¬
 let       g:indent_guides_start_level = 1
 set       backspace=indent,eol,start  " backspace through everything in insert mode
+" CTAGS
+set tags=./tags,tags;
 
 let g:SuperTabCrMapping = 0
 
@@ -191,7 +207,6 @@ autocmd BufNewFile,BufRead *.paml     set syntax=pamela ft=pamela sw=4 ts=4 fold
 " autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
 " autocmd BufWritePost       *.ccss     :checktime
 autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
-autocmd BufNewFile,BufRead *.paml     let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "<")
 autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
 
 " ------------------------------------------------------------------------------
@@ -200,8 +215,9 @@ autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
 
 " Save and Quit as with many other apps
 nnoremap <C-S> :w<CR>                   " Saves the buffer
-nnoremap <M-N> :tabnew                  " Opens a new tab
-nnoremap <M-W> :tabclose                " Closes the current tab
+nnoremap <C-Q> :qa<CR>                  " Quits all
+nnoremap <C-N> :tabnew<CR>              " Opens a new tab
+
 " Standard Copy/Paste shortcuts
 " FROM: http://superuser.com/questions/10588/how-to-make-cut-copy-paste-in-gvim-on-ubuntu-work-with-ctrlx-ctrlc-ctrlv
 " FIXME: DOES NOT WORK!
@@ -209,23 +225,20 @@ vmap     <C-c> "+y
 vmap     <C-x> "+x
 nmap     <M-v> "+p
 
+
 " SEE: http://superuser.com/questions/61226/how-do-i-configure-vim-for-using-ctrl-c-ctrl-v-as-copy-paste-to-and-from-system
 " vnoremap <C-c> :echomsg "Copy"<CR>
 " inoremap <C-v> :echomsg "Paste"<CR>
 
 " Iterate through buffers using Ctrl+Arrows
-nnoremap <M-Right> :bn<CR>             " Switch to nextbuffer
-nnoremap <M-Left>  :bp<CR>             " Switch to previous buffer
 nnoremap <M-Up>    :sp<CR>             " Splits the screen
-nnoremap <M-Down>  :hide<CR>             " Unsplits the screen
-
-" Disable help key
-noremap  <F1> :set invfullscreen<CR>
-inoremap <F1> <ESC>:set invfullscreen<CR>a
+nnoremap <M-Down>  :hide<CR>           " Unsplits the screen
+nnoremap <M-Right> :tabnext<CR>        " Switch to tab tab
+nnoremap <M-Left>  :tabprevious<CR>    " Switch to previous tab
 
 " Block indent/deindent with Ctrl+D and Ctrl+T or Tab and Shift+Tab where
 " available
-vnoremap <C-T>    >
+vnoremap <C-T>   >
 vnoremap <C-D>   <LT>
 vmap     <Tab>   <C-T>
 vmap     <S-Tab> <C-D>
@@ -270,49 +283,45 @@ elseif executable("putclip")
   let g:gist_clip_command = 'putclip'
 end
 
+" GIST
 " detect filetype if vim failed auto-detection.
-let g:gist_detect_filetype = 1
-" open browser after the post
-let g:gist_open_browser_after_post = 1
-let g:gist_private = 1
+" let g:gist_detect_filetype = 1
+" " open browser after the post
+" let g:gist_open_browser_after_post = 1
+" let g:gist_private = 1
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
+map  <F7> :!/usr/bin/ctags -R .<CR>
 let g:tagbar_usearrows = 1
+let g:tagbar_type_clevercss = {'ctagstype':'clevercss','kinds':['c:classes']}
+let g:tagbar_type_pamela    = {'ctagstype':'pamela','kinds':['c:classes']}
+let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'o:operations', 'm:methods', 'f:functions', 's:shared', 'p:properties' ]}
 
 " TaskList, <leader>t
-let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
+" let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
 
 " Default color scheme
 colorscheme ff-cyan
 
-" coffeetags -R -f TAGS
-let g:tagbar_type_coffee = {
-\ 'kinds' : [
-\   'f:functions',
-\   'o:object'
-\ ],
-\ 'kind2scope' : {
-\  'f' : 'object',
-\   'o' : 'object'
-\},
-\ 'sro' : ".",
-\ 'ctagsbin' : 'coffeetags',
-\ 'ctagsargs' : ' ',
-\}
-
+" NOTE: I was using Ctrl-P and am now using Command-T
 " ctrlp.vim configuration
-nmap     <silent> <leader>b  :CtrlPBuffer<CR>
-nmap     <silent> <leader>r  :CtrlPMRU<CR>
-nmap     <silent> <leader>o  :CtrlPCurWD<CR>
-nnoremap <S-Space>           :CtrlPBuffer<CR>
-nmap     <C-Space>           :CtrlPCurWD<CR>
-let g:ctrlp_map = '<leader>f' " mapping to invoke |CtrlP| in |Normal| mode
-let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
-let g:ctrlp_max_height        = 20 " maximum height of the match window
-let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
-let g:ctrlp_custom_ignore     = {
-      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Distribution$\|Dist$',
-      \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
-      \ }
+" nmap     <silent> <leader>b  :CtrlPBuffer<CR>
+" nmap     <silent> <leader>r  :CtrlPMRU<CR>
+" nmap     <silent> <leader>o  :CtrlPCurWD<CR>
+" nnoremap <S-Space>           :CtrlPBuffer<CR>
+" nmap     <C-Space>           :CtrlPCurWD<CR>
+" let g:ctrlp_map = '<leader>f' " mapping to invoke |CtrlP| in |Normal| mode
+" let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
+" let g:ctrlp_max_height        = 20 " maximum height of the match window
+" let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
+" let g:ctrlp_custom_ignore     = {
+"       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$',
+"       \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
+"       \ }
+
+" Command-T
+" See: http://git.wincent.com/command-t.git/blob_plain/HEAD:/doc/command-t.txt
+nmap     <C-Space>           :CommandT<CR>
+
 " EOF

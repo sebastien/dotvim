@@ -44,13 +44,14 @@ syn keyword ccssProperty contained
 \ table-layout text-align text-decoration text-indent text-transform top
 \ unicode-bidi vertical-align visibility voice-family volume white-space widows
 \ width word-spacing z-index
+\ border-radius transition-property transition-duration opacity
 
 syn keyword ccssElement contained *
 syn match ccssClassName contained "\.[A-Za-z][A-Za-z0-9_-]\+"
 syn match ccssIdentifier contained "#[A-Za-z_@][A-Za-z0-9_@-]*"
 
 syn match ccssPsuedoClass contained ":\S\+" contains=ccssPseudoClassId
-syn keyword ccssPseudoClassId contained link visited active hover focus before after left right
+syn keyword ccssPseudoClassId contained link visited active hover focus before after left right none repeat-x repeat-y no-repeat 
 syn match ccssPseudoClassId contained "\<first\(-\(line\|letter\|child\)\)\=\>"
 
 syn match ccssValueInteger contained "[-+]\=\d\+"
