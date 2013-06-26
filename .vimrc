@@ -44,8 +44,11 @@ call      pathogen#infect()
 set       rtp+=~/.vim/bundle/vundle/
 call      vundle#rc()
 Bundle    'gmarik/vundle'
+Bundle    'terryma/vim-multiple-cursors'
 Bundle    'vim-scripts/AutoComplPop'
+"Bundle    'vim-scripts/SuperTab'
 Bundle    'vim-scripts/Tagbar'
+Bundle    'mileszs/ack.vim'
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 Bundle    'git://git.wincent.com/command-t.git'
@@ -66,7 +69,7 @@ set       showmode
 set       showcmd                     " display incomplete commands
 set       showmatch                   " shows matching parenthese"
 set       wildmenu
-set       wildignore+=*/.hg/*,*/.svn/,build,Distribution,*/Distribution/,*/build/,*/.build,*/Build,*/Data,*/Cache,*\.class,*\.pyc,*\.png,*\.jpg,*\.gif
+set       wildignore+=*/.hg/*,*/.svn/,build,tiles,Distribution,*/Distribution/,*/build/,*/tiles/,*/.build,*/Build,*/Data,*/Cache,*\.class,*\.pyc,*\.png,*\.jpg,*\.gif
 set       visualbell
 set       noeb                        " no sound for error message
 set       ttyfast
@@ -220,11 +223,10 @@ nnoremap <C-N> :tabnew<CR>              " Opens a new tab
 
 " Standard Copy/Paste shortcuts
 " FROM: http://superuser.com/questions/10588/how-to-make-cut-copy-paste-in-gvim-on-ubuntu-work-with-ctrlx-ctrlc-ctrlv
-" FIXME: DOES NOT WORK!
-vmap     <C-c> "+y
-vmap     <C-x> "+x
-nmap     <M-v> "+p
-
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
 
 " SEE: http://superuser.com/questions/61226/how-do-i-configure-vim-for-using-ctrl-c-ctrl-v-as-copy-paste-to-and-from-system
 " vnoremap <C-c> :echomsg "Copy"<CR>
@@ -292,11 +294,12 @@ end
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
-map  <F7> :!/usr/bin/ctags -R .<CR>
-let g:tagbar_usearrows = 1
+
+let g:tagbar_usearrows      = 1
+" let g:tagbar_ctags_bin      = 'ctags-sugar'
 let g:tagbar_type_clevercss = {'ctagstype':'clevercss','kinds':['c:classes']}
 let g:tagbar_type_pamela    = {'ctagstype':'pamela','kinds':['c:classes']}
-let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'o:operations', 'm:methods', 'f:functions', 's:shared', 'p:properties' ]}
+let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'e:embed', 'g:group', 'o:operations', 'm:methods', 'f:functions', 's:shared', 'p:properties' ]}
 
 " TaskList, <leader>t
 " let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
@@ -323,5 +326,10 @@ colorscheme ff-cyan
 " Command-T
 " See: http://git.wincent.com/command-t.git/blob_plain/HEAD:/doc/command-t.txt
 nmap     <C-Space>           :CommandT<CR>
+
+" Function keys
+map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
+map  <F1> :bugffers 
+map  <F2> :Ack 
 
 " EOF
