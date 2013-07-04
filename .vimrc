@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 06-Feb-2013 (vim 7.0)
+" Version: 04-Jul-2013 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -40,18 +40,37 @@ set       modelines=0
 syntax    enable
 filetype  off
 call      pathogen#infect()
+" INSTALLS Vundle, see http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/ 
+" Setting up Vundle - the vim plugin bundler
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+let vundle_init=expand('~/.vim/bundle/vundle.initialized')
+if !filereadable(vundle_readme)
+	echo "Vundle not available, installing it"
+	!mkdir -p ~/.vim/bundle
+	!git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+	!touch ~/.vim/bundle/vundle.initialized
+	set rtp+=~/.vim/bundle/vundle/
+	echo "Vundle is installed, you can now restard Vim"
+	:qa!
+endif
+
 " VUNDLE configuration https://github.com/gmarik/vundle#about
 set       rtp+=~/.vim/bundle/vundle/
 call      vundle#rc()
 Bundle    'gmarik/vundle'
 Bundle    'terryma/vim-multiple-cursors'
 Bundle    'vim-scripts/AutoComplPop'
-"Bundle    'vim-scripts/SuperTab'
 Bundle    'vim-scripts/Tagbar'
 Bundle    'mileszs/ack.vim'
+Bundle    'tpope/vim-fugitive'
+Bundle    'https://github.com/tpope/vim-fugitive'
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 Bundle    'git://git.wincent.com/command-t.git'
+if filereadable(vundle_init)
+	:BundleInstall
+	!rm ~/.vim/bundle/vundle.initialized
+endif
 filetype  plugin indent on             " load file type plugins + indentation
 
 " ------------------------------------------------------------------------------
@@ -118,7 +137,7 @@ let g:SuperTabCrMapping = 0
 " C A N D Y
 " ------------------------------------------------------------------------------
 
-set statusline=%3*%f%4*\ %5*\ %6*\ %*[%Y%2*%M%R%W%*]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\ %n%)
+set statusline=%3*%f%4*\ %5*\ %6*\ %*[%Y%2*%M%R%W%*%{fugitive#statusline()}]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\ %n%)
 " set statusline=%f\ \ \ %*[%Y%2*%M%R%W%*]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\°%n%)
 if has("gui_running")
 	set list listchars=tab:»-,trail:·,eol:¬,extends:¬
