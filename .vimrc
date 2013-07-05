@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 04-Jul-2013 (vim 7.0)
+" Version: 05-Jul-2013 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -8,8 +8,7 @@
 " ------------------------------------------------------------------------------
 " Must read:
 " http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)
-" http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file
-" http://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
+" http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file " http://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
 " http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-ma
 "
 " Editing
@@ -128,8 +127,6 @@ set       backspace=indent,eol,start  " backspace through everything in insert m
 " CTAGS
 set tags=./tags,tags;
 
-let g:SuperTabCrMapping = 0
-
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
 "
@@ -148,7 +145,6 @@ endif
 " ------------------------------------------------------------------------------
 " F U N C T I O N S
 " ------------------------------------------------------------------------------
-
 "" Strip whitespaces from the current file
 function! Preserve(command)
   " Preparation: save last search, and cursor position.
@@ -189,12 +185,12 @@ function s:PresetTextFile()
   set colorcolumn=85
 endfunction
 "
+syn match     TrailingWhitespace /\s\+$/
+
 " ----------------------------------------------------------------------------
 " F I L E  T Y P E S
 " ----------------------------------------------------------------------------
 
-" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
 au BufRead,BufNewFile *.txt call s:PresetTextFile()
@@ -210,7 +206,7 @@ autocmd FileType python noremap <silent> <buffer> <M-#> :call CommentLineToEnd (
 autocmd FileType pamela noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
 autocmd FileType sugar  noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
 autocmd FileType html   noremap <silent> <buffer> <M-#> :call CommentLinePincer('<!-- ', ' -->')<CR>+
-" autocmd BufWritePre        * :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,php,ruby,python,sugar,scala,io,actionscript,objc autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en_us
 autocmd BufNewFile,BufRead README   :setlocal spell spelllang=en_us
@@ -230,6 +226,13 @@ autocmd BufNewFile,BufRead *.paml     set syntax=pamela ft=pamela sw=4 ts=4 fold
 " autocmd BufWritePost       *.ccss     :checktime
 autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
 autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
+
+" Highlights trainling whitespace
+" SEE: http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+autocmd BufWinEnter * match TrailingWhitespace /\s\+$/
+autocmd InsertEnter * match TrailingWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match TrailingWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 " ------------------------------------------------------------------------------
 " K E Y B I N D I N G S
@@ -324,6 +327,7 @@ let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'e:embe
 " let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
 
 " Default color scheme
+colorscheme vwilight
 colorscheme ff-cyan
 
 " NOTE: I was using Ctrl-P and am now using Command-T
@@ -338,9 +342,7 @@ colorscheme ff-cyan
 " let g:ctrlp_max_height        = 20 " maximum height of the match window
 " let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
 " let g:ctrlp_custom_ignore     = {
-"       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$',
-"       \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
-"       \ }
+"       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$', "       \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$' "       \ }
 
 " Command-T
 " See: http://git.wincent.com/command-t.git/blob_plain/HEAD:/doc/command-t.txt
