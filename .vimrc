@@ -186,6 +186,7 @@ function s:PresetTextFile()
 endfunction
 "
 syn match     TrailingWhitespace /\s\+$/
+syn match     NonASCII           "[^\x00-\x7F]"
 
 " ----------------------------------------------------------------------------
 " F I L E  T Y P E S
@@ -232,6 +233,9 @@ autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
 autocmd BufWinEnter * match TrailingWhitespace /\s\+$/
 autocmd InsertEnter * match TrailingWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match TrailingWhitespace /\s\+$/
+autocmd BufWinEnter * match NonASCII           "[^\x00-\x7F]"
+autocmd InsertEnter * match NonASCII           "[^\x00-\x7F]"
+autocmd InsertLeave * match NonASCII           "[^\x00-\x7F]"
 autocmd BufWinLeave * call clearmatches()
 
 " ------------------------------------------------------------------------------

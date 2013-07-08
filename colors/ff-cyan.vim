@@ -51,6 +51,7 @@ let g:colors_name="ff-cyan"
 :	hi Type			guifg=#E0E0E0 gui=bold
 :	hi Number		guifg=#909090
 :	hi TrailingWhitespace		guibg=#881300 guifg=#CE1A2C
+:	hi NonASCII		guibg=#183419 guifg=#F1D560
 
 "Diff syntax
 :hi DiffAdd         guifg=#22AEEA guibg=#2F415C

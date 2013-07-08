@@ -1,1 +1,3 @@
 To install: make install
+To configure console mode: vi ~/.vimrc
+To configure graphical mode: vi ~/.gvimrc
