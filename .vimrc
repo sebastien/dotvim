@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 05-Jul-2013 (vim 7.0)
+" Version: 11-Jul-2013 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Bundle    'vim-scripts/AutoComplPop'
 Bundle    'vim-scripts/Tagbar'
 Bundle    'mileszs/ack.vim'
 Bundle    'tpope/vim-fugitive'
-Bundle    'https://github.com/tpope/vim-fugitive'
+Bundle    'vim-scripts/CSApprox'
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 Bundle    'git://git.wincent.com/command-t.git'
@@ -330,8 +330,9 @@ let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'e:embe
 " TaskList, <leader>t
 " let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
 
+" We force terminal to 256 colors, see http://vim.wikia.com/wiki/Using_GUI_color_settings_in_a_terminal
+set t_Co=256
 " Default color scheme
-colorscheme vwilight
 colorscheme ff-cyan
 
 " NOTE: I was using Ctrl-P and am now using Command-T
