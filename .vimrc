@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 11-Jul-2013 (vim 7.0)
+" Version: 16-Aug-2013 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -20,6 +20,8 @@
 "                  ,rv      -- reloads VIM config
 " Function keys  
 "                  F8       -- Toggle TagBar plugin
+" Plugins
+"                  C-Y,     -- Calls emmet.io to expand the contraction
 "
 " Bundles (provided by vundle)
 " :BundleList          - list configured bundles
@@ -63,6 +65,9 @@ Bundle    'vim-scripts/Tagbar'
 Bundle    'mileszs/ack.vim'
 Bundle    'tpope/vim-fugitive'
 Bundle    'vim-scripts/CSApprox'
+Bundle    'Lokaltog/vim-easymotion'
+" Bundle    'wakatime/vim-wakatime'
+Bundle    'mattn/emmet-vim'
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 Bundle    'git://git.wincent.com/command-t.git'
@@ -82,12 +87,13 @@ set       fileformat=unix             " we want to edit in Unix EOL by default
 set       fileformats=unix,mac,dos    " when opening a file we will first try Unix, then Mac and finally DOS
 " INTERFACE
 set       mouse=a                     " enables mouse in terminal
-set       scrolloff=3
+set       scrolloff=3                 " cursor is always 3 lines away from the edge
 set       showmode
 set       showcmd                     " display incomplete commands
 set       showmatch                   " shows matching parenthese"
 set       wildmenu
-set       wildignore+=*/.hg/*,*/.svn/,build,tiles,Distribution,*/Distribution/,*/build/,*/tiles/,*/.build,*/Build,*/Data,*/Cache,*\.class,*\.pyc,*\.png,*\.jpg,*\.gif
+set       wildignore+=*/.hg/*,*/.svn/,build,tiles,Distribution,*/Distribution/,*/build/,*/tiles/,*/.build,*/Build,*/Data,*/data,*/extra,*/extras,*/Cache,*\.class,*\.pyc,*\.png,*\.jpg,*\.gif,*\.tar.gz,*\.tar.bz2,*\.tar.xz,*\.zip
+
 set       visualbell
 set       noeb                        " no sound for error message
 set       ttyfast
@@ -352,6 +358,9 @@ colorscheme ff-cyan
 " Command-T
 " See: http://git.wincent.com/command-t.git/blob_plain/HEAD:/doc/command-t.txt
 nmap     <C-Space>           :CommandT<CR>
+
+" EasyMotion -- https://github.com/Lokaltog/vim-easymotion
+let g:EasyMotion_leader_key = '<leader>'
 
 " Function keys
 map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
