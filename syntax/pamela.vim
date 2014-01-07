@@ -27,8 +27,8 @@ syn match   pamelaCommentAnn    /\v(TODO|NOTE|FIXME|BUG|SEE|WARNING|EOF).*/ cont
 syn match   pamelaInclude       "^\s*%include .*$"
 
 " Django Templates
-syn match   pamelaDjango        "^\s*{%.*%}\s*"
-syn match   htmlEntity          "&[^; \t]*;"            contains=sgmlEntityPunct
+syn match   pamelaTemplate      "\${.*}"
+syn match   htmlEntity          "&[^; \t]+;"            contains=sgmlEntityPunct
 
 syn region  pamelaString        start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend
 syn region  pamelaString        start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend
@@ -37,7 +37,7 @@ syn region  pamelaString        start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"
 
 hi def link pamelaComment       Comment
 hi def link pamelaTag           Statement
-hi def link pamelaDjango        Special
+hi def link pamelaTemplate      Special
 hi def link pamelaInclude       Special
 hi def link htmlEntity          Number
 

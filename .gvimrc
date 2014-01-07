@@ -6,7 +6,7 @@
 colorscheme ff-cyan
 set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
 set guifont=Inconsolata\ 13
-set guifont=PragmataPro\ 11
+set guifont=PragmataPro\ 9
 " https://github.com/Lokaltog/vim-powerline/tree/develop/fontpatcher
 " set guifont=PragmataPro\ for\ Powerline\ 11
 " let g:Powerline_symbols = 'fancy'
