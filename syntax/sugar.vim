@@ -21,7 +21,7 @@ syn match   sugarAnnotation     /\v\@(as|when|pre|post|always)/ nextgroup=sugarM
 syn match   sugarMetaRest       /\v.+/ contained
 syn region  sugarArray          start=+\[+ end=+\]+
 syn match   sugarKey            /\v[a-zA-Z_][a-zA-Z0-9_]*\s*\:/
-syn keyword sugarControl        for if while match else end
+syn keyword sugarControl        for if elif while match else end
 syn match   sugarComputation    /\v(\+|\-|\/|\^|\%)/ 
 syn match   sugarOperator       /\v(is|has|\-\>|\.\.|\:\:|\=)/ 
 syn match   sugarLogic          /\v(and|or|not|\!\=|\=\=|\<|\>|\>\=|\<\=)/ 

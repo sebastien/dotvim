@@ -37,7 +37,6 @@
 " ------------------------------------------------------------------------------
 
 set       nocompatible                " choose no compatibility with legacy vi
-set       modelines=0
 syntax    enable
 filetype  off
 call      pathogen#infect()
@@ -60,7 +59,8 @@ set       rtp+=~/.vim/bundle/vundle/
 call      vundle#rc()
 Bundle    'gmarik/vundle'
 Bundle    'terryma/vim-multiple-cursors'
-Bundle    'vim-scripts/AutoComplPop'
+" Bundle    'vim-scripts/AutoComplPop'
+Bundle    'Shougo/neocomplcache.vim'
 Bundle    'vim-scripts/Tagbar'
 Bundle    'mileszs/ack.vim'
 Bundle    'tpope/vim-fugitive'
@@ -68,9 +68,12 @@ Bundle    'vim-scripts/CSApprox'
 Bundle    'Lokaltog/vim-easymotion'
 " Bundle    'wakatime/vim-wakatime'
 Bundle    'mattn/emmet-vim'
+Bundle    'kien/ctrlp.vim'
+Bundle    'terryma/vim-smooth-scroll'
+Bundle    'rking/ag.vim'
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
-Bundle    'git://git.wincent.com/command-t.git'
+" Bundle    'git://git.wincent.com/command-t.git'
 if filereadable(vundle_init)
 	:BundleInstall
 	!rm ~/.vim/bundle/vundle.initialized
@@ -228,7 +231,7 @@ autocmd BufNewFile,BufRead *.spy      set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.paml     set syntax=pamela ft=pamela sw=4 ts=4 foldlevel=8 noet
+autocmd BufNewFile,BufRead *.paml     set syntax=pamela.sugar ft=pamela sw=4 ts=4 foldlevel=8 noet
 " autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
 " autocmd BufWritePost       *.ccss     :checktime
 autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
@@ -258,6 +261,8 @@ nnoremap <C-N> :tabnew<CR>              " Opens a new tab
 vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
+map  <C-a> GVgg
+map  <C-t> :tabnew <Enter>
 imap <C-v> <C-r><C-o>+
 
 " SEE: http://superuser.com/questions/61226/how-do-i-configure-vim-for-using-ctrl-c-ctrl-v-as-copy-paste-to-and-from-system
@@ -354,13 +359,21 @@ colorscheme ff-cyan
 " let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
 " let g:ctrlp_custom_ignore     = {
 "       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$', "       \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$' "       \ }
+nmap     <C-Space>           :CtrlP<CR>
 
 " Command-T
 " See: http://git.wincent.com/command-t.git/blob_plain/HEAD:/doc/command-t.txt
-nmap     <C-Space>           :CommandT<CR>
+" nmap     <C-Space>           :CommandT<CR>
 
 " EasyMotion -- https://github.com/Lokaltog/vim-easymotion
 let g:EasyMotion_leader_key = '<leader>'
+"
+" NeoComplete Cache
+let g:neocomplcache_enable_at_startup = 1
+
+" Smooth scrolling
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 1)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 1)<CR>
 
 " Function keys
 map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
