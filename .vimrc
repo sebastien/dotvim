@@ -71,6 +71,7 @@ Bundle    'mattn/emmet-vim'
 Bundle    'kien/ctrlp.vim'
 Bundle    'terryma/vim-smooth-scroll'
 Bundle    'rking/ag.vim'
+Bundle    'tpope/vim-fugitive'
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 " Bundle    'git://git.wincent.com/command-t.git'
@@ -218,9 +219,11 @@ autocmd FileType sugar  noremap <silent> <buffer> <M-#> :call CommentLineToEnd (
 autocmd FileType html   noremap <silent> <buffer> <M-#> :call CommentLinePincer('<!-- ', ' -->')<CR>+
 autocmd FileType c,cpp,java,php,ruby,python,sugar,scala,io,actionscript,objc autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
-autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en_us
-autocmd BufNewFile,BufRead README   :setlocal spell spelllang=en_us
-autocmd BufNewFile,BufRead CHANGES  :setlocal spell spelllang=en_us
+autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en
+autocmd BufNewFile,BufRead *.paml   :setlocal spell spelllang=en
+autocmd BufNewFile,BufRead *.html   :setlocal spell spelllang=en
+autocmd BufNewFile,BufRead README   :setlocal spell spelllang=en
+autocmd BufNewFile,BufRead CHANGES  :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead *.as       set syntax=actionscript
 autocmd BufNewFile,BufRead *.kid      set syntax=html
 autocmd BufNewFile,BufRead *.m        set syntax=objc
@@ -371,9 +374,9 @@ let g:EasyMotion_leader_key = '<leader>'
 " NeoComplete Cache
 let g:neocomplcache_enable_at_startup = 1
 
-" Smooth scrolling
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 1)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 1)<CR>
+" Smooth scrolling (this overrides the visual)
+" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 1)<CR>
+" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 1)<CR>
 
 " Function keys
 map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
