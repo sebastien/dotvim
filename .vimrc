@@ -71,7 +71,6 @@ Bundle    'mattn/emmet-vim'
 Bundle    'kien/ctrlp.vim'
 Bundle    'terryma/vim-smooth-scroll'
 Bundle    'rking/ag.vim'
-Bundle    'tpope/vim-fugitive'
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 " Bundle    'git://git.wincent.com/command-t.git'
@@ -129,7 +128,6 @@ set       noignorecase                " searches are case sensitive...
 set       gdefault
 set       showmatch
 " WHITESPACE
-set       tabstop=4 shiftwidth=4      " a tab is two spaces (or set this to 4)
 set       list
 set       list listchars=tab:»-,trail:·,eol:¬,extends:¬,precedes:¬
 let       g:indent_guides_start_level = 1
@@ -228,12 +226,13 @@ autocmd BufNewFile,BufRead *.as       set syntax=actionscript
 autocmd BufNewFile,BufRead *.kid      set syntax=html
 autocmd BufNewFile,BufRead *.m        set syntax=objc
 autocmd BufNewFile,BufRead *.io       set syntax=io
-autocmd BufNewFile,BufRead *.sjs      set syntax=sugar  ft=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.spnuts   set syntax=sugar  ft=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.spy      set syntax=sugar  ft=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.sjs      set syntax=sugar  ft=sugar        sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.spnuts   set syntax=sugar  ft=sugar        sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.spy      set syntax=sugar  ft=sugar        sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar        sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar        sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar        sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.py       set                               sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.paml     set syntax=pamela.sugar ft=pamela sw=4 ts=4 foldlevel=8 noet
 " autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
 " autocmd BufWritePost       *.ccss     :checktime
