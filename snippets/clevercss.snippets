@@ -1,0 +1,132 @@
+snippet module
+	// ----------------------------------------------------------------------------
+	// Project           : NAME
+	// ----------------------------------------------------------------------------
+	// Author            : FFunction
+	// License           : BSD License
+	// ----------------------------------------------------------------------------
+	// Creation date     : DD-MMM-YYYY
+	// Last modification : DD-MMM-YYYY
+	// ----------------------------------------------------------------------------
+
+	BASE_FONT             = 14
+	PX                    = 1em / $BASE_FONT
+	PAD                   = 20   * $PX
+	DPI                   = 160  * $PX
+	DPCM                  = $DPI / 2.54
+
+	COLOR_PAGE_BG        = #FFFFFF
+	COLOR_PAGE_TXT       = #202020
+	FONT_BASE            = "Helvetica", sans-serif
+
+	Z_DEVELOPER_TOOLS      = 110
+	Z_LEGACY               = 102
+	Z_OVERLAY              = 20
+	Z_ABOUT                = 15
+	Z_NAVIGATION           = 10
+	Z_CONTROL              = 9
+	Z_CONTENT              = 5
+	Z_HIDDEN               = 1
+
+	html, body:
+		background-color: $COLOR_PAGE_BG
+
+	// EOF - vim: ts=4 sw=4 noet
+
+snippet section
+
+	// ----------------------------------------------------------------------------
+	//
+	// SECTION
+	//
+	// ----------------------------------------------------------------------------
+
+snippet group
+
+		// ========================================================================
+		// GROUP
+		// ========================================================================
+
+snippet application
+
+	// -----------------------------------------------------------------------------
+	//
+	// APPLICATION
+	//
+	// -----------------------------------------------------------------------------
+
+	.Application:
+		position: absolute
+		top:    0em
+		bottom: 0em
+		left:   0em
+		right:  0em
+		background-color: $COLOR_PAGE_BG
+		color:            $COLOR_PAGE_TXT
+		overflow: hidden
+		&, *:
+			user-select: none
+		&, tr td, tr th, input, button:
+			font-family: $FONT_BASE
+			font-size:   $BASE_FONT * 1px
+			line-height: 1.25em
+		a, a:active, a:visited, a:hover:
+			color: $COLOR_PAGE_TXT
+			text-decoration: none
+		// ========================================================================
+		// DEVICES
+		// ========================================================================
+		.when-mobile:
+			display: none
+		.when-desktop:
+			display: block
+		&[data-device=mobile]:
+			.when-mobile:
+				display: block
+			.when-desktop:
+				display: none
+		// ========================================================================
+		// LANGUAGES
+		// ========================================================================
+		&, &[data-lang=en]:
+			.T[lang]:
+				display: none
+			span.T[lang=en]:
+				display: inline
+			div.T[lang=en]:
+				display: block
+		&[data-lang=fr]:
+			.T[lang]:
+				display: none
+			span.T[lang=fr]:
+				display: inline
+			div.T[lang=fr]:
+				display: block
+		// ========================================================================
+		// UNITS
+		// ========================================================================
+		.PADREF, .EMREF:
+			width:  $PAD
+			height: $PAD
+			bottom: 0em
+			right: 0em
+			position: absolute
+			z-index: $Z_HIDDEN
+			visibility: hidden
+		.EMREF:
+			width:  1em
+			height: 1em
+
+snippet links
+	a, a:active, a:visited, a:hover:
+		color: $COLOR_PAGE_TXT
+		text-decoration: none
+
+snippet clearer
+	&:after:
+		content: "\"\"\"\""
+		display:block
+		height:0
+		line-height: 0
+		clear:both
+	

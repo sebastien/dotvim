@@ -1,0 +1,56 @@
+snippet section
+
+	# ------------------------------------------------------------------------------
+	#
+	# SECTION
+	#
+	# ------------------------------------------------------------------------------
+
+snippet css
+	<link(rel=stylesheet,type=text/css,href="$URL")
+
+snippet script
+	<script(type="text/javascript",src="$URL")
+
+snippet group
+		# ==========================================================================
+		# GROUP
+		# ==========================================================================
+
+snippet html
+	<!DOCTYPE html>
+	<html(lang=en)
+		<head
+			%include includes/meta         {base=,TITLE="${project}"}
+			%include includes/css          {base=}
+			%include includes/scripts      {base=}
+		<body
+	# EOF - vim: ts=4 sw=4 syn=paml.sugar.clevercss
+
+snippet app
+	<!DOCTYPE html>
+	<html(lang=en)
+		<head
+			%include includes/meta         {base=,TITLE="${project}"}
+			%include includes/css          {base=}
+			%include includes/scripts      {base=}
+			<link(rel=stylesheet,type=text/css,href=lib/ccss/${project}.ccss)
+			<script(type="text/javascript",src="lib/ccss/${project}.sjs")
+		<body.reset.use-base(ontouchstart="")
+			<div#Application.Application.widget(data-widget=signature.Application,data-constraint=none,data-base-width=1920,data-base-height=1080)
+				%include widgets/Navigation
+				<main.Content
+					%include widgets/Pages        +.section(data-name=pages)
+					%include widgets/About        +.hidden
+				<div.PADREF
+				<div.EMREF
+				%include widgets/Loading
+				%include widgets/Legacy
+				%include widgets/Orientation
+			# NOTE: You can enabled the devtools by making adding the "devtools" parameter in the URL (#!devtools)
+			%include widgets/DeveloperTools
+			%include widgets/FFTag
+			<script(type=text/javascript)
+				${module}.start()
+
+	# EOF - vim: ts=4 sw=4 syn=paml.sugar.clevercss
