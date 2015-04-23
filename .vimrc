@@ -39,7 +39,7 @@
 set       nocompatible                " choose no compatibility with legacy vi
 syntax    enable
 filetype  off
-call      pathogen#infect()
+
 " INSTALLS Vundle, see http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/ 
 " Setting up Vundle - the vim plugin bundler
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
@@ -58,19 +58,54 @@ endif
 set       rtp+=~/.vim/bundle/vundle/
 call      vundle#rc()
 Bundle    'gmarik/vundle'
-Bundle    'terryma/vim-multiple-cursors'
-" Bundle    'vim-scripts/AutoComplPop'
-Bundle    'Shougo/neocomplcache.vim'
+" CTags integration
 Bundle    'vim-scripts/Tagbar'
-Bundle    'mileszs/ack.vim'
+" Git integration
 Bundle    'tpope/vim-fugitive'
+" Vim color scheme in terminal
 Bundle    'vim-scripts/CSApprox'
-Bundle    'Lokaltog/vim-easymotion'
-" Bundle    'wakatime/vim-wakatime'
-Bundle    'mattn/emmet-vim'
+" Fast motion
+Bundle    'Lokaltog/vim-easymotion' 
+" Nice completion 
 Bundle    'kien/ctrlp.vim'
-Bundle    'terryma/vim-smooth-scroll'
+" SilverSurfer grep
 Bundle    'rking/ag.vim'
+" Useful when switching between screens with different dpi
+Bundle    'thinca/vim-fontzoom'
+" Displays the buffers in the status line
+Bundle    'bling/vim-bufferline'
+" Snippets
+Bundle    'msanders/snipmate.vim'
+" Better file explorer
+Bundle    'scrooloose/nerdtree'
+" Automatically shows the completion menu
+Bundle    'vim-scripts/AutoComplPop'
+" Use :Dict <word> to get the definition
+Bundle    'szw/vim-dict.git' 
+" Automatic bracket/paren/brace insertion
+Bundle    'Raimondi/delimitMate'
+" Syntastic for error checking & linting
+Bundle    'scrooloose/syntastic.git'
+" Zeal Documentation Viewer
+Bundle    'KabbAmine/zeavim.vim'
+" Tabular alignment http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+Bundle    'godlygeek/tabular'
+" Markdown Vim mode
+Bundle    'plasticboy/vim-markdown'
+" Pick - https://github.com/thoughtbot/pick.vim/
+Bundle    'thoughtbot/pick.vim'
+
+
+" Bundles that I've tried and removed
+" Bundle    'terryma/vim-multiple-cursors' -- I don't use it
+" Bundle    'mileszs/ack.vim'              -- Ag is better
+" Bundle    'mattn/emmet-vim'              -- snipmate is much simpler
+" Bundle    'rkitover/vimpager'            -- termcaps not displayed
+" Bundle    'terryma/vim-smooth-scroll'    -- too slow and weird behavior
+" Bundle    'wakatime/vim-wakatime'        -- don't find it useful after all
+" Bundle    'mhinz/vim-signify'            -- too slow and inconsistent
+" Bundle    'Shougo/neocomplcache.vim'
+" Bundle    'ervandew/supertab'            -- I want tab to write a tab, not a cmopletion menu!
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 " Bundle    'git://git.wincent.com/command-t.git'
@@ -107,6 +142,7 @@ set       nolazyredraw                " turn off lazy redraw
 set       laststatus=2
 set       cc=1,4,8,12,80              " columns to highlight"
 set       hidden
+set       synmaxcol=128               " prevent syntax hilighting on long lines
 " EDITING
 set       noet                        " Do not expand tabs to spaces
 set       nosol                       " Do not place cursor at start of line when moving
@@ -190,7 +226,7 @@ function s:PresetTextFile()
   set wrap
   set textwidth=79
   set formatoptions=qrn1
-  set colorcolumn=85
+  set colorcolumn=80
 endfunction
 "
 syn match     TrailingWhitespace /\s\+$/
@@ -237,6 +273,7 @@ autocmd BufNewFile,BufRead *.paml     set syntax=pamela.sugar ft=pamela sw=4 ts=
 " autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
 " autocmd BufWritePost       *.ccss     :checktime
 autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
+autocmd BufNewFile,BufRead *.pcss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
 autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
 
 " Highlights trainling whitespace
@@ -378,8 +415,9 @@ let g:neocomplcache_enable_at_startup = 1
 " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 1)<CR>
 
 " Function keys
+map  <F1> :NERDTree<CR>
+map  <F2> :buffers<CR>
+map  <F5> :Ag
 map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
-map  <F1> :bugffers 
-map  <F2> :Ack 
 
 " EOF

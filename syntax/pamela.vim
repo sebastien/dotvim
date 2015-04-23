@@ -22,7 +22,7 @@ syn match   pamelaAttributeSep  ","                     contained nextgroup=pame
 
 " Everything else
 syn match   pamelaComment       "^\s*#.*$"              contains=pamelaCommentAnn
-syn match   pamelaCommentAnn    /\v(TODO|NOTE|FIXME|BUG|SEE|WARNING|EOF).*/ contained
+syn match   pamelaCommentAnn    /\v(TODO|NOTE|FIXME|BUG|DEBUG|SEE|WARNING|EOF).*/ contained
 
 syn match   pamelaInclude       "^\s*%include .*$"
 

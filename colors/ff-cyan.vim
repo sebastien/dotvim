@@ -41,7 +41,7 @@ let g:colors_name="ff-cyan"
 :	hi MatchParen	guifg=#01a6f3 guibg=#105E6E
 
 "Code syntax
-:	hi Comment		guifg=#D0D0D0 guibg=#3A3A3A
+:	hi Comment		guifg=#909090 guibg=#3A3A3A
 :	hi Todo			guifg=#F0E838 guibg=#635A1D
 :	hi Constant		guifg=#4AE6E9
 :	hi Special		guifg=#E8E5A9

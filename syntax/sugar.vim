@@ -1,11 +1,11 @@
 " Vim syntax file
-" Language:   Sugar (http://www.ivy.fr/sugar)
-" Maintainer: Sébastien Pierre <sebastien@type-z.org>
+" Language:   Sugar (http://github.com/sebastien/sugar)
+" Maintainer: Sébastien Pierre <sebastien.pierre@gmail.com>
 " Created:    2007-04-03
-" Updated:    2009-04-17
+" Updated:    2014-09-23
 
 syn match   sugarComment        "^\s*#.*$" contains=sugarCommentAnn
-syn match   sugarCommentAnn     /\v(TODO|NOTE|FIXME|BUG|SEE|WARNING|EOF)/ contained
+syn match   sugarCommentAnn     /\v(TODO|NOTE|FIXME|BUG|DEBUG|SEE|WARNING|EOF)/ contained
 syn match   sugarDocumentation  "^\s*|.*$" contains=sugarDocRef,sugarDocCode,sugarDocExample skipwhite
 syn match   sugarDocRef         /@[a-zA-Z_][a-zA-Z0-9_]*/ contained
 syn match   sugarDocCode        /\v'[^']+'*/ contained
@@ -23,7 +23,8 @@ syn region  sugarArray          start=+\[+ end=+\]+
 syn match   sugarKey            /\v[a-zA-Z_][a-zA-Z0-9_]*\s*\:/
 syn keyword sugarControl        for if elif while match else end
 syn match   sugarComputation    /\v(\+|\-|\/|\^|\%)/ 
-syn match   sugarOperator       /\v(is|has|\-\>|\.\.|\:\:|\=)/ 
+syn match   sugarOperator       /\v(is|has|in|\-\>|\.\.|\:\:|\=)/ 
+syn match   sugarDelimiter      /\v(\(|\)|\[|\]|\{|\}|\:)/ 
 syn match   sugarLogic          /\v(and|or|not|\!\=|\=\=|\<|\>|\>\=|\<\=)/ 
 syn match   sugarInteger        /[0-9]+/
 syn match   sugarFloat          /[0-9]+.[0-9]+/
@@ -36,14 +37,13 @@ syn match   sugarConstant       /\<[A-Z][A-Z0-9_]\+\>/
 syn keyword sugarAllocation     var nextgroup=sugarDeclName skipwhite
 syn keyword sugarStatement      return new self super
 
-syn region  sugarString     start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend
-syn region  sugarString     start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend
-
+syn region  sugarSQString     start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend
+syn region  sugarDQString     start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend
 
 hi def link sugarComment        Comment
 hi def link sugarCommentAnn     Todo
-hi def link sugarDocumentation  Comment
-hi def link sugarDocRef         Identifier
+hi def link sugarDocumentation  String
+hi def link sugarDocRef         String
 hi def link sugarDocCode        String
 hi def link sugarDocExample     Statement
 hi def link sugarDeclaration    Statement
@@ -54,7 +54,7 @@ hi def link sugarFunctionArgs   Identifier
 hi def link sugarDeclName       Identifier
 hi def link sugarDeclType       Type
 hi def link sugarName           Normal
-hi def link sugarConstant       Identifier
+hi def link sugarConstant       Constant
 hi def link sugarStructure      Function
 hi def link sugarMeta           Special
 hi def link sugarAnnotation     Special
@@ -63,11 +63,13 @@ hi def link sugarArray          Special
 hi def link sugarKey            Identifier
 hi def link sugarControl        Conditional
 hi def link sugarOperator       Conditional
+hi def link sugarDelimiter      Special
 hi def link sugarComputation    Special
 hi def link sugarLogic          Special
 hi def link sugarAllocation     Statement
 hi def link sugarStatement      Statement
-hi def link sugarString         String
+hi def link sugarSQString       String
+hi def link sugarDQString       String
 hi def link sugarInteger        Number
 hi def link sugarFloat          Float
 hi def link sugarValues         String

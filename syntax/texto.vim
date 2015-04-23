@@ -1,34 +1,43 @@
 " Vim syntax file
-" Language:   Kiwi
-" Maintainer: Sébastien Pierre <sebastien@type-z.org>
-" Updated:    2006-07-07
+" Language:   Texto
+" Maintainer: Sébastien Pierre <sebastien.pierre@gmail.com>
+" Updated:    2014-06-09
 
-syn match kiwiComment			"^#.*$"
-syn match kiwiTitle				"^== [^=]\+.\+$"
-syn match kiwiSubTitle			/^-- .*$/
-syn match kiwiPreformatted		/\s*>\(\t\|   \).*/
-syn match kiwiBold				/\*.*\*/
-syn match kiwiCode				/`.*`/
-syn match kiwiKeyword			/_.*_/
-syn match kiwiLink				/\[.*\]\s*([^\)]*)/
-syn match kiwiListItem			/^\s*\(-\|\a)\|\d)\)\s*[^:.,]*/
+syn match  textoComment			"^#.*$"
+syn match  textoTitle			"^== [^=]\+.\+$"
+syn match  textoSubTitle		/^-- .*$/
+syn match  textoPreformatted	/\s*>\(\t\|   \).*/
+syn match  textoBold			/\*.*\*/
+syn match  textoCode			/`.*`/
+syn region textoCodeBlock		start=+```+ end=+```+
+syn match  textoKeyword			/_.*_/
+syn match  textoLink			/\[.*\]\s*([^\)]*)/
+syn match  textoReference		/\[.*\]\s*([^\]]*)/
+syn match  textoURL  			/<\w+:\/\/[^>]+>/
+syn region textoListItem		start=/^\s*\(-\|\a)\|\d)\)/ end=/$/ contains=textoKeyword,textoLink,textoReference,textoCode,textoBold,textoURL
+syn match  textDefinitionItem	/^.+::$/                       contains=textoKeyword,textoLink,textoReference,textoCode,textoBold,textoURL
 
-syn match kiwiSectionSingle		/^\(\d\.\)+\d?.*$/
-syn match kiwiSectionMulti 		/^.*\n\(=\+\|-\+\)$/
+syn match textoSectionSingle	/^\(\d\.\)+\d?.*$/
+syn match textoSectionMulti 	/^.*\n\(=\+\|-\+\)$/
 
-hi def link kiwiTitle			Function
-hi def link kiwiComment			Comment
+hi def link textoTitle			Special
+hi def link textoSectionSingle	Special
+hi def link textoSectionMulti	Special
 
-hi def link kiwiSectionSingle	Function
-hi def link kiwiSectionMulti	Function
+hi def link textoComment		Comment
 
-hi def link kiwiListItem		Special
+hi def link textoKeyword		Statement
 
-hi def link kiwiLink			Statement
-hi def link kiwiEmail			Statement
-hi def link kiwiKeyword			Statement
+hi def link textoListItem		Special
+hi def link textoDefinitionItem	Special
 
-hi def link kiwiPreformatted	String
-hi def link kiwiCode			String
-hi def link kiwiBold			String
+hi def link textoLink			Function
+hi def link textoReference		Function
+hi def link textoURL			Function
+hi def link textoEmail			Function
+
+hi def link textoPreformatted	String
+hi def link textoCode			String
+hi def link textoBold			String
+hi def link textoCodeBlock		String
 
