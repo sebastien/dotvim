@@ -21,6 +21,7 @@ let g:colors_name="ff-cyan"
 :	hi NonText		guifg=#4A4A4A
 :	hi LineNr		guifg=#202020 guibg=#3A3A3A
 :	hi CursorLine	guifg=#FDFFFF guibg=#427BCF
+:	hi CursorLineNr	guifg=#202020 guibg=#385153
 :	hi Folded		guifg=#D0D0D0 guibg=#3A3A3A
 :	hi Cursor		guibg=#01a6f3
 :	hi Directory	guifg=#008ABD

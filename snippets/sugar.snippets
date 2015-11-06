@@ -5,13 +5,79 @@ snippet module
 	# Author            : FFunction
 	# License           : BSD License
 	# -----------------------------------------------------------------------------
-	# Creation date     : DD-MMM-YYYY
-	# Last modification : DD-MMM-YYYY
+	# Creation date     : YYYY-MM-DD
+	# Last modification : YYYY-MM-DD
 	# -----------------------------------------------------------------------------
 
-	@module   <name>
+	@module   NAME
 	@version  0.0.0
 	@shared LICENSE = "http://ffctn.com/doc/licenses/bsd"
+
+	# EOF - vim: ts=4 sw=4 noet
+snippet app:
+	# -----------------------------------------------------------------------------
+	# Project           : NAME
+	# -----------------------------------------------------------------------------
+	# Author            : FFunction
+	# License           : BSD License
+	# -----------------------------------------------------------------------------
+	# Creation date     : YYYY-MM-DD
+	# Last modification : YYYY-MM-DD
+	# -----------------------------------------------------------------------------
+
+	@module   NAME
+	@version  0.0.0
+	@import   Widget, T from widgets
+	@import   Application, Connector, URL, ON, APP, COOKIES from app
+
+	@shared LICENSE = "http://ffctn.com/doc/licenses/bsd"
+	@shared $       = widgets $
+	@shared API     = None
+	@shared DB      = None
+
+	# -----------------------------------------------------------------------------
+	#
+	# CONNECTOR
+	#
+	# -----------------------------------------------------------------------------
+
+	@class Connector: Connector
+	@end
+
+	# -----------------------------------------------------------------------------
+	#
+	# APPLICATION
+	#
+	# -----------------------------------------------------------------------------
+
+	@class Application: Application
+
+		@shared UIS = extend merge ({
+			navigation : ".Navigation"
+			content    : ".Content"
+		},app Application UIS)
+
+		@property routes = [
+			["^<regexp>?$",  {_|}]
+		]
+
+		@method bindUI
+			super bindUI ()
+		@end
+
+	@end
+
+	# -----------------------------------------------------------------------------
+	#
+	# START
+	#
+	# -----------------------------------------------------------------------------
+
+	@function start
+		API = new __module__ Connector ()
+		DB  = new __module__ Storage   ()
+		app start ()
+	@end
 
 	# EOF - vim: ts=4 sw=4 noet
 snippet section

@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 16-Aug-2013 (vim 7.0)
+" Version: 06-May-2015 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -15,7 +15,8 @@
 "                  \\\      -- comments a line/block
 "                  :Tab /=  -- aligns on =
 " Leader           ,        -- press , and then the following commands
-"                  ,f       -- CtrlP vim plugin https://github.com/kien/ctrlp.vim
+"                  ,w       -- Easy motion jump
+"                  ,f       -- Easy Motion search
 "                  ,jpp     -- pretty-prints the (currently selected) JSON
 "                  ,rv      -- reloads VIM config
 " Function keys  
@@ -92,8 +93,26 @@ Bundle    'KabbAmine/zeavim.vim'
 Bundle    'godlygeek/tabular'
 " Markdown Vim mode
 Bundle    'plasticboy/vim-markdown'
+" JavaScript Vim mode
+Bundle    'pangloss/vim-javascript'
 " Pick - https://github.com/thoughtbot/pick.vim/
 Bundle    'thoughtbot/pick.vim'
+" Snake - https://github.com/amoffat/snake
+Bundle    'amoffat/snake'
+" VimProc - https://github.com/Shougo/vimproc.vim
+Bundle    'Shougo/vimproc.vim'
+" TypeScript - https://github.com/leafgarland/typescript-vim
+Bundle    'leafgarland/typescript-vim'
+" TypeScript - https://github.com/Quramy/tsuquyomi
+Bundle    'Quramy/tsuquyomi'
+" Markify - https://github.com/dhruvasagar/vim-markify
+Bundle    'dhruvasagar/vim-markify'
+" Sessions - https://github.com/xolox/vim-misc (required by vim-session)
+Bundle    'xolox/vim-misc'
+" Sessions - https://github.com/xolox/vim-session
+Bundle    'xolox/vim-session'
+
+" I tried `hier`, but it does not list the error on cursor
 
 
 " Bundles that I've tried and removed
@@ -106,6 +125,8 @@ Bundle    'thoughtbot/pick.vim'
 " Bundle    'mhinz/vim-signify'            -- too slow and inconsistent
 " Bundle    'Shougo/neocomplcache.vim'
 " Bundle    'ervandew/supertab'            -- I want tab to write a tab, not a cmopletion menu!
+" Bundle    'cohama/vim-hier'              -- Does not give the error message
+" Bundle    'dannyob/quickfixstatus'       -- Does not load, has an error
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'Valloric/YouCompleteMe'
 " Bundle    'git://git.wincent.com/command-t.git'
@@ -134,6 +155,7 @@ set       wildignore+=*/.hg/*,*/.svn/,build,tiles,Distribution,*/Distribution/,*
 
 set       visualbell
 set       noeb                        " no sound for error message
+set       relativenumber              " displays relative line numbers
 set       ttyfast
 set       nobackup
 set       ruler                       " show the cursor position all the time
@@ -252,6 +274,7 @@ autocmd FileType pamela noremap <silent> <buffer> <M-#> :call CommentLineToEnd (
 autocmd FileType sugar  noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
 autocmd FileType html   noremap <silent> <buffer> <M-#> :call CommentLinePincer('<!-- ', ' -->')<CR>+
 autocmd FileType c,cpp,java,php,ruby,python,sugar,scala,io,actionscript,objc autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType typescript setlocal completeopt+=menu,preview
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead *.paml   :setlocal spell spelllang=en
@@ -268,7 +291,14 @@ autocmd BufNewFile,BufRead *.spy      set syntax=sugar  ft=sugar        sw=4 ts=
 autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar        sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar        sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar        sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.py       set                               sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.py       set syntax=python ft=python       sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.ts       set syntax=typescript ft=typescript       sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.ts.nb    set syntax=typescript ft=typescript  sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.ts.nb    let g:typescript_compiler_binary="nobrackets-wrap tsc"
+autocmd BufNewFile,BufRead *.ts.nb    set errorformat=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
+autocmd BufNewFile,BufRead *.ts.nb    compiler typescript
+autocmd BufWritePost       *.ts.nb    make
+autocmd BufNewFile,BufRead *.js       set syntax=typescript ft=typescript       sw=4 ts=4 noet
 autocmd BufNewFile,BufRead *.paml     set syntax=pamela.sugar ft=pamela sw=4 ts=4 foldlevel=8 noet
 " autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
 " autocmd BufWritePost       *.ccss     :checktime
@@ -377,6 +407,77 @@ let g:tagbar_type_clevercss = {'ctagstype':'clevercss','kinds':['c:classes']}
 let g:tagbar_type_pamela    = {'ctagstype':'pamela','kinds':['c:classes']}
 let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'e:embed', 'g:group', 'o:operations', 'm:methods', 'f:functions', 's:shared', 'p:properties' ]}
 
+" -----------------------------------------------------------------------------
+" Project           : nobrackets
+" -----------------------------------------------------------------------------
+" Author            : Sébastien Pierre              <http://sebastienpierre.ca>
+" License           : BSD License
+" -----------------------------------------------------------------------------
+" Creation date     : 2015-11-06
+" Last modification : 2015-11-06
+" -----------------------------------------------------------------------------
+
+" An internal variable used to store the state of the preview (only one
+" is allowed)
+let g:nobrackets_preview_visible = 0
+
+" The main function called. This runs nobrackets and the current buffer
+" and shows a preview side by side. Movements in the current buffer
+" are synchronized with the preview buffer.
+function! NobracketsPreview()
+	if g:nobrackets_preview_visible == 1
+		" If nobrackets is already visible, we hide it
+		let g:nobrackets_preview_visible = 0
+		" We clear the insert autocommand from the preview
+		augroup robrackets
+			au!
+		augroup END
+		bd! nobrackets
+		set noscrollbind | set nocursorbind | set nocursorline | set nocursorcolumn
+	else
+		" If nobrackets is not already visible, we show it
+		" We store the current file
+		let g:nobrackets_preview_visible = 1
+		let f_format = &fileformat
+		let f_type   = &filetype
+		let f_path   = @%
+		let cursor   = getpos(".")
+		" We want to split the buffer vertically so that we have
+		" side-by-side comparison
+		set splitright
+		set scrollbind | set cursorbind | set cursorline | set cursorcolumn
+		execute "vnew " . f_path . "+nobrackets"
+		" Without silent, the command will ask to press enter
+		execute "silent read !nobrackets " . f_path
+		" There's an extra blank line at the beginning, we remove it
+		normal gg
+		normal dd
+		set scrollbind | set cursorbind | set cursorline | set cursorcolumn
+		" We set the buffer to readonly (it should not be edited)
+		" I don't think we can reference variables in commands
+		execute "set fileformat=" . f_format
+		execute "set filetype="   . f_type
+		setlocal nomodifiable
+		wincmd h
+		" Cursor binding
+		" SEE: http://stackoverflow.com/questions/5227964/vim-how-to-scrollbind-the-cursor-line-too
+		nmap h h:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
+		nmap j j:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
+		nmap k k:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
+		nmap l l:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
+		" We close the preview once we're in insert mode
+		augroup robrackets
+			au InsertEnter * windo call NobracketsPreview()
+		augroup END
+		" We set the cursor where it was and redraw the windows
+		call setpos('.', cursor)
+		let  curwin=winnr()
+		keepjumps windo redraw 
+		execute curwin . "wincmd w"
+	endif
+endfunction
+nmap <F9> :call NobracketsPreview()<CR>
+
 " TaskList, <leader>t
 " let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
 
@@ -387,18 +488,20 @@ colorscheme ff-cyan
 
 " NOTE: I was using Ctrl-P and am now using Command-T
 " ctrlp.vim configuration
-" nmap     <silent> <leader>b  :CtrlPBuffer<CR>
-" nmap     <silent> <leader>r  :CtrlPMRU<CR>
-" nmap     <silent> <leader>o  :CtrlPCurWD<CR>
-" nnoremap <S-Space>           :CtrlPBuffer<CR>
-" nmap     <C-Space>           :CtrlPCurWD<CR>
-" let g:ctrlp_map = '<leader>f' " mapping to invoke |CtrlP| in |Normal| mode
-" let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
-" let g:ctrlp_max_height        = 20 " maximum height of the match window
-" let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
-" let g:ctrlp_custom_ignore     = {
-"       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$', "       \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$' "       \ }
-nmap     <C-Space>           :CtrlP<CR>
+nmap     <silent> <leader>b  :CtrlPBuffer<CR>
+nmap     <silent> <leader>r  :CtrlPMRU<CR>
+nmap     <silent> <leader>o  :CtrlPCurWD<CR>
+nnoremap <S-Space>           :CtrlPBuffer<CR>
+nmap     <C-Space>           :CtrlPCurWD<CR>
+let g:ctrlp_map = '<leader>p' " mapping to invoke |CtrlP| in |Normal| mode
+let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
+let g:ctrlp_max_height        = 20 " maximum height of the match window
+let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
+let g:ctrlp_custom_ignore     = {
+\ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$', 
+\ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
+\ }
+" nmap     <C-Space>           :CtrlP<CR>
 
 " Command-T
 " See: http://git.wincent.com/command-t.git/blob_plain/HEAD:/doc/command-t.txt
@@ -409,6 +512,12 @@ let g:EasyMotion_leader_key = '<leader>'
 "
 " NeoComplete Cache
 let g:neocomplcache_enable_at_startup = 1
+
+" Syntastic
+let g:syntastic_typescript_checkers = ["nobrackets-wrap"]
+
+" Session
+let g:session_autosave='no'
 
 " Smooth scrolling (this overrides the visual)
 " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 1)<CR>

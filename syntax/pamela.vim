@@ -1,20 +1,19 @@
 " Vim syntax file
-" Language:   Pamela (http://www.ivy.fr/pamela)
-" Authors:    Sebastien Pierre <sebastien@type-z.org>
-"             Maxime Dupuis <maxime@akoha.org>
-" Maintainer: Sebastien Pierre <sebastien@type-z.org>
+" Language:   Pamela
+" Authors:    Sebastien Pierre <sebastien@ffctn.com>
+" Maintainer: Sebastien Pierre <sebastien@ffctn.com>
 " Created:    2007-09-12
-" Updated:    2008-01-11
+" Updated:    2015-05-06
 
 " Tag classes, ids, labels
 syn match   pamelaId            "#[A-Za-z0-9_-]*"       contained   nextgroup=pamelaClassSep,pamelaLabel
 syn match   pamelaClassSep      "\."                    contained   nextgroup=pamelaClassSpecial,pamelaClass
-syn match   pamelaClassSpecial  "(do|in|out|when|use|with|hidden|template)" contained   nextgroup=pamelaClassSep,pamelaLabel,pamelaId
+syn keyword pamelaClassSpecial  do in out when use with hidden template widget contained  nextgroup=pamelaClassSep,pamelaLabel,pamelaId
 syn match   pamelaClass         "[A-Za-z0-9_-]*"        contained   nextgroup=pamelaClassSep,pamelaLabel,pamelaId
 syn match   pamelaLabel         ":.*"                   contained
 
 " Tags
-syn match   pamelaTag           "\s*<\w*[^\W\(\.#:]"    nextgroup=pamelaId,pamelaClassSep,pamelaLabel,pamelaAttributes,pamelaClass
+syn match   pamelaTag           "\s*<\w*[^\W\(\.#:]"    nextgroup=pamelaId,pamelaClassSep,pamelaLabel,pamelaAttributes,pamelaClassSpecial,pamelaClass
 syn region  pamelaAttributes    start=+(+ end=+)+       contains=pamelaSpecialattribute,pamelaAttribute,pamelaAttribueVal,pamelaAttributeSep
 syn match   pamelaAttribute     "[A-Za-z0-9_-]*="       contained nextgroup=pamelaAttributeVal
 syn match   pamelaAttributeVal  "[^,\)]*"               contained nextgroup=pamelaAttributeSep
@@ -36,14 +35,14 @@ syn region  pamelaString        start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"
 "-------------------------------------------------
 
 hi def link pamelaComment       Comment
-hi def link pamelaTag           Statement
+hi def link pamelaTag           Type
 hi def link pamelaTemplate      Special
 hi def link pamelaInclude       Special
 hi def link htmlEntity          Number
 
 hi def link pamelaId            Identifier
 hi def link pamelaClassSep      Normal
-hi def link pamelaClass         Identifier
+hi def link pamelaClass         Statement
 hi def link pamelaClassSpecial  PreProc
 hi def link pamelaLabel         Constant
 
