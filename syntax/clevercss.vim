@@ -25,7 +25,7 @@ syn keyword ccssElement contained
 " http://www.w3.org/TR/2009/CR-CSS2-20090908/propidx.html
 syn keyword ccssProperty contained
 \ azimuth background-attachment background-color background-image
-\ background-position background-repeat background border-collapse border-color
+\ background-position background-repeat background border-collapse border-color background-size
 \ border-spacing border-style border-top border-right border-bottom border-left
 \ border-top-color border-right-color border-bottom-color border-left-color
 \ border-top-style border-right-style border-bottom-style border-left-style
@@ -45,18 +45,21 @@ syn keyword ccssProperty contained
 \ unicode-bidi vertical-align visibility voice-family volume white-space widows
 \ width word-spacing z-index
 \ border-radius transition-property transition-duration opacity
+\ box-sizing box-shadow 
+\ user-select 
+\ pointer-events stroke fill stroke-width
 
 syn keyword ccssElement contained *
 syn match ccssClassName contained "\.[A-Za-z][A-Za-z0-9_-]\+"
 syn match ccssIdentifier contained "#[A-Za-z_@][A-Za-z0-9_@-]*"
 
 syn match ccssPsuedoClass contained ":\S\+" contains=ccssPseudoClassId
-syn keyword ccssPseudoClassId contained link visited active hover focus before after left right none repeat-x repeat-y no-repeat 
+syn keyword ccssPseudoClassId contained link visited active hover focus before after left right none repeat-x repeat-y no-repeat top
 syn match ccssPseudoClassId contained "\<first\(-\(line\|letter\|child\)\)\=\>"
 
 syn match ccssValueInteger contained "[-+]\=\d\+"
 syn match ccssValueNumber contained "[-+]\=\d\+\(\.\d*\)\="
-syn match ccssValueLength contained "[-+]\=\d\+\(\.\d*\)\=\(%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\)"
+syn match ccssValueLength contained "[-+]\=\d\+\(\.\d*\)\=\(%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px|pem\)"
 
 syn match ccssValueColor contained "\<transparent\>"
 syn match ccssValueColor contained "#[0-9A-Fa-f]\{3\}\>"

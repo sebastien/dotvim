@@ -28,6 +28,61 @@ snippet module
 	Z_CONTENT              = 5
 	Z_HIDDEN               = 1
 
+	// ----------------------------------------------------------------------------
+	//
+	// UNITS
+	//
+	// ----------------------------------------------------------------------------
+
+
+	@unit pem = 1em / $BASE_FONT
+	@unit pad = 10pem
+
+	// ----------------------------------------------------------------------------
+	//
+	// MACROS
+	//
+	// ----------------------------------------------------------------------------
+
+	@macro expand
+		position: absolute
+		top:    0em
+		bottom: 0em
+		right:  0em
+		left:   0em
+
+	@macro font delta
+		font-size: $delta * 100%
+		line-height: $BASE_LINE_HEIGHT
+
+	@macro triangle width, color
+		width:  0
+		height: 0
+		border-style: solid
+		border-width: 0 $width $width $width
+		border-color: transparent transparent $color transparent
+
+	@macro rounded radius
+		display:       block
+		margin-top:    0 - $radius
+		margin-left:   0 - $radius
+		border-radius: $radius
+		width:         $radius * 2
+		height:        $radius * 2
+		background:    #FFFFFF00
+
+	@macro icon width, height, image
+		width:  $width  * 1pem
+		height: $height * 1pem
+		background-image: $image
+
+	@macro cleared
+		&:after:
+			content: ""
+			display: block
+			height: 0em
+			clear: both
+
 	html, body:
 		background-color: $COLOR_PAGE_BG
 

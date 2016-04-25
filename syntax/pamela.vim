@@ -3,7 +3,7 @@
 " Authors:    Sebastien Pierre <sebastien@ffctn.com>
 " Maintainer: Sebastien Pierre <sebastien@ffctn.com>
 " Created:    2007-09-12
-" Updated:    2015-05-06
+" Updated:    2015-12-07
 
 " Tag classes, ids, labels
 syn match   pamelaId            "#[A-Za-z0-9_-]*"       contained   nextgroup=pamelaClassSep,pamelaLabel
@@ -24,6 +24,7 @@ syn match   pamelaComment       "^\s*#.*$"              contains=pamelaCommentAn
 syn match   pamelaCommentAnn    /\v(TODO|NOTE|FIXME|BUG|DEBUG|SEE|WARNING|EOF).*/ contained
 
 syn match   pamelaInclude       "^\s*%include .*$"
+syn match   pamelaMacro         "^\s*@.*$"
 
 " Django Templates
 syn match   pamelaTemplate      "\${.*}"
@@ -38,6 +39,7 @@ hi def link pamelaComment       Comment
 hi def link pamelaTag           Type
 hi def link pamelaTemplate      Special
 hi def link pamelaInclude       Special
+hi def link pamelaMacro         Special
 hi def link htmlEntity          Number
 
 hi def link pamelaId            Identifier

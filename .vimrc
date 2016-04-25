@@ -1,6 +1,6 @@
 " ==============================================================================
 " Sebastien - vimrc
-" Version: 06-May-2015 (vim 7.0)
+" Version: 17-Feb-2016 (vim 7.0)
 " ==============================================================================
 
 " ------------------------------------------------------------------------------
@@ -11,24 +11,33 @@
 " http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file " http://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
 " http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-ma
 "
-" Editing
-"                  \\\      -- comments a line/block
-"                  :Tab /=  -- aligns on =
 " Leader           ,        -- press , and then the following commands
 "                  ,w       -- Easy motion jump
 "                  ,f       -- Easy Motion search
 "                  ,jpp     -- pretty-prints the (currently selected) JSON
 "                  ,rv      -- reloads VIM config
 " Function keys  
+"                  F1       -- NERDtree
+"                  F2       -- List buffers
+"                  F5       -- Ag
+"                  F7       -- Update CTags
 "                  F8       -- Toggle TagBar plugin
-" Plugins
-"                  C-Y,     -- Calls emmet.io to expand the contraction
-"
+"                  F9       -- Nobrackets preview
+
 " Bundles (provided by vundle)
+" ============================
 " :BundleList          - list configured bundles
 " :BundleInstall(!)    - install(update) bundles
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" Silver Searcher
+" ===============
+" :Ag                  - searches using The Silver Searcher
+" [normal]    gagiw    - search current word with Ag
+"             gagi'    - search current words inside single quotes
+" [visual]    gagi     - search selected text
+
 
 " How to debug a keybiding
 " <binding command> <keybinding> :echomsg "Key pressed"<CR>
@@ -68,9 +77,11 @@ Bundle    'vim-scripts/CSApprox'
 " Fast motion
 Bundle    'Lokaltog/vim-easymotion' 
 " Nice completion 
-Bundle    'kien/ctrlp.vim'
+Bundle    'ctrlpvim/ctrlp.vim'
 " SilverSurfer grep
 Bundle    'rking/ag.vim'
+" Gag on anything
+Bundle    'Chun-Yang/vim-action-ag'
 " Useful when switching between screens with different dpi
 Bundle    'thinca/vim-fontzoom'
 " Displays the buffers in the status line
@@ -91,16 +102,14 @@ Bundle    'scrooloose/syntastic.git'
 Bundle    'KabbAmine/zeavim.vim'
 " Tabular alignment http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 Bundle    'godlygeek/tabular'
-" Markdown Vim mode
-Bundle    'plasticboy/vim-markdown'
 " JavaScript Vim mode
 Bundle    'pangloss/vim-javascript'
 " Pick - https://github.com/thoughtbot/pick.vim/
 Bundle    'thoughtbot/pick.vim'
 " Snake - https://github.com/amoffat/snake
-Bundle    'amoffat/snake'
+" Bundle    'amoffat/snake'
 " VimProc - https://github.com/Shougo/vimproc.vim
-Bundle    'Shougo/vimproc.vim'
+" Bundle    'Shougo/vimproc.vim'
 " TypeScript - https://github.com/leafgarland/typescript-vim
 Bundle    'leafgarland/typescript-vim'
 " TypeScript - https://github.com/Quramy/tsuquyomi
@@ -111,12 +120,21 @@ Bundle    'dhruvasagar/vim-markify'
 Bundle    'xolox/vim-misc'
 " Sessions - https://github.com/xolox/vim-session
 Bundle    'xolox/vim-session'
+" OpenSCAD - https://github.com/sirtaj/vim-openscad
+Bundle    'sirtaj/vim-openscad'
+" Multiple Cursors - https://github.com/terryma/vim-multiple-cursors
+" Bundle    'terryma/vim-multiple-cursors'
+" CSS Colors Cursors - https://github.com/skammer/vim-css-color
+Bundle    'skammer/vim-css-color'
+" Jedi - https://github.com/davidhalter/jedi-vim
+"Bundle    'davidhalter/jedi-vim'
+" Bundle    'Valloric/YouCompleteMe'
+
 
 " I tried `hier`, but it does not list the error on cursor
 
 
 " Bundles that I've tried and removed
-" Bundle    'terryma/vim-multiple-cursors' -- I don't use it
 " Bundle    'mileszs/ack.vim'              -- Ag is better
 " Bundle    'mattn/emmet-vim'              -- snipmate is much simpler
 " Bundle    'rkitover/vimpager'            -- termcaps not displayed
@@ -128,7 +146,6 @@ Bundle    'xolox/vim-session'
 " Bundle    'cohama/vim-hier'              -- Does not give the error message
 " Bundle    'dannyob/quickfixstatus'       -- Does not load, has an error
 " NOTE: Requires 7.3.584, current version is tool old
-" Bundle    'Valloric/YouCompleteMe'
 " Bundle    'git://git.wincent.com/command-t.git'
 if filereadable(vundle_init)
 	:BundleInstall
@@ -155,7 +172,6 @@ set       wildignore+=*/.hg/*,*/.svn/,build,tiles,Distribution,*/Distribution/,*
 
 set       visualbell
 set       noeb                        " no sound for error message
-set       relativenumber              " displays relative line numbers
 set       ttyfast
 set       nobackup
 set       ruler                       " show the cursor position all the time
@@ -179,10 +195,11 @@ set       sta                         " Smart tabs
 set       paste                       " Paste mode
 set       foldmethod=indent           " Folding
 set       foldlevel=4
+set       nospell                     " Spell off by default, re-activated for specific files only
 " SEARCHING
 set       hlsearch                    " highlight matches
 set       incsearch                   " incremental searching
-set       noignorecase                " searches are case sensitive...
+set       noignorecase                " searches are case sensitive
 set       gdefault
 set       showmatch
 " WHITESPACE
@@ -279,6 +296,7 @@ autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead *.paml   :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead *.html   :setlocal spell spelllang=en
+autocmd BufNewFile,BufRead *.md     :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead README   :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead CHANGES  :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead *.as       set syntax=actionscript
@@ -398,11 +416,8 @@ end
 " let g:gist_open_browser_after_post = 1
 " let g:gist_private = 1
 
-" Tagbar
-nmap <F8> :TagbarToggle<CR>
-
 let g:tagbar_usearrows      = 1
-" let g:tagbar_ctags_bin      = 'ctags-sugar'
+" let g:tagbar_ctags_bin      = 'ctags-wrapper'
 let g:tagbar_type_clevercss = {'ctagstype':'clevercss','kinds':['c:classes']}
 let g:tagbar_type_pamela    = {'ctagstype':'pamela','kinds':['c:classes']}
 let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'e:embed', 'g:group', 'o:operations', 'm:methods', 'f:functions', 's:shared', 'p:properties' ]}
@@ -476,7 +491,6 @@ function! NobracketsPreview()
 		execute curwin . "wincmd w"
 	endif
 endfunction
-nmap <F9> :call NobracketsPreview()<CR>
 
 " TaskList, <leader>t
 " let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
@@ -491,14 +505,14 @@ colorscheme ff-cyan
 nmap     <silent> <leader>b  :CtrlPBuffer<CR>
 nmap     <silent> <leader>r  :CtrlPMRU<CR>
 nmap     <silent> <leader>o  :CtrlPCurWD<CR>
-nnoremap <S-Space>           :CtrlPBuffer<CR>
+nnoremap <S-Space>           :CtrlPTag<CR>
 nmap     <C-Space>           :CtrlPCurWD<CR>
 let g:ctrlp_map = '<leader>p' " mapping to invoke |CtrlP| in |Normal| mode
 let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
 let g:ctrlp_max_height        = 20 " maximum height of the match window
 let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
 let g:ctrlp_custom_ignore     = {
-\ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$', 
+\ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$|deps$', 
 \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
 \ }
 " nmap     <C-Space>           :CtrlP<CR>
@@ -519,6 +533,15 @@ let g:syntastic_typescript_checkers = ["nobrackets-wrap"]
 " Session
 let g:session_autosave='no'
 
+" Vim-action-ae 
+" "use  * to search current word in normal mode
+" nmap * <Plug>AgActionWord
+" " use * to search selected text in visual mode
+" vmap * <Plug>AgActionVisual
+
+" Multiple Cursors
+set selection=inclusive
+
 " Smooth scrolling (this overrides the visual)
 " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 1)<CR>
 " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 1)<CR>
@@ -527,6 +550,8 @@ let g:session_autosave='no'
 map  <F1> :NERDTree<CR>
 map  <F2> :buffers<CR>
 map  <F5> :Ag
-map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
+"map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :call NobracketsPreview()<CR>
 
 " EOF
