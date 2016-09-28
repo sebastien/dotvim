@@ -6,10 +6,13 @@
 
 syn match   sugarComment        "^\s*#.*$" contains=sugarCommentAnn
 syn match   sugarCommentAnn     /\v(TODO|NOTE|FIXME|BUG|DEBUG|SEE|WARNING|EOF)/ contained
+syn match   sugarAnchor         "\[[A-Z_]+\]" contained
 syn match   sugarDocumentation  "^\s*|.*$" contains=sugarDocRef,sugarDocCode,sugarDocExample skipwhite
 syn match   sugarDocRef         /@[a-zA-Z_][a-zA-Z0-9_]*/ contained
 syn match   sugarDocCode        /\v'[^']+'*/ contained
 syn match   sugarDocExample     /\v\>\s+.*/ contained
+" FIXME: This does not work
+" syn match   sugarBadIndent      "^\t*[ ]+\t+" contained
 
 syn match   sugarDeclaration    /\v\@(axiom|token|rule|init|condition|procedure|specific|protocol|singleton|class|shared|property|group|embed|end)/ nextgroup=sugarDeclName skipwhite
 syn match   sugarFunction       /\v(\@abstract\s+)?\@(function|constructor|accessor|mutator|destructor|main|method|operation)/ nextgroup=sugarFunctionName skipwhite
@@ -34,14 +37,16 @@ syn match   sugarDeclName       /[a-zA-Z_][a-zA-Z0-9_]*/  nextgroup=sugarDeclTyp
 syn match   sugarDeclType       /:[a-zA-Z_][a-zA-Z0-9_]*/ nextgroup=sugarDeclType contained
 syn match   sugarConstant       /\<[A-Z][A-Z0-9_]\+\>/ 
 
-syn keyword sugarAllocation     var nextgroup=sugarDeclName skipwhite
+syn keyword sugarAllocation     var let nextgroup=sugarDeclName skipwhite
 syn keyword sugarStatement      return new self super
 
 syn region  sugarSQString     start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend
 syn region  sugarDQString     start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend
 
+hi def link sugarBadIndent      Error
 hi def link sugarComment        Comment
 hi def link sugarCommentAnn     Todo
+hi def link sugarAnchor         Todo
 hi def link sugarDocumentation  String
 hi def link sugarDocRef         String
 hi def link sugarDocCode        String

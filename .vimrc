@@ -99,37 +99,46 @@ Bundle    'Raimondi/delimitMate'
 " Syntastic for error checking & linting
 Bundle    'scrooloose/syntastic.git'
 " Zeal Documentation Viewer
-Bundle    'KabbAmine/zeavim.vim'
+" Bundle    'KabbAmine/zeavim.vim'
 " Tabular alignment http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 Bundle    'godlygeek/tabular'
-" JavaScript Vim mode
-Bundle    'pangloss/vim-javascript'
-" Pick - https://github.com/thoughtbot/pick.vim/
-Bundle    'thoughtbot/pick.vim'
-" Snake - https://github.com/amoffat/snake
-" Bundle    'amoffat/snake'
+" Harmony Vim Mode (better than JavaScript)
+Bundle    'jussi-kalliokoski/harmony.vim'
 " VimProc - https://github.com/Shougo/vimproc.vim
-" Bundle    'Shougo/vimproc.vim'
+Bundle    'Shougo/vimproc.vim'
 " TypeScript - https://github.com/leafgarland/typescript-vim
 Bundle    'leafgarland/typescript-vim'
 " TypeScript - https://github.com/Quramy/tsuquyomi
 Bundle    'Quramy/tsuquyomi'
+" Scheme/Lisp Rainbow Parens - https://github.com/kien/rainbow_parentheses.vim
+Bundle    'kien/rainbow_parentheses.vim'
+
+" JavaScript Vim mode
+" Bundle    'pangloss/vim-javascript'
+" Snake - https://github.com/amoffat/snake
+" Bundle    'amoffat/snake'
+
 " Markify - https://github.com/dhruvasagar/vim-markify
-Bundle    'dhruvasagar/vim-markify'
+" Bundle    'dhruvasagar/vim-markify'
 " Sessions - https://github.com/xolox/vim-misc (required by vim-session)
-Bundle    'xolox/vim-misc'
+" Bundle    'xolox/vim-misc'
 " Sessions - https://github.com/xolox/vim-session
-Bundle    'xolox/vim-session'
+" Bundle    'xolox/vim-session'
 " OpenSCAD - https://github.com/sirtaj/vim-openscad
 Bundle    'sirtaj/vim-openscad'
 " Multiple Cursors - https://github.com/terryma/vim-multiple-cursors
 " Bundle    'terryma/vim-multiple-cursors'
 " CSS Colors Cursors - https://github.com/skammer/vim-css-color
-Bundle    'skammer/vim-css-color'
+" Bundle    'skammer/vim-css-color'
 " Jedi - https://github.com/davidhalter/jedi-vim
 "Bundle    'davidhalter/jedi-vim'
 " Bundle    'Valloric/YouCompleteMe'
-
+" VimGrepper - https://github.com/mhinz/vim-grepper
+" :h grepper for more info
+" Bundle 'mhinz/vim-grepper'
+" Bundle 'tpope/vim-repeat'
+" Bundle 'vim-airline/vim-airline'
+" Bundle 'vim-airline/vim-airline-themes'
 
 " I tried `hier`, but it does not list the error on cursor
 
@@ -151,6 +160,9 @@ if filereadable(vundle_init)
 	:BundleInstall
 	!rm ~/.vim/bundle/vundle.initialized
 endif
+
+" source ~/.vim/vimsh.vim
+
 filetype  plugin indent on             " load file type plugins + indentation
 
 " ------------------------------------------------------------------------------
@@ -291,7 +303,6 @@ autocmd FileType pamela noremap <silent> <buffer> <M-#> :call CommentLineToEnd (
 autocmd FileType sugar  noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
 autocmd FileType html   noremap <silent> <buffer> <M-#> :call CommentLinePincer('<!-- ', ' -->')<CR>+
 autocmd FileType c,cpp,java,php,ruby,python,sugar,scala,io,actionscript,objc autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-autocmd FileType typescript setlocal completeopt+=menu,preview
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead *.paml   :setlocal spell spelllang=en
@@ -303,26 +314,21 @@ autocmd BufNewFile,BufRead *.as       set syntax=actionscript
 autocmd BufNewFile,BufRead *.kid      set syntax=html
 autocmd BufNewFile,BufRead *.m        set syntax=objc
 autocmd BufNewFile,BufRead *.io       set syntax=io
-autocmd BufNewFile,BufRead *.sjs      set syntax=sugar  ft=sugar        sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.spnuts   set syntax=sugar  ft=sugar        sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.spy      set syntax=sugar  ft=sugar        sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar        sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar        sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar        sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.py       set syntax=python ft=python       sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.ts       set syntax=typescript ft=typescript       sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.ts.nb    set syntax=typescript ft=typescript  sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.ts.nb    let g:typescript_compiler_binary="nobrackets-wrap tsc"
-autocmd BufNewFile,BufRead *.ts.nb    set errorformat=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
-autocmd BufNewFile,BufRead *.ts.nb    compiler typescript
-autocmd BufWritePost       *.ts.nb    make
-autocmd BufNewFile,BufRead *.js       set syntax=typescript ft=typescript       sw=4 ts=4 noet
-autocmd BufNewFile,BufRead *.paml     set syntax=pamela.sugar ft=pamela sw=4 ts=4 foldlevel=8 noet
+autocmd BufNewFile,BufRead *.sjs      set syntax=sugar  ft=sugar        sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.spnuts   set syntax=sugar  ft=sugar        sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.spy      set syntax=sugar  ft=sugar        sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.sas      set syntax=sugar  ft=sugar        sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.sjava    set syntax=sugar  ft=sugar        sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar        sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.py       set syntax=python ft=python       sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.js       set syntax=javascript ft=javascript       sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.paml     set syntax=pamela.sugar ft=pamela sw=4 ts=4 foldlevel=8 noet nospell
 " autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
 " autocmd BufWritePost       *.ccss     :checktime
-autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
-autocmd BufNewFile,BufRead *.pcss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet
-autocmd BufNewFile,BufRead *.json     set filetype=json sw=4 ts=4 noet
+autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet nospell
+autocmd BufNewFile,BufRead *.pcss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet nospell
+autocmd BufNewFile,BufRead *.json     set filetype=json   sw=4 ts=4 noet nospell
+autocmd BufNewFile,BufRead *.chicken  set filetype=scheme syntax=scheme sw=2 ts=2 noet nospell
 
 " Highlights trainling whitespace
 " SEE: http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
@@ -337,7 +343,7 @@ autocmd BufWinLeave * call clearmatches()
 " ------------------------------------------------------------------------------
 " K E Y B I N D I N G S
 " ------------------------------------------------------------------------------
-
+"
 " Save and Quit as with many other apps
 nnoremap <C-S> :w<CR>                   " Saves the buffer
 nnoremap <C-Q> :qa<CR>                  " Quits all
@@ -512,7 +518,7 @@ let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one 
 let g:ctrlp_max_height        = 20 " maximum height of the match window
 let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
 let g:ctrlp_custom_ignore     = {
-\ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$|deps$', 
+\ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$\|deps$\|node_modules$\|jspm_packages$', 
 \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
 \ }
 " nmap     <C-Space>           :CtrlP<CR>

@@ -9,6 +9,8 @@ snippet module
 	// Last modification : DD-MMM-YYYY
 	// ----------------------------------------------------------------------------
 
+	@module MODULENAME
+
 	BASE_FONT             = 14
 	PX                    = 1em / $BASE_FONT
 	PAD                   = 20   * $PX
@@ -118,9 +120,6 @@ snippet application
 		right:  0em
 		background-color: $COLOR_PAGE_BG
 		color:            $COLOR_PAGE_TXT
-		overflow: hidden
-		&, *:
-			user-select: none
 		&, tr td, tr th, input, button:
 			font-family: $FONT_BASE
 			font-size:   $BASE_FONT * 1px
