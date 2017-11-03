@@ -19,7 +19,6 @@
 " Function keys  
 "                  F1       -- NERDtree
 "                  F2       -- List buffers
-"                  F5       -- Ag
 "                  F7       -- Update CTags
 "                  F8       -- Toggle TagBar plugin
 "                  F9       -- Nobrackets preview
@@ -31,14 +30,6 @@
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "
-" Silver Searcher
-" ===============
-" :Ag                  - searches using The Silver Searcher
-" [normal]    gagiw    - search current word with Ag
-"             gagi'    - search current words inside single quotes
-" [visual]    gagi     - search selected text
-
-
 " How to debug a keybiding
 " <binding command> <keybinding> :echomsg "Key pressed"<CR>
 
@@ -68,92 +59,97 @@ endif
 set       rtp+=~/.vim/bundle/vundle/
 call      vundle#rc()
 Bundle    'gmarik/vundle'
+" ack.vim is compatible with Ag
+Bundle     'mileszs/ack.vim'
 " CTags integration
 Bundle    'vim-scripts/Tagbar'
 " Git integration
 Bundle    'tpope/vim-fugitive'
-" Vim color scheme in terminal
 Bundle    'vim-scripts/CSApprox'
 " Fast motion
 Bundle    'Lokaltog/vim-easymotion' 
-" Nice completion 
-Bundle    'ctrlpvim/ctrlp.vim'
-" SilverSurfer grep
-Bundle    'rking/ag.vim'
-" Gag on anything
-Bundle    'Chun-Yang/vim-action-ag'
 " Useful when switching between screens with different dpi
 Bundle    'thinca/vim-fontzoom'
 " Displays the buffers in the status line
 Bundle    'bling/vim-bufferline'
-" Snippets
-Bundle    'msanders/snipmate.vim'
+" Snippets manager
+Bundle 'marcweber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
 " Better file explorer
 Bundle    'scrooloose/nerdtree'
 " Automatically shows the completion menu
-Bundle    'vim-scripts/AutoComplPop'
+Bundle 'maralla/completor.vim'
 " Use :Dict <word> to get the definition
 Bundle    'szw/vim-dict.git' 
 " Automatic bracket/paren/brace insertion
 Bundle    'Raimondi/delimitMate'
-" Syntastic for error checking & linting
-Bundle    'scrooloose/syntastic.git'
-" Zeal Documentation Viewer
-" Bundle    'KabbAmine/zeavim.vim'
+Bundle    'w0rp/ale'
 " Tabular alignment http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 Bundle    'godlygeek/tabular'
 " Harmony Vim Mode (better than JavaScript)
 Bundle    'jussi-kalliokoski/harmony.vim'
 " VimProc - https://github.com/Shougo/vimproc.vim
 Bundle    'Shougo/vimproc.vim'
-" TypeScript - https://github.com/leafgarland/typescript-vim
-Bundle    'leafgarland/typescript-vim'
-" TypeScript - https://github.com/Quramy/tsuquyomi
-Bundle    'Quramy/tsuquyomi'
 " Scheme/Lisp Rainbow Parens - https://github.com/kien/rainbow_parentheses.vim
 Bundle    'kien/rainbow_parentheses.vim'
-
-" JavaScript Vim mode
-" Bundle    'pangloss/vim-javascript'
-" Snake - https://github.com/amoffat/snake
-" Bundle    'amoffat/snake'
-
-" Markify - https://github.com/dhruvasagar/vim-markify
-" Bundle    'dhruvasagar/vim-markify'
-" Sessions - https://github.com/xolox/vim-misc (required by vim-session)
-" Bundle    'xolox/vim-misc'
-" Sessions - https://github.com/xolox/vim-session
-" Bundle    'xolox/vim-session'
-" OpenSCAD - https://github.com/sirtaj/vim-openscad
-Bundle    'sirtaj/vim-openscad'
-" Multiple Cursors - https://github.com/terryma/vim-multiple-cursors
-" Bundle    'terryma/vim-multiple-cursors'
-" CSS Colors Cursors - https://github.com/skammer/vim-css-color
-" Bundle    'skammer/vim-css-color'
-" Jedi - https://github.com/davidhalter/jedi-vim
-"Bundle    'davidhalter/jedi-vim'
-" Bundle    'Valloric/YouCompleteMe'
-" VimGrepper - https://github.com/mhinz/vim-grepper
-" :h grepper for more info
-" Bundle 'mhinz/vim-grepper'
-" Bundle 'tpope/vim-repeat'
-" Bundle 'vim-airline/vim-airline'
-" Bundle 'vim-airline/vim-airline-themes'
-
-" I tried `hier`, but it does not list the error on cursor
-
+" Vim PlantUML model
+Bundle    'aklt/plantuml-syntax'
+" LanguageTool
+Bundle    'rhysd/vim-grammarous'
+" Processing
+Bundle    'sophacles/vim-processing'
+" Lawrencium (Fugitive-like for Mercurial)
+Bundle    'ludovicchabant/vim-lawrencium'
+" Git/Hg gutter
+Bundle    'sgur/vim-lazygutter'
+" Ledger
+Bundle    'ledger/vim-ledger'
+" sketch
+Bundle    'vim-scripts/sketch.vim'
+" Pony
+Bundle    'dleonard0/pony-vim-syntax'
+" Go
+Bundle    'fatih/vim-go'
+" NeoVIM
+Bundle    'equalsraf/neovim-gui-shim'
+" Startup Screen
+Bundle    'mhinz/vim-startify'
+" Better Session management
+Bundle    'tpope/vim-obsession'
+" FZF
+Bundle    'junegunn/fzf.vim'
+" Polyglot (lkots of syntax files)
+Bundle  'sheerun/vim-polyglot'
 
 " Bundles that I've tried and removed
-" Bundle    'mileszs/ack.vim'              -- Ag is better
-" Bundle    'mattn/emmet-vim'              -- snipmate is much simpler
-" Bundle    'rkitover/vimpager'            -- termcaps not displayed
-" Bundle    'terryma/vim-smooth-scroll'    -- too slow and weird behavior
-" Bundle    'wakatime/vim-wakatime'        -- don't find it useful after all
-" Bundle    'mhinz/vim-signify'            -- too slow and inconsistent
-" Bundle    'Shougo/neocomplcache.vim'
-" Bundle    'ervandew/supertab'            -- I want tab to write a tab, not a cmopletion menu!
-" Bundle    'cohama/vim-hier'              -- Does not give the error message
-" Bundle    'dannyob/quickfixstatus'       -- Does not load, has an error
+" Bundle    'scrooloose/syntastic.git'     -- superceded by Ale
+" Bundle 'ctrlpvim/ctrlp.vim'              -- really good, but fzf is now integrated directly in vim
+" Bundle 'gabesoft/vim-ags'                -- the best for Ag,but ack.vim now supports ag
+" Bundle 'mattn/emmet-vim'                 -- snipmate is much simpler
+" Bundle 'rkitover/vimpager'               -- termcaps not displayed
+" Bundle 'terryma/vim-smooth-scroll'       -- too slow and weird behavior
+" Bundle 'wakatime/vim-wakatime'           -- don't find it useful after all
+" Bundle 'mhinz/vim-signify'               -- too slow and inconsistent
+" Bundle 'Shougo/neocomplcache.vim'
+" Bundle 'ervandew/supertab'               -- I want tab to write a tab, not a cmopletion menu!
+" Bundle 'cohama/vim-hier'                 -- Does not give the error message
+" Bundle 'dannyob/quickfixstatus'          -- Does not load, has an error
+" Bundle 'vim-scripts/AutoComplPop'        -- replaced by othree
+" Bundle 'othree/vim-autocomplpop'         -- was blocking the UI with component-based projects
+" Bundle 'vim-scripts/L9'                  -- only needed by vim-autocomplpop
+" Bundle 'Valloric/YouCompleteMe'          -- hijacked the tab in an annoying way
+" Bundle 'ervandew/supertab'               -- required by you complete me
+" Bundle 'SirVer/ultisnips'                -- snipmate-like for youcomplete me
+" Bundle 'msanders/snipmate.vim'           -- replaced by garbas' repo
+" Bundle 'ajh17/VimCompletesMe'
+" Bundle 'ervandew/ag'                     -- does not offer a list of matches
+" Bundle 'pmatsw/ag.vim'                   -- can't install
+" Bundle 'roxma/vim-hug-neovim-rpc'        -- hangs gvimdiff   
+" Bundle 'roxma/nvim-completion-manager'   -- requries neovim-rpc
+" Bundle 'prabirshrestha/asyncomplete.vim' -- does not show popup
+" Bundle 'xoxox/vim-easytags'              -- does not work, tags are empty
+
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'git://git.wincent.com/command-t.git'
 if filereadable(vundle_init)
@@ -179,8 +175,8 @@ set       scrolloff=3                 " cursor is always 3 lines away from the e
 set       showmode
 set       showcmd                     " display incomplete commands
 set       showmatch                   " shows matching parenthese"
+set       wildignore+=*/.hg/*,*/.svn/,build,dist,tiles,Distribution,*/Distribution/,*/build/,*/tiles/,*/.build,*/Build,*/Data,data,*/extra,*/extras,*/Cache,*\.class,*\.pyc,*\.png,*\.jpg,*\.gif,*\.tar.gz,*\.tar.bz2,*\.tar.xz,*\.zip
 set       wildmenu
-set       wildignore+=*/.hg/*,*/.svn/,build,tiles,Distribution,*/Distribution/,*/build/,*/tiles/,*/.build,*/Build,*/Data,*/data,*/extra,*/extras,*/Cache,*\.class,*\.pyc,*\.png,*\.jpg,*\.gif,*\.tar.gz,*\.tar.bz2,*\.tar.xz,*\.zip
 
 set       visualbell
 set       noeb                        " no sound for error message
@@ -197,7 +193,6 @@ set       synmaxcol=128               " prevent syntax hilighting on long lines
 set       noet                        " Do not expand tabs to spaces
 set       nosol                       " Do not place cursor at start of line when moving
 set       wrap                        " Wrap lines
-set       ek                          " Turn escape on while in insert mode
 set       sc                          " Show command
 set       autoindent
 set       ts=4                        " Tab stops
@@ -219,8 +214,9 @@ set       list
 set       list listchars=tab:»-,trail:·,eol:¬,extends:¬,precedes:¬
 let       g:indent_guides_start_level = 1
 set       backspace=indent,eol,start  " backspace through everything in insert mode
+
 " CTAGS
-set tags=./tags,tags;
+set tags=tags
 
 " Allow backgrounding buffers without writing them, and remember marks/undo
 " for backgrounded buffers
@@ -330,6 +326,10 @@ autocmd BufNewFile,BufRead *.pcss     set syntax=clevercss ft=clevercss sw=4 ts=
 autocmd BufNewFile,BufRead *.json     set filetype=json   sw=4 ts=4 noet nospell
 autocmd BufNewFile,BufRead *.chicken  set filetype=scheme syntax=scheme sw=2 ts=2 noet nospell
 
+autocmd BufNewFile,BufRead *.go       nnoremap <Leader>b :GoBuild<CR>
+autocmd BufNewFile,BufRead *.go       nnoremap <Leader>d :GoDef<CR>
+autocmd BufNewFile,BufRead *.go       nnoremap <Leader>o :GoDecl<CR>
+
 " Highlights trainling whitespace
 " SEE: http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
 autocmd BufWinEnter * match TrailingWhitespace /\s\+$/
@@ -355,7 +355,7 @@ vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 map  <C-a> GVgg
-map  <C-t> :tabnew <Enter>
+map  <C-t> :CtrlPTag<Cr>
 imap <C-v> <C-r><C-o>+
 
 " SEE: http://superuser.com/questions/61226/how-do-i-configure-vim-for-using-ctrl-c-ctrl-v-as-copy-paste-to-and-from-system
@@ -368,12 +368,6 @@ nnoremap <M-Down>  :hide<CR>           " Unsplits the screen
 nnoremap <M-Right> :tabnext<CR>        " Switch to tab tab
 nnoremap <M-Left>  :tabprevious<CR>    " Switch to previous tab
 
-" Block indent/deindent with Ctrl+D and Ctrl+T or Tab and Shift+Tab where
-" available
-vnoremap <C-T>   >
-vnoremap <C-D>   <LT>
-vmap     <Tab>   <C-T>
-vmap     <S-Tab> <C-D>
 
 " Folding/Unfolding with using space
 nnoremap  <silent>  <space> :exe 'silent! normal! za'.(foldlevel('.')?'':'l')<cr>
@@ -392,6 +386,7 @@ map <leader>jpp  <Esc>:%!json_xs -f json -t json-pretty<CR>
 
 "" Change the <leader> key
 let mapleader = ","
+let maplocalleader = ","
 
 "" no need to <shift> to call `:`
 "" nnoremap ; :
@@ -423,10 +418,12 @@ end
 " let g:gist_private = 1
 
 let g:tagbar_usearrows      = 1
+let g:tagbar_ctags_bin      = 'ctags'
 " let g:tagbar_ctags_bin      = 'ctags-wrapper'
 let g:tagbar_type_clevercss = {'ctagstype':'clevercss','kinds':['c:classes']}
 let g:tagbar_type_pamela    = {'ctagstype':'pamela','kinds':['c:classes']}
 let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'e:embed', 'g:group', 'o:operations', 'm:methods', 'f:functions', 's:shared', 'p:properties' ]}
+
 
 " -----------------------------------------------------------------------------
 " Project           : nobrackets
@@ -508,24 +505,32 @@ colorscheme ff-cyan
 
 " NOTE: I was using Ctrl-P and am now using Command-T
 " ctrlp.vim configuration
-nmap     <silent> <leader>b  :CtrlPBuffer<CR>
-nmap     <silent> <leader>r  :CtrlPMRU<CR>
-nmap     <silent> <leader>o  :CtrlPCurWD<CR>
-nnoremap <S-Space>           :CtrlPTag<CR>
-nmap     <C-Space>           :CtrlPCurWD<CR>
+nmap     <silent> <leader>b  :Buffers<CR>
+nnoremap <S-Space>           :Buffers<CR>
+nmap     <C-Space>           :FZF<CR>
+
+" ctrlsf -- https://github.com/dyng/ctrlsf.vim
+" nmap     <C-F>f <Plug>CtrlSFPrompt
+" vmap     <C-F>f <Plug>CtrlSFVwordPath
+" vmap     <C-F>F <Plug>CtrlSFVwordExec
+" nmap     <C-F>n <Plug>CtrlSFCwordPath
+" nmap     <C-F>p <Plug>CtrlSFPwordPath
+" nnoremap <C-F>o :CtrlSFOpen<CR>
+" nnoremap <C-F>t :CtrlSFToggle<CR>
+" inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
 let g:ctrlp_map = '<leader>p' " mapping to invoke |CtrlP| in |Normal| mode
 let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
 let g:ctrlp_max_height        = 20 " maximum height of the match window
 let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
-let g:ctrlp_custom_ignore     = {
-\ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|build$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|Dist$\|deps$\|node_modules$\|jspm_packages$', 
-\ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
-\ }
+let g:ctrlp_follow_symlinks   = 1
+let g:ctrlp_by_filename       = 0  " only search the filenames
+" let g:ctrlp_custom_ignore     = {
+" \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|dist$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|fonts$\|Dist$\|node_modules$\|jspm_packages$', 
+" \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
+" \ }
+" let g:ctrlp_user_command = 'ack -f'
 " nmap     <C-Space>           :CtrlP<CR>
-
-" Command-T
-" See: http://git.wincent.com/command-t.git/blob_plain/HEAD:/doc/command-t.txt
-" nmap     <C-Space>           :CommandT<CR>
 
 " EasyMotion -- https://github.com/Lokaltog/vim-easymotion
 let g:EasyMotion_leader_key = '<leader>'
@@ -539,11 +544,18 @@ let g:syntastic_typescript_checkers = ["nobrackets-wrap"]
 " Session
 let g:session_autosave='no'
 
-" Vim-action-ae 
-" "use  * to search current word in normal mode
-" nmap * <Plug>AgActionWord
-" " use * to search selected text in visual mode
-" vmap * <Plug>AgActionVisual
+" Grammarous
+let g:grammarous#use_vim_spelllang=1
+let g:grammarous#default_comments_only_filetypes = {
+\ '*' : 1, 'help' : 0, 'markdown' : 0, 'texto':0
+\ }
+
+" FZF
+" nmap     <C-Space>           :FZF<CR>
+" let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_buffers_jump = 1
+let g:fzf_tags_command = 'ctags -R'
+
 
 " Multiple Cursors
 set selection=inclusive
@@ -555,9 +567,43 @@ set selection=inclusive
 " Function keys
 map  <F1> :NERDTree<CR>
 map  <F2> :buffers<CR>
-map  <F5> :Ag
 "map  <F7> :!/usr/bin/ctags -R . && /usr/bin/env ctags-sugar -Ra .<CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :call NobracketsPreview()<CR>
 
+" SEE https://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme#22253548
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEnableSnipMate = 1
+" let g:UltiSnipsJumpForwardTrigger = "<Right>" and let g:UltiSnipsJumpBackwardTrigger = "<Left>"
+
+" Block indent/deindent with Ctrl+D and Ctrl+T or Tab and Shift+Tab where
+" available
+vnoremap <C-T>   >
+vnoremap <C-D>   <LT>
+vnoremap <Tab>   >
+vnoremap <S-Tab> <LT>
+
+" NERDTree
+let NERDTreeRespectWildIgnore = 1
+
+" ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" TODO: COMPLETE
+" filetype plugin on
+" au FileType php setl ofu=phpcomplete#CompletePHP
+" au FileType ruby,eruby setl ofu=rubycomplete#Complete
+" au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
+" au FileType c setl ofu=ccomplete#CompleteCpp
+" au FileType css setl ofu=csscomplete#CompleteCSS
 " EOF

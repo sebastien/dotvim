@@ -11,22 +11,21 @@ syn match   sugarDocumentation  "^\s*|.*$" contains=sugarDocRef,sugarDocCode,sug
 syn match   sugarDocRef         /@[a-zA-Z_][a-zA-Z0-9_]*/ contained
 syn match   sugarDocCode        /\v'[^']+'*/ contained
 syn match   sugarDocExample     /\v\>\s+.*/ contained
-" FIXME: This does not work
-" syn match   sugarBadIndent      "^\t*[ ]+\t+" contained
+syn match   sugarBadIndent      /\v\t*[ ]+\t+/
 
-syn match   sugarDeclaration    /\v\@(axiom|token|rule|init|condition|procedure|specific|protocol|singleton|class|shared|property|group|embed|end)/ nextgroup=sugarDeclName skipwhite
+syn match   sugarDeclaration    /\v\@(singleton|trait|class|shared|property|group|embed|end)/ nextgroup=sugarDeclName skipwhite
 syn match   sugarFunction       /\v(\@abstract\s+)?\@(function|constructor|accessor|mutator|destructor|main|method|operation)/ nextgroup=sugarFunctionName skipwhite
 syn match   sugarConstructor    /\v\@(constructor)/ nextgroup=sugarFunctionArgs skipwhite
 syn match   sugarFunctionName   /\<[a-zA-Z_][a-zA-Z0-9_]*\>/  nextgroup=sugarFunctionArgs contained skipwhite
 syn match   sugarFunctionArgs   ".*$" contained contains=sugarDeclName
-syn match   sugarMeta           /\v\@(module|import|version|requires|authors|target)/ nextgroup=sugarMetaRest skipwhite
-syn match   sugarAnnotation     /\v\@(as|when|pre|post|always)/ nextgroup=sugarMetaRest skipwhite
+syn match   sugarMeta           /\v\@(module|import|feature|version|requires|authors|target)/ nextgroup=sugarMetaRest skipwhite
+syn match   sugarAnnotation     /\v\@(as|when|where|example)/ nextgroup=sugarMetaRest skipwhite
 syn match   sugarMetaRest       /\v.+/ contained
 syn region  sugarArray          start=+\[+ end=+\]+
 syn match   sugarKey            /\v[a-zA-Z_][a-zA-Z0-9_]*\s*\:/
-syn keyword sugarControl        for if elif while match else end
+syn keyword sugarControl        for if elif while match else
 syn match   sugarComputation    /\v(\+|\-|\/|\^|\%)/ 
-syn match   sugarOperator       /\v(is|has|in|\-\>|\.\.|\:\:|\=)/ 
+syn match   sugarOperator       /\v(not|is|is\?|is not|not in|in|\-\>|\.\.|\:\:[\?\>\<\=]?|\=)/ 
 syn match   sugarDelimiter      /\v(\(|\)|\[|\]|\{|\}|\:)/ 
 syn match   sugarLogic          /\v(and|or|not|\!\=|\=\=|\<|\>|\>\=|\<\=)/ 
 syn match   sugarInteger        /[0-9]+/

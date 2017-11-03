@@ -12,6 +12,7 @@ syn keyword pamelaClassSpecial  action do in out ui when use with hidden templat
 syn keyword pamelaClassBase     left right expand expand-w expand-h to-w to-n to-s to-h clear clear-after 
 syn match   pamelaClass         "[A-Za-z0-9_-]*"        contained   nextgroup=pamelaClassSep,pamelaLabel,pamelaId
 syn match   pamelaLabel         ":.*"                   contained
+syn match   pamelaBadIndent     /\v\t*[ ]+\t+/
 
 " Tags
 syn match   pamelaTag           "\s*<\w*[^\W\(\.#:]"    nextgroup=pamelaId,pamelaClassSep,pamelaLabel,pamelaAttributes,pamelaClassSpecial,pamelaClass
@@ -40,6 +41,7 @@ syn region  pamelaString        start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"
 
 "-------------------------------------------------
 
+hi def link pamelaBadIndent     Error
 hi def link pamelaComment       Comment
 hi def link pamelaXSLTag        PreProc
 hi def link pamelaNSTag         PreProc
