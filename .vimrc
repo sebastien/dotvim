@@ -79,11 +79,12 @@ Bundle 'garbas/vim-snipmate'
 " Better file explorer
 Bundle    'scrooloose/nerdtree'
 " Automatically shows the completion menu
-Bundle 'maralla/completor.vim'
+Bundle    'maralla/completor.vim'
 " Use :Dict <word> to get the definition
 Bundle    'szw/vim-dict.git' 
 " Automatic bracket/paren/brace insertion
 Bundle    'Raimondi/delimitMate'
+" Syntastic-like
 Bundle    'w0rp/ale'
 " Tabular alignment http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 Bundle    'godlygeek/tabular'
@@ -118,9 +119,14 @@ Bundle    'mhinz/vim-startify'
 " Better Session management
 Bundle    'tpope/vim-obsession'
 " FZF
+Bundle    'junegunn/fzf'
 Bundle    'junegunn/fzf.vim'
 " Polyglot (lkots of syntax files)
 Bundle  'sheerun/vim-polyglot'
+" Language Server Protocol
+" Bundle  'prabirshrestha/async.vim'
+" Bundle 'prabirshrestha/vim-lsp'
+Bundle 'natebosch/vim-lsc'
 
 " Bundles that I've tried and removed
 " Bundle    'scrooloose/syntastic.git'     -- superceded by Ale
@@ -149,6 +155,8 @@ Bundle  'sheerun/vim-polyglot'
 " Bundle 'roxma/nvim-completion-manager'   -- requries neovim-rpc
 " Bundle 'prabirshrestha/asyncomplete.vim' -- does not show popup
 " Bundle 'xoxox/vim-easytags'              -- does not work, tags are empty
+" Bundle 'mattn/vim-fz'                    -- no advantage compared to fzf.vim
+" Bundle 'vim-airline/vim-airline'         -- don't like it
 
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'git://git.wincent.com/command-t.git'
@@ -355,7 +363,6 @@ vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 map  <C-a> GVgg
-map  <C-t> :CtrlPTag<Cr>
 imap <C-v> <C-r><C-o>+
 
 " SEE: http://superuser.com/questions/61226/how-do-i-configure-vim-for-using-ctrl-c-ctrl-v-as-copy-paste-to-and-from-system
@@ -504,42 +511,15 @@ set t_Co=256
 colorscheme ff-cyan
 
 " NOTE: I was using Ctrl-P and am now using Command-T
-" ctrlp.vim configuration
 nmap     <silent> <leader>b  :Buffers<CR>
 nnoremap <S-Space>           :Buffers<CR>
 nmap     <C-Space>           :FZF<CR>
-
-" ctrlsf -- https://github.com/dyng/ctrlsf.vim
-" nmap     <C-F>f <Plug>CtrlSFPrompt
-" vmap     <C-F>f <Plug>CtrlSFVwordPath
-" vmap     <C-F>F <Plug>CtrlSFVwordExec
-" nmap     <C-F>n <Plug>CtrlSFCwordPath
-" nmap     <C-F>p <Plug>CtrlSFPwordPath
-" nnoremap <C-F>o :CtrlSFOpen<CR>
-" nnoremap <C-F>t :CtrlSFToggle<CR>
-" inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-
-let g:ctrlp_map = '<leader>p' " mapping to invoke |CtrlP| in |Normal| mode
-let g:ctrlp_working_path_mode = 1  " 2 - the nearest ancestor that contains one of these directories or files:
-let g:ctrlp_max_height        = 20 " maximum height of the match window
-let g:ctrlp_dotfiles          = 0  " don’t want to search for dotfiles and dotdirs
-let g:ctrlp_follow_symlinks   = 1
-let g:ctrlp_by_filename       = 0  " only search the filenames
-" let g:ctrlp_custom_ignore     = {
-" \ 'dir':  '\.git$\|\.hg$\|\.svn$\|db/sphinx/*\|\.build$\|build$\|Build$\|dist$\|\.cache$\|cache$\|Cache$\|Data$\|Distribution$\|fonts$\|Dist$\|node_modules$\|jspm_packages$', 
-" \ 'file': '\.log$\|\.pid$\|\.png$\|\.jpg$\|\.gif$\|\.class$\|\.pyc$\|\.tar.gz$|\.tar.bz2$'
-" \ }
-" let g:ctrlp_user_command = 'ack -f'
-" nmap     <C-Space>           :CtrlP<CR>
 
 " EasyMotion -- https://github.com/Lokaltog/vim-easymotion
 let g:EasyMotion_leader_key = '<leader>'
 "
 " NeoComplete Cache
 let g:neocomplcache_enable_at_startup = 1
-
-" Syntastic
-let g:syntastic_typescript_checkers = ["nobrackets-wrap"]
 
 " Session
 let g:session_autosave='no'
@@ -555,7 +535,10 @@ let g:grammarous#default_comments_only_filetypes = {
 " let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
 let g:fzf_tags_command = 'ctags -R'
+let g:fzf_prefer_vim_terminal = 1
 
+" Agu command to ignore VCS files
+command! -bang -nargs=* Agu call fzf#vim#ag(<q-args>, '--skip-vcs-ignores', {'down': '~40%'})
 
 " Multiple Cursors
 set selection=inclusive
@@ -599,6 +582,25 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" ale (syntastic-like)
+let g:ale_linters = {
+\	'python': []
+\}
+
+" let g:lsc_server_commands = {'sugar': '/home/sebastien/Projects/Public/langsupport/bin/langsupport-server-debug'}
+" let g:lsc_trace_level    = 'verbose'
+
+
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = "/home/sebastien/Projects/Public/mlsp/lsp.log"
+" " Language Servers
+" "if executable('mlsp')
+" 	au User lsp_setup call lsp#register_server({
+" 		\ 'name': 'mlsp',
+" 		\ 'cmd': {server_info->['mlsp']},
+" 		\ 'whitelist': ['sugar', 'pamela', 'clevercss'],
+" 		\ })
+"endif
 " TODO: COMPLETE
 " filetype plugin on
 " au FileType php setl ofu=phpcomplete#CompletePHP

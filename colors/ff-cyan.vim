@@ -60,6 +60,11 @@ let g:colors_name="ff-cyan"
 :hi DiffDelete      guifg=#656565 guibg=#1C1C1C
 :hi DiffText                      guibg=#AE3838
 
+"TagBar syntax
+:hi clear TagbarKind
+:hi TagbarKind		guifg=#2A7679
+
+
 "For the status bar:
 " - The RO flag
 :	hi User2 term=bold gui=bold ctermfg=red  guifg=#930B58 guibg=black
