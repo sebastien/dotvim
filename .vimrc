@@ -535,4 +535,45 @@ let g:ale_linters = {
 " au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 " au FileType c setl ofu=ccomplete#CompleteCpp
 " au FileType css setl ofu=csscomplete#CompleteCSS
+
+
+
+" =============================================================================
+" FOLLOW SYMLINKS
+" =============================================================================
+"
+" FROM: https://www.reddit.com/r/vim/comments/1x5rhh/how_to_follow_symlinks/
+" Sources:
+" - https://github.com/tpope/vim-fugitive/issues/147#issuecomment-7572351
+" - http://www.reddit.com/r/vim/comments/yhsn6/is_it_possible_to_work_around_the_symlink_bug/c5w91qw
+function! DoFollowSymlinks(...)
+	if exists('w:no_follow_symlinks') && w:no_follow_symlinks
+		return
+	endif
+	" SEE: http://vim.wikia.com/wiki/Get_the_name_of_the_current_file
+	let fname = a:0 ? a:1 : expand('%')
+	if fname =~ '^\w\+:/'
+		" do not mess with 'fugitive://' etc
+		return
+	endif
+	let fname        = simplify(fname)
+	let resolvedfile = resolve(fname)
+	if resolvedfile == fname
+	  return
+	endif
+	" let resolvedfile = fnameescape(resolvedfile)
+	" bwipeout
+	" exec 'edit! "' . resolvedfile . '"'
+	"silent! let s:fname = resolve(expand('%:p'))
+	silent! let s:fname = fnameescape(resolvedfile)
+	silent! bwipeout
+	silent! exec "edit "   . s:fname
+	" NOTE: We need to trigger the autocommands
+	exec ':do BufRead '    . s:fname
+endfunction
+
+command! FollowSymlinks call DoFollowSymlinks()
+command! ToggleFollowSymlinks let w:no_follow_symlinks = !get(w:, 'no_follow_symlinks', 0) | echo "w:no_follow_symlinks =>" w:no_follow_symlinks
+au BufReadPost * call DoFollowSymlinks(expand('<afile>'))
+
 " EOF

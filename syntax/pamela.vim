@@ -30,6 +30,7 @@ syn match   pamelaComment       "^\s*#.*$"              contains=pamelaCommentAn
 syn match   pamelaCommentAnn    /\v(TODO|NOTE|FIXME|BUG|DEBUG|SEE|WARNING|EOF).*/ contained
 
 syn match   pamelaInclude       "^\s*%include .*$"
+syn match   pamelaUse           "^\s*%use .*$"
 syn match   pamelaMacro         "^\s*@.*$"
 
 " Django Templates
@@ -48,6 +49,7 @@ hi def link pamelaNSTag         PreProc
 hi def link pamelaTag           Number
 hi def link pamelaTemplate      Special
 hi def link pamelaInclude       Special
+hi def link pamelaUse           Special
 hi def link pamelaMacro         Special
 hi def link htmlEntity          Number
 
