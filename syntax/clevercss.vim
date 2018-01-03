@@ -47,8 +47,10 @@ syn keyword ccssProperty contained
 \ border-radius transition-property transition-duration opacity
 \ box-sizing box-shadow 
 \ user-select 
-\ pointer-events stroke fill stroke-width
+\ pointer-events stroke fill stroke-width flex-flow justify-content
 
+
+syn keyword ccssFunction merge extend
 syn keyword ccssElement contained *
 syn match ccssClassName contained "\.[A-Za-z][A-Za-z0-9_-]\+"
 syn match ccssIdentifier contained "#[A-Za-z_@][A-Za-z0-9_@-]*"
@@ -64,6 +66,7 @@ syn match ccssValueLength contained "[-+]\=\d\+\(\.\d*\)\=\(%\|mm\|cm\|in\|pt\|p
 syn match ccssValueColor contained "\<transparent\>"
 syn match ccssValueColor contained "#[0-9A-Fa-f]\{3\}\>"
 syn match ccssValueColor contained "#[0-9A-Fa-f]\{6\}\>"
+syn match ccssDirective  /\v\@(module|import|feature|version|macro|authors)/ skipwhite
 
 syn region ccssValueURL contained start="\<url\s*(" end=")" matchgroup=ccssFunctionName oneline keepend
 syn region ccssValueFunction contained start="\<\(rgb\|clip\|attr\|counter\|rect\)\s*(" end=")" matchgroup=ccssFunctionName oneline keepend
@@ -101,6 +104,9 @@ if version >= 508 || !exists("did_ccss_syn_inits")
   HiLink ccssClassName Label
   HiLink ccssIdentifier Label
   HiLink ccssPseudoClassId PreProc
+
+  HiLink ccssFunction Constant
+  HiLink ccssDirective Special
 
   HiLink ccssProperty Type
 

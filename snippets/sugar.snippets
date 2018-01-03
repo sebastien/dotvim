@@ -1,83 +1,8 @@
 snippet module
-	# -----------------------------------------------------------------------------
-	# Project           : NAME
-	# -----------------------------------------------------------------------------
-	# Author            : FFunction
-	# License           : BSD License
-	# -----------------------------------------------------------------------------
-	# Creation date     : YYYY-MM-DD
-	# Last modification : YYYY-MM-DD
-	# -----------------------------------------------------------------------------
-
+	@feature sugar 2
 	@module   NAME
 	@version  0.0.0
-	@shared LICENSE = "http://ffctn.com/doc/licenses/bsd"
-
-	# EOF - vim: ts=4 sw=4 noet
-snippet app:
-	# -----------------------------------------------------------------------------
-	# Project           : NAME
-	# -----------------------------------------------------------------------------
-	# Author            : FFunction
-	# License           : BSD License
-	# -----------------------------------------------------------------------------
-	# Creation date     : YYYY-MM-DD
-	# Last modification : YYYY-MM-DD
-	# -----------------------------------------------------------------------------
-
-	@module   NAME
-	@version  0.0.0
-	@import   Widget, T from widgets
-	@import   Application, Connector, URL, ON, APP, COOKIES from app
-
-	@shared LICENSE = "http://ffctn.com/doc/licenses/bsd"
-	@shared $       = widgets $
-	@shared API     = None
-	@shared DB      = None
-
-	# -----------------------------------------------------------------------------
-	#
-	# CONNECTOR
-	#
-	# -----------------------------------------------------------------------------
-
-	@class Connector: Connector
-	@end
-
-	# -----------------------------------------------------------------------------
-	#
-	# APPLICATION
-	#
-	# -----------------------------------------------------------------------------
-
-	@class Application: Application
-
-		@shared UIS = extend merge ({
-			navigation : ".Navigation"
-			content    : ".Content"
-		},app Application UIS)
-
-		@property routes = [
-			["^<regexp>?$",  {_|}]
-		]
-
-		@method bindUI
-			super bindUI ()
-		@end
-
-	@end
-
-	# -----------------------------------------------------------------------------
-	#
-	# START
-	#
-	# -----------------------------------------------------------------------------
-
-	@function start
-		API = new __module__ Connector ()
-		DB  = new __module__ Storage   ()
-		app start ()
-	@end
+	@shared   LICENSE = "http://ffctn.com/doc/licenses/bsd"
 
 	# EOF - vim: ts=4 sw=4 noet
 snippet section
@@ -107,33 +32,68 @@ snippet class
 
 		@constructor
 		| Docstring
-		@end
 
-	@end
+snippet component
+	@feature sugar 2
+	@import  Component from ff.ui.components
 
-snippet widget
-	# -----------------------------------------------------------------------------
-	#
-	# A
-	#
-	# -----------------------------------------------------------------------------
+	@class Component: Component
 
-	@class A: Widget
+		@property network = {
+			"nodes" : {
+				"-group" : {
+					"NAME:input": VALUE
+				}
+			}
+			"edges" : [
+				"*->render"
+			]
+		}
+
+
+
+snippet shared
+	@shared name = <VALUE>
+
+snippet property
+	
+	@property name = <VALUE>
+
+snippet operation
+
+	@operation Name arg1, arg2, narg‥
 	| Docstring
+
+snippet getter
+
+	@getter name
+	| Docstring
+
+snippet setter
+
+	@setter name value
+	| Docstring
+
+snippet method
+
+	@method name arg1, arg2, narg‥
+	| Docstring
+
+
+snippet function
+
+	@function name arg1, arg2, narg‥
+	| Docstring
+
+snippet while
+	while CONDITION
 		
-		@shared STATES = {
-		}
+snippet cond
+	if   COND
+		<CODE>
+	elif COND
+		<CODE>
+	else
+		<CODE>
 
-		@shared UIS = {
-		}
 
-		@method bindUI
-			super bindUI ()
-			# TODO
-		@end
-
-		# =========================================================================
-		# ACTIONS
-		# =========================================================================
-
-	@end

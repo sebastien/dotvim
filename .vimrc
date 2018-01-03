@@ -73,9 +73,9 @@ Bundle    'thinca/vim-fontzoom'
 " Displays the buffers in the status line
 Bundle    'bling/vim-bufferline'
 " Snippets manager
-Bundle 'marcweber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
+Bundle    'marcweber/vim-addon-mw-utils'
+Bundle    'tomtom/tlib_vim'
+Bundle    'garbas/vim-snipmate'
 " Better file explorer
 Bundle    'scrooloose/nerdtree'
 " Automatically shows the completion menu
@@ -114,14 +114,12 @@ Bundle    'dleonard0/pony-vim-syntax'
 Bundle    'fatih/vim-go'
 " NeoVIM
 Bundle    'equalsraf/neovim-gui-shim'
-" Startup Screen
-Bundle    'mhinz/vim-startify'
 " Better Session management
 Bundle    'tpope/vim-obsession'
-" FZF
+" FZF (this tool is the best)
 Bundle    'junegunn/fzf'
 Bundle    'junegunn/fzf.vim'
-" Polyglot (lkots of syntax files)
+" Polyglot (lots of syntax files)
 Bundle  'sheerun/vim-polyglot'
 " Language Server Protocol
 " Bundle  'prabirshrestha/async.vim'
@@ -157,6 +155,7 @@ Bundle 'natebosch/vim-lsc'
 " Bundle 'xoxox/vim-easytags'              -- does not work, tags are empty
 " Bundle 'mattn/vim-fz'                    -- no advantage compared to fzf.vim
 " Bundle 'vim-airline/vim-airline'         -- don't like it
+" Bundle 'mhinz/vim-startify'              -- don't really use it, it's ugly
 
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'git://git.wincent.com/command-t.git'
@@ -375,7 +374,6 @@ nnoremap <M-Down>  :hide<CR>           " Unsplits the screen
 nnoremap <M-Right> :tabnext<CR>        " Switch to tab tab
 nnoremap <M-Left>  :tabprevious<CR>    " Switch to previous tab
 
-
 " Folding/Unfolding with using space
 nnoremap  <silent>  <space> :exe 'silent! normal! za'.(foldlevel('.')?'':'l')<cr>
 
@@ -430,77 +428,6 @@ let g:tagbar_ctags_bin      = 'ctags'
 let g:tagbar_type_clevercss = {'ctagstype':'clevercss','kinds':['c:classes']}
 let g:tagbar_type_pamela    = {'ctagstype':'pamela','kinds':['c:classes']}
 let g:tagbar_type_sugar     = {'ctagstype':'sugar','kinds':['c:classes', 'e:embed', 'g:group', 'o:operations', 'm:methods', 'f:functions', 's:shared', 'p:properties' ]}
-
-
-" -----------------------------------------------------------------------------
-" Project           : nobrackets
-" -----------------------------------------------------------------------------
-" Author            : Sébastien Pierre              <http://sebastienpierre.ca>
-" License           : BSD License
-" -----------------------------------------------------------------------------
-" Creation date     : 2015-11-06
-" Last modification : 2015-11-06
-" -----------------------------------------------------------------------------
-
-" An internal variable used to store the state of the preview (only one
-" is allowed)
-let g:nobrackets_preview_visible = 0
-
-" The main function called. This runs nobrackets and the current buffer
-" and shows a preview side by side. Movements in the current buffer
-" are synchronized with the preview buffer.
-function! NobracketsPreview()
-	if g:nobrackets_preview_visible == 1
-		" If nobrackets is already visible, we hide it
-		let g:nobrackets_preview_visible = 0
-		" We clear the insert autocommand from the preview
-		augroup robrackets
-			au!
-		augroup END
-		bd! nobrackets
-		set noscrollbind | set nocursorbind | set nocursorline | set nocursorcolumn
-	else
-		" If nobrackets is not already visible, we show it
-		" We store the current file
-		let g:nobrackets_preview_visible = 1
-		let f_format = &fileformat
-		let f_type   = &filetype
-		let f_path   = @%
-		let cursor   = getpos(".")
-		" We want to split the buffer vertically so that we have
-		" side-by-side comparison
-		set splitright
-		set scrollbind | set cursorbind | set cursorline | set cursorcolumn
-		execute "vnew " . f_path . "+nobrackets"
-		" Without silent, the command will ask to press enter
-		execute "silent read !nobrackets " . f_path
-		" There's an extra blank line at the beginning, we remove it
-		normal gg
-		normal dd
-		set scrollbind | set cursorbind | set cursorline | set cursorcolumn
-		" We set the buffer to readonly (it should not be edited)
-		" I don't think we can reference variables in commands
-		execute "set fileformat=" . f_format
-		execute "set filetype="   . f_type
-		setlocal nomodifiable
-		wincmd h
-		" Cursor binding
-		" SEE: http://stackoverflow.com/questions/5227964/vim-how-to-scrollbind-the-cursor-line-too
-		nmap h h:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
-		nmap j j:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
-		nmap k k:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
-		nmap l l:let curwin=winnr()<CR>:keepjumps windo redraw<CR>:execute curwin . "wincmd w"<CR>
-		" We close the preview once we're in insert mode
-		augroup robrackets
-			au InsertEnter * windo call NobracketsPreview()
-		augroup END
-		" We set the cursor where it was and redraw the windows
-		call setpos('.', cursor)
-		let  curwin=winnr()
-		keepjumps windo redraw 
-		execute curwin . "wincmd w"
-	endif
-endfunction
 
 " TaskList, <leader>t
 " let g:tlTokenList = ['FIXME', 'TODO', 'NOTE', 'OPTIMIZE']
