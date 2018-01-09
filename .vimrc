@@ -441,6 +441,7 @@ colorscheme ff-cyan
 nmap     <silent> <leader>b  :Buffers<CR>
 nnoremap <S-Space>           :Buffers<CR>
 nmap     <C-Space>           :FZF<CR>
+nmap     <C-T>               :FZFTags<CR>
 
 " EasyMotion -- https://github.com/Lokaltog/vim-easymotion
 let g:EasyMotion_leader_key = '<leader>'
@@ -537,6 +538,36 @@ let g:ale_linters = {
 " au FileType css setl ofu=csscomplete#CompleteCSS
 
 
+" =============================================================================
+" FZF CTAGS
+" =============================================================================
+
+" SEE: https://github.com/junegunn/fzf/wiki/Examples-(vim)#jump-to-tags
+function! s:fzf_tags_sink(line)
+	let parts = split(a:line, '\t\zs')
+	let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+	execute 'silent e' parts[1][:-2]
+	let [magic, &magic] = [&magic, 0]
+	execute excmd
+	let &magic = magic
+endfunction
+
+function! s:fzf_tags()
+	if empty(tagfiles())
+		echohl WarningMsg
+		echom 'Preparing tags'
+		echohl None
+		call system('ctags -R')
+	endif
+	call fzf#run({
+	\ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+	\            '| grep -v -a ^!',
+	\ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+	\ 'down':    '40%',
+	\ 'sink':    function('s:fzf_tags_sink')})
+endfunction
+
+command! FZFTags call s:fzf_tags()
 
 " =============================================================================
 " FOLLOW SYMLINKS

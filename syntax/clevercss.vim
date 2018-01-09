@@ -36,7 +36,7 @@ syn keyword ccssProperty contained
 \ font-variant font-weight font height left letter-spacing line-height
 \ list-style-image list-style-position list-style-type list-style margin-right
 \ margin-left margin-top margin-bottom margin max-height max-width min-height
-\ min-width orphans outline-color outline-style outline-width outline overflow
+\ min-width orphans outline-color outline-style outline-width outline overflow overflow-x overflow-y
 \ padding-top padding-right padding-bottom padding-left padding
 \ page-break-after page-break-before page-break-inside pause-after pause-before
 \ pause pitch-range pitch play-during position quotes richness right
@@ -46,9 +46,9 @@ syn keyword ccssProperty contained
 \ width word-spacing z-index
 \ border-radius transition-property transition-duration opacity
 \ box-sizing box-shadow 
-\ user-select 
-\ pointer-events stroke fill stroke-width flex-flow justify-content
-
+\ user-select  pointer-events
+\ pointer-events stroke fill stroke-width 
+\ align-items flex-flow flex-wrap flex-grow flex-shrink flex-basis  justify-content
 
 syn keyword ccssFunction merge extend
 syn keyword ccssElement contained *
