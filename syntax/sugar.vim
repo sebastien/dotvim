@@ -4,6 +4,7 @@
 " Created:    2007-04-03
 " Updated:    2014-09-23
 
+
 syn match   sugarComment        "^\s*#.*$" contains=sugarCommentAnn
 syn match   sugarCommentAnn     /\v(TODO|NOTE|FIXME|BUG|DEBUG|SEE|WARNING|EOF)/ contained
 syn match   sugarAnchor         "\[[A-Z_]+\]" contained
@@ -13,8 +14,8 @@ syn match   sugarDocCode        /\v'[^']+'*/ contained
 syn match   sugarDocExample     /\v\>\s+.*/ contained
 syn match   sugarBadIndent      /\v\t*[ ]+\t+/
 
-syn match   sugarDeclaration    /\v\@(singleton|trait|class|shared|property|group|embed|end)/ nextgroup=sugarDeclName skipwhite
-syn match   sugarFunction       /\v(\@abstract\s+)?\@(function|constructor|accessor|mutator|destructor|main|method|operation)/ nextgroup=sugarFunctionName skipwhite
+syn match   sugarDeclaration    /\v\@(singleton|trait|event|class|shared|property|group|embed|end)/ nextgroup=sugarDeclName skipwhite
+syn match   sugarFunction       /\v(\@abstract\s+)?\@(function|constructor|getter|setter|destructor|main|method|operation)/ nextgroup=sugarFunctionName skipwhite
 syn match   sugarConstructor    /\v\@(constructor)/ nextgroup=sugarFunctionArgs skipwhite
 syn match   sugarFunctionName   /\<[a-zA-Z_][a-zA-Z0-9_]*\>/  nextgroup=sugarFunctionArgs contained skipwhite
 syn match   sugarFunctionArgs   ".*$" contained contains=sugarDeclName
@@ -23,21 +24,21 @@ syn match   sugarAnnotation     /\v\@(as|when|where|example)/ nextgroup=sugarMet
 syn match   sugarMetaRest       /\v.+/ contained
 syn region  sugarArray          start=+\[+ end=+\]+
 syn match   sugarKey            /\v[a-zA-Z_][a-zA-Z0-9_]*\s*\:/
-syn keyword sugarControl        for if elif while match else
+" syn keyword sugarControl        for if elif while match else
 syn match   sugarComputation    /\v(\+|\-|\/|\^|\%)/ 
-syn match   sugarOperator       /\v(not|is|is\?|is not|not in|in|\-\>|\.\.|\:\:[\?\>\<\=]?|\=)/ 
-syn match   sugarDelimiter      /\v(\(|\)|\[|\]|\{|\}|\:)/ 
+syn keyword  sugarOperator      is? is !- !+ ! -> . .. : :: ::? ::= ::> ::<
+syn match   sugarDelimiter      /\v(\(|\)|\[|\]|\{|\}|\:\;)/ 
 syn match   sugarLogic          /\v(and|or|not|\!\=|\=\=|\<|\>|\>\=|\<\=)/ 
 syn match   sugarInteger        /[0-9]+/
 syn match   sugarFloat          /[0-9]+.[0-9]+/
-syn keyword sugarValues         Undefined None Any True False
+syn keyword sugarValues         Undefined None Any True False _
 syn match   sugarName           /\<[a-zA-Z_][a-zA-Z0-9_]*\>/ 
 syn match   sugarDeclName       /[a-zA-Z_][a-zA-Z0-9_]*/  nextgroup=sugarDeclType contained
 syn match   sugarDeclType       /:[a-zA-Z_][a-zA-Z0-9_]*/ nextgroup=sugarDeclType contained
 syn match   sugarConstant       /\<[A-Z][A-Z0-9_]\+\>/ 
 
 syn keyword sugarAllocation     var let nextgroup=sugarDeclName skipwhite
-syn keyword sugarStatement      return new self super
+" syn keyword sugarStatement      return new self super break continue
 
 syn region  sugarSQString     start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend
 syn region  sugarDQString     start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend
@@ -77,6 +78,8 @@ hi def link sugarDQString       String
 hi def link sugarInteger        Number
 hi def link sugarFloat          Float
 hi def link sugarValues         String
+
+source ~/.vim/syntax/conceal.vim
 
 " This does not work, I don't know why :/
 let b:current_syntax = "sugar"

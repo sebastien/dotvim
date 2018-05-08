@@ -47,12 +47,21 @@ let g:colors_name="ff-cyan"
 :	hi Constant		guifg=#4AE6E9
 :	hi Special		guifg=#E8E5A9
 :	hi Identifier	guifg=#FFFFFF gui=underline
+:	hi link         Value     Identifier
+:	hi link         Control   Statement
 :	hi Statement 	guifg=#FFFFFF gui=bold
 :	hi PreProc		guifg=#D01384
 :	hi Type			guifg=#E0E0E0 gui=bold
 :	hi Number		guifg=#909090
 :	hi TrailingWhitespace		guibg=#881300 guifg=#CE1A2C
 :	hi NonASCII		guibg=#1C3341 guifg=#DCF4F8
+
+" Conceal
+:	hi Conceal				guifg=#0BEBFA guibg=#2A2A2A
+:	hi ConcealStatement		guifg=#0BEBFA guibg=#2A2A2A
+:	hi ConcealStructure		guifg=#0BEBFA gui=bold guibg=#2A2A2A
+:	hi ConcealKeyword		guifg=#0BEBFA guibg=#2A2A2A
+:	hi ConcealOperator		guifg=#FFFFFF gui=bold guibg=#2A2A2A
 
 "Diff syntax
 :hi DiffAdd         guifg=#22AEEA guibg=#2F415C

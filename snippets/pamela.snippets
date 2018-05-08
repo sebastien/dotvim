@@ -6,7 +6,19 @@ snippet jsxml
 	# EOF
 
 snippet svg
-	<svg(xmlns="http://www.w3.org/2000/svg",width=100%,height=100%)
+	<svg(xmlns="http://www.w3.org/2000/svg",xmlns::xlink="http://www.w3.org/1999/xlink",width=100%,height=100%)
+
+snippet svgns
+	xmlns="http://www.w3.org/2000/svg"
+
+snippet xlinkns
+	xmlns::xlink="http://www.w3.org/1999/xlink"
+
+snippet use
+	<use(xlink::href=URL)
+
+snippet icon
+	%use #ICON_ID WIDTHxHEIGHT
 
 snippet section
 
@@ -27,6 +39,29 @@ snippet jsxml
 	<?xml-stylesheet type="text/xsl" media="screen" href="../../../lib/xsl/jsxml.xsl"?>
 	<jsx::Component(xmlns::jsx="https://github.com/sebastien/jsxml",xmlns::on="https://github.com/sebastien/jsxml/actions",render="delta")
 
+snippet jsx-imp
+	<jsx::import(name=NAME,from=MODULE.NAME)
+
+snippet jsx-attr
+	<jsx::attribute(name=NAME,select=SELECT):VALUE
+
+snippet jsx-style
+	<jsx::style(name=NAME,select=SELECT):VALUE
+
+snippet jsx-val
+	<jsx::value(select=SELECT):VALUE
+
+snippet jsx-for
+	<jsx::for(select=SELECT):
+		‥
+
+snippet jsx-if
+	<jsx::if(select=SELECT,test="_==''")
+		‥
+	<jsx::elif(select=SELECT,test="_==''")
+		‥
+	<jsx::else(select=SELECT,test="_==''")
+		‥
 
 snippet group
 		# ==========================================================================

@@ -65,6 +65,7 @@ Bundle     'mileszs/ack.vim'
 Bundle    'vim-scripts/Tagbar'
 " Git integration
 Bundle    'tpope/vim-fugitive'
+ " Color terminal support
 Bundle    'vim-scripts/CSApprox'
 " Fast motion
 Bundle    'Lokaltog/vim-easymotion' 
@@ -75,6 +76,7 @@ Bundle    'bling/vim-bufferline'
 " Snippets manager
 Bundle    'marcweber/vim-addon-mw-utils'
 Bundle    'tomtom/tlib_vim'
+" Snippets
 Bundle    'garbas/vim-snipmate'
 " Better file explorer
 Bundle    'scrooloose/nerdtree'
@@ -101,9 +103,7 @@ Bundle    'rhysd/vim-grammarous'
 " Processing
 Bundle    'sophacles/vim-processing'
 " Lawrencium (Fugitive-like for Mercurial)
-Bundle    'ludovicchabant/vim-lawrencium'
 " Git/Hg gutter
-Bundle    'sgur/vim-lazygutter'
 " Ledger
 Bundle    'ledger/vim-ledger'
 " sketch
@@ -112,10 +112,7 @@ Bundle    'vim-scripts/sketch.vim'
 Bundle    'dleonard0/pony-vim-syntax'
 " Go
 Bundle    'fatih/vim-go'
-" NeoVIM
-Bundle    'equalsraf/neovim-gui-shim'
 " Better Session management
-Bundle    'tpope/vim-obsession'
 " FZF (this tool is the best)
 Bundle    'junegunn/fzf'
 Bundle    'junegunn/fzf.vim'
@@ -125,9 +122,13 @@ Bundle  'sheerun/vim-polyglot'
 " Bundle  'prabirshrestha/async.vim'
 " Bundle 'prabirshrestha/vim-lsp'
 Bundle 'natebosch/vim-lsc'
+Bundle 'hjson/vim-hjson'
 
 " Bundles that I've tried and removed
-" Bundle    'scrooloose/syntastic.git'     -- superceded by Ale
+" Bundle 'ludovicchabant/vim-lawrencium'   -- not as good as Fugitive
+" Bundle 'sgur/vim-lazygutter'             -- to slow
+" Bundle 'tpope/vim-obsession'             -- didn't really use
+" Bundle 'scrooloose/syntastic.git'        -- superceded by Ale
 " Bundle 'ctrlpvim/ctrlp.vim'              -- really good, but fzf is now integrated directly in vim
 " Bundle 'gabesoft/vim-ags'                -- the best for Ag,but ack.vim now supports ag
 " Bundle 'mattn/emmet-vim'                 -- snipmate is much simpler
@@ -156,6 +157,7 @@ Bundle 'natebosch/vim-lsc'
 " Bundle 'mattn/vim-fz'                    -- no advantage compared to fzf.vim
 " Bundle 'vim-airline/vim-airline'         -- don't like it
 " Bundle 'mhinz/vim-startify'              -- don't really use it, it's ugly
+" Bundle 'tpope/vim-commentary'            -- don't really use it, it does not work for me
 
 " NOTE: Requires 7.3.584, current version is tool old
 " Bundle    'git://git.wincent.com/command-t.git'
@@ -298,14 +300,15 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 
 " Configures block commenting for various languages
 " Here, pressing on Alt-# will comment or uncomment the current block
-autocmd FileType c      noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('// ')<CR>+
-autocmd FileType c      noremap <silent> <buffer> <M-#> :call CommentLinePincer('/* ', ' */')<CR>+
-autocmd FileType make   noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
-autocmd FileType python noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
-autocmd FileType pamela noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
-autocmd FileType sugar  noremap <silent> <buffer> <M-#> :call CommentLineToEnd ('# ')<CR>+
-autocmd FileType html   noremap <silent> <buffer> <M-#> :call CommentLinePincer('<!-- ', ' -->')<CR>+
-autocmd FileType c,cpp,java,php,ruby,python,sugar,scala,io,actionscript,objc autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType make       setlocal commentstring=#\ %s
+autocmd FileType pamela     setlocal commentstring=#\ %s
+autocmd FileType sugar      setlocal commentstring=#\ %s
+autocmd FileType clevercss  setlocal commentstring=#\ %s
+
+" Strips whitespace
+autocmd FileType c,cpp,java,php,ruby,python,clevercss,sugar,scala,io,actionscript,objc autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" File defauls
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 autocmd BufNewFile,BufRead *.txt    :setlocal spell spelllang=en
 autocmd BufNewFile,BufRead *.paml   :setlocal spell spelllang=en
@@ -388,6 +391,9 @@ nnoremap <C-Right>     zr
 
 " JSON pretty-printing
 map <leader>jpp  <Esc>:%!json_xs -f json -t json-pretty<CR>
+
+" map <leader>tc    :Tabularize /,
+" map <leader>t:    :Tabularize /:
 
 "" Change the <leader> key
 let mapleader = ","
@@ -482,19 +488,6 @@ map  <F2> :buffers<CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :call NobracketsPreview()<CR>
 
-" SEE https://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme#22253548
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsEnableSnipMate = 1
-" let g:UltiSnipsJumpForwardTrigger = "<Right>" and let g:UltiSnipsJumpBackwardTrigger = "<Left>"
-
 " Block indent/deindent with Ctrl+D and Ctrl+T or Tab and Shift+Tab where
 " available
 vnoremap <C-T>   >
@@ -570,6 +563,25 @@ endfunction
 command! FZFTags call s:fzf_tags()
 
 " =============================================================================
+" CLEAN EMPTY BUFFERS
+" =============================================================================
+
+" FROM: https://stackoverflow.com/questions/6552295/deleting-all-empty-buffers-in-vim
+" It's useful for FZF as it tends to open many temporary buffers
+function! CleanEmptyBuffers()
+	let [i, n; empty] = [1, bufnr('$')]
+	while i <= n
+		if bufexists(i) && bufname(i) == ''
+			call add(empty, i)
+		endif
+		let i += 1
+	endwhile
+	if len(empty) > 0
+		exe 'bdelete' join (empty)
+	endif
+endfunction
+
+" =============================================================================
 " FOLLOW SYMLINKS
 " =============================================================================
 "
@@ -606,5 +618,21 @@ endfunction
 command! FollowSymlinks call DoFollowSymlinks()
 command! ToggleFollowSymlinks let w:no_follow_symlinks = !get(w:, 'no_follow_symlinks', 0) | echo "w:no_follow_symlinks =>" w:no_follow_symlinks
 au BufReadPost * call DoFollowSymlinks(expand('<afile>'))
+
+" =============================================================================
+" TOGGLE CONCEAL
+" =============================================================================
+" 
+" SEE: https://alok.github.io/2018/04/26/using-vim-s-conceal-to-make-languages-more-tolerable/
+function! ToggleConcealLevel()
+    if &conceallevel == 0
+        setlocal conceallevel=2
+    else
+        setlocal conceallevel=0
+    endif
+endfunction
+
+nnoremap <silent> <C-c><C-y> :call ToggleConcealLevel()<CR>
+
 
 " EOF

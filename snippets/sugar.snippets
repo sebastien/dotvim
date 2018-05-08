@@ -50,7 +50,25 @@ snippet component
 			]
 		}
 
+	# EOF
 
+
+
+snippet network
+
+		@property network = {
+			"nodes" : {
+				"-inputs" : {
+					"NAME:input": VALUE
+				}
+				"-reducers" : {
+					"NAME:reduce": METHOD
+				}
+			}
+			"edges" : [
+				"*->render"
+			]
+		}
 
 snippet shared
 	@shared name = <VALUE>
