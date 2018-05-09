@@ -20,14 +20,14 @@ let g:colors_name="ff-cyan"
 :	hi SpecialKey	guifg=#4A4A4A
 :	hi NonText		guifg=#4A4A4A
 :	hi LineNr		guifg=#202020 guibg=#3A3A3A
-:	hi CursorLine	guifg=#FDFFFF guibg=#427BCF
-:	hi CursorLineNr	guifg=#202020 guibg=#385153
-:	hi Folded		guifg=#D0D0D0 guibg=#3A3A3A
+:	hi CursorLine	guibg=#19464B
+:	hi CursorLineNr	guifg=#202020 guibg=#1EC9DF
+:	hi Visual		guibg=#19464B
+:	hi Folded		guifg=#808080 guibg=#202020
 :	hi Cursor		guibg=#01a6f3
 :	hi Directory	guifg=#008ABD
 :	hi Question		guifg=#A09E2E
 :	hi Title		guifg=#FFFFFF gui=underline
-:	hi Visual		guibg=#606060
 :	hi Search		guifg=#E0E0E0 guibg=#427BCF
 :	hi IncSearch	guifg=#E0E0E0 guibg=#1469E6
 :	hi WildMenu		guifg=#CCCCCC guibg=#1E1F1D
@@ -57,10 +57,10 @@ let g:colors_name="ff-cyan"
 :	hi NonASCII		guibg=#1C3341 guifg=#DCF4F8
 
 " Conceal
-:	hi Conceal				guifg=#0BEBFA guibg=#2A2A2A
-:	hi ConcealStatement		guifg=#0BEBFA guibg=#2A2A2A
-:	hi ConcealStructure		guifg=#0BEBFA gui=bold guibg=#2A2A2A
-:	hi ConcealKeyword		guifg=#0BEBFA guibg=#2A2A2A
+:	hi Conceal				guifg=#FFE21B guibg=#2A2A2A
+:	hi ConcealStatement		guifg=#FFE21B guibg=#2A2A2A
+:	hi ConcealStructure		guifg=#FFE21B gui=bold guibg=#2A2A2A
+:	hi ConcealKeyword		guifg=#FFE21B guibg=#2A2A2A
 :	hi ConcealOperator		guifg=#FFFFFF gui=bold guibg=#2A2A2A
 
 "Diff syntax

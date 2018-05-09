@@ -5,6 +5,8 @@
 " Created:    2007-09-12
 " Updated:    2015-12-07
 
+
+" 
 " Tag classes, ids, labels
 syn match   pamelaId            "#[A-Za-z0-9_-]*"       contained   nextgroup=pamelaClassSep,pamelaLabel
 syn match   pamelaClassSep      "\."                    contained   nextgroup=pamelaClassSpecial,pamelaClassBase,pamelaClass
@@ -40,6 +42,18 @@ syn match   htmlEntity          "&[^; \t]+;"            contains=sgmlEntityPunct
 syn region  pamelaString        start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend
 syn region  pamelaString        start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend
 
+
+"" Conceal
+" TODO: These are disabled by some of the rules above
+syntax match   concealKeyword "jsx::import"      conceal cchar=◂
+syntax match   concealControl "jsx::Component"  conceal cchar=□
+syntax match   concealControl "jsx::if"         conceal cchar=╓
+syntax match   concealControl "jsx::elif"       conceal cchar=╟
+syntax match   concealControl "jsx::else"       conceal cchar=╙
+syntax match   concealControl "jsx::value"      conceal cchar=←
+syntax match   concealControl "select="         conceal cchar=▶
+
+
 "-------------------------------------------------
 
 hi def link pamelaBadIndent     Error
@@ -68,6 +82,12 @@ hi def link pamelaAttributeVal  Constant
 
 hi def link pamelaCommentAnn    Todo
 hi def link pamelaString        String
+
+hi  link concealControl   Control
+hi! link Conceal          Conceal
+
+setlocal conceallevel=1
+
 
 " This does not work, I don't know why :/
 let b:current_syntax = "pamela"

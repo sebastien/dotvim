@@ -235,8 +235,9 @@ set tags=tags
 " ------------------------------------------------------------------------------
 
 set statusline=%3*%f%4*\ %5*\ %6*\ %*[%Y%2*%M%R%W%*%{fugitive#statusline()}]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\ %n%)
+set cursorline
 " set statusline=%f\ \ \ %*[%Y%2*%M%R%W%*]\ (%c,\%l)-%v%=%(%p%%\ of\ %L,\ n\°%n%)
-if has("gui_running")
+if has("gui_running") || has("nvim")
 	set list listchars=tab:»-,trail:·,eol:¬,extends:¬
 	set number
 	let g:indent_guides_start_level = 2
@@ -329,6 +330,7 @@ autocmd BufNewFile,BufRead *.sg       set syntax=sugar  ft=sugar        sw=4 ts=
 autocmd BufNewFile,BufRead *.py       set syntax=python ft=python       sw=4 ts=4 noet nospell
 autocmd BufNewFile,BufRead *.js       set syntax=javascript ft=javascript       sw=4 ts=4 noet nospell
 autocmd BufNewFile,BufRead *.paml     set syntax=pamela.sugar ft=pamela sw=4 ts=4 foldlevel=8 noet nospell
+autocmd BufNewFile,BufRead *.block    set syntax=polyblocks.pamela.texto.sugar ft=pamela sw=4 ts=4 foldlevel=8 noet nospell
 " autocmd BufWritePost       *.ccss     !ffkit-format-ccss <afile>
 " autocmd BufWritePost       *.ccss     :checktime
 autocmd BufNewFile,BufRead *.ccss     set syntax=clevercss ft=clevercss sw=4 ts=4 foldlevel=8 noet nospell

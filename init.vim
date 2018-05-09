@@ -1,5 +1,6 @@
 "
-" source $HOME/.vimrc
+source $HOME/.vimrc
+set autoindent
 " 
 " " NeoVIM
 " Bundle    'equalsraf/neovim-gui-shim'
@@ -27,20 +28,20 @@
 " 
 " call plug#end()
 " ============
-call plug#begin('~/.config/nvim/minimal-plugged')
-
-Plug 'Shougo/deoplete.nvim'
-
-call plug#end()
-
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#file#enable_buffer_path = 1
-call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-set omnifunc=syntaxcomplete#Complete
-set completeopt=longest,menuone,preview,noinsert
+" call plug#begin('~/.config/nvim/minimal-plugged')
+" 
+" Plug 'Shougo/deoplete.nvim'
+" 
+" call plug#end()
+" 
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" 
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_refresh_always = 1
+" let g:deoplete#enable_ignore_case = 1
+" let g:deoplete#enable_smart_case = 1
+" let g:deoplete#enable_camel_case = 1
+" let g:deoplete#file#enable_buffer_path = 1
+" call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+" set omnifunc=syntaxcomplete#Complete
+" set completeopt=longest,menuone,preview,noinsert
