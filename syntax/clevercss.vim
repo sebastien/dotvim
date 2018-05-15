@@ -44,11 +44,12 @@ syn keyword ccssProperty contained
 \ table-layout text-align text-decoration text-indent text-transform top
 \ unicode-bidi vertical-align visibility voice-family volume white-space widows
 \ width word-spacing z-index
-\ border-radius transition-property transition-duration opacity
+\ border-radius transition transform transform-style transition-property transition-duration opacity
 \ box-sizing box-shadow 
 \ user-select  pointer-events
 \ pointer-events stroke fill stroke-width 
-\ align-items flex-flow flex-wrap flex-grow flex-shrink flex-basis  justify-content
+\ align-items flex-flow flex-wrap flex-grow flex-shrink flex-basis  justify-content flex-direction
+\ will-change backface-visibility
 
 syn keyword ccssFunction merge extend
 syn keyword ccssElement contained *
